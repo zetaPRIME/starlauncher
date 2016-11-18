@@ -27,3 +27,14 @@
 *.exe
 *.out
 *.app
+
+*.3dsx
+*.elf
+*.cia
+*.smdh
+
+# Misc chaff
+.clang/
+.codelite/
+build/
+*.stackdump
