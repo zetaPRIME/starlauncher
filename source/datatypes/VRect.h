@@ -17,6 +17,11 @@ public:
     ~VRect();
     
     Vector2 Center();
+    
+    VRect Intersect(const VRect & o);
+    
+    inline VRect operator + (const Vector2 & vec) { return VRect(pos + vec, size); }
+    inline VRect operator - (const Vector2 & vec) { return VRect(pos - vec, size); }
 
 };
 
