@@ -16,12 +16,22 @@ public:
     VRect(Vector2 pos, Vector2 size);
     ~VRect();
     
-    Vector2 Center();
+    Vector2 Center() const;
     
-    VRect Intersect(const VRect & o);
+    bool Overlaps(const VRect & o) const;
+    bool Contains(const Vector2 & vec) const;
     
-    inline VRect operator + (const Vector2 & vec) { return VRect(pos + vec, size); }
-    inline VRect operator - (const Vector2 & vec) { return VRect(pos - vec, size); }
-
+    VRect Intersect(const VRect & o) const;
+    
+    inline bool operator == (const VRect & o) const { return pos == o.pos && size == o.size; }
+    inline bool operator != (const VRect & o) const { return pos != o.pos || size != o.size; }
+    
+    inline VRect operator + (const Vector2 & vec) const { return VRect(pos + vec, size); }
+    inline VRect operator - (const Vector2 & vec) const { return VRect(pos - vec, size); }
+    
+    inline VRect & operator += (const Vector2 & vec) { pos += vec; return *this; }
+    inline VRect & operator -= (const Vector2 & vec) { pos -= vec; return *this; }
+    
+    static const VRect zero;
 };
 
