@@ -24,6 +24,7 @@
   </VirtualDirectory>
   <VirtualDirectory Name="conf">
     <File Name="Makefile"/>
+    <File Name="resources/starlauncher.rsf"/>
   </VirtualDirectory>
   <Settings Type="Dynamic Library">
     <GlobalSettings>
