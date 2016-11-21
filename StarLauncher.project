@@ -21,6 +21,12 @@
       <File Name="source/datatypes/VRect.h"/>
       <File Name="source/datatypes/VRect.cpp"/>
     </VirtualDirectory>
+    <VirtualDirectory Name="ui">
+      <File Name="source/ui/UIElement.h"/>
+      <File Name="source/ui/UIElement.cpp"/>
+      <File Name="source/ui/UIContainer.h"/>
+      <File Name="source/ui/UIContainer.cpp"/>
+    </VirtualDirectory>
   </VirtualDirectory>
   <VirtualDirectory Name="conf">
     <File Name="Makefile"/>

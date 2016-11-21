@@ -2,8 +2,7 @@
 
 #include "Vector2.h"
 
-class VRect
-{
+class VRect {
 private:
     //
     
