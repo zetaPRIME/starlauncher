@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <functional>
 
 #include "datatypes/Vector2.h"
 #include "datatypes/VRect.h"
@@ -9,6 +10,12 @@
 class UIContainer;
 
 class UIElement {
+private:
+    //
+    
+protected:
+    
+    
 public:
     std::weak_ptr<UIContainer> parent;
     
@@ -20,6 +27,8 @@ public:
     virtual void Update() { }
     virtual void Draw() { }
     
+    // internals... apparently need to be public?
+    virtual void _Dive(std::function<bool(UIElement&)>& func, bool consumable, bool frontFirst, bool& finished);
 };
 
 // autoinclude after declaration since these two are pretty inextricably linked

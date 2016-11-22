@@ -15,12 +15,14 @@ class UIContainer : public UIElement {
 private:
     std::list<std::shared_ptr<UIElement>> children;
     
-    void _Dive(std::function<bool(UIElement&)> func, bool& consumable, bool& frontFirst);
+protected:
+    //virtual void _Dive(std::function<bool(UIElement&)> func, bool& consumable, bool& frontFirst, bool& finished);
     
 public:
     UIContainer();
     ~UIContainer();
     
     void Dive(std::function<bool(UIElement&)>, bool consumable = true, bool frontFirst = true);
+    void _Dive(std::function<bool(UIElement&)>& func, bool consumable, bool frontFirst, bool& finished);
 };
 

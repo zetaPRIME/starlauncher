@@ -11,26 +11,20 @@ UIContainer::~UIContainer() {
 }
 
 void UIContainer::Dive(std::function<bool(UIElement&)> func, bool consumable, bool frontFirst) {
-    _Dive(func, consumable, frontFirst);
-}
-void UIContainer::_Dive(std::function<bool(UIElement&)> func, bool& consumable, bool& frontFirst) {
-    static const auto loop = [&] (std::shared_ptr<UIElement> elem) {
-        if (auto cont = std::dynamic_pointer_cast<UIContainer>(elem)) {
-            cont->_Dive(func, consumable, frontFirst);
-        } else func(*(elem.get()));
-    };
-    
-    // iterate last-to-first if *visually* front
-    if (frontFirst) for_each(children.rbegin(), children.rend(), loop);
-    else for_each(children.begin(), children.end(), loop);
-    
-    func(*this);
+    bool finished = false;
+    _Dive(func, consumable, frontFirst, finished);
 }
 
-
-
-
-
-
+void UIContainer::_Dive(std::function<bool(UIElement&)>& func, bool consumable, bool frontFirst, bool& finished) {
+    if (frontFirst) for (auto itr = children.rbegin(); itr != children.rend(); ++itr) {
+        (*itr)->_Dive(func, consumable, frontFirst, finished);
+        if (finished) return;
+    } else for (auto itr = children.begin(); itr != children.end(); ++itr) {
+        (*itr)->_Dive(func, consumable, frontFirst, finished);
+        if (finished) return;
+    }
+    // same thing as plain UIElement's version
+    finished = func(*this) && consumable;
+}
 
 
