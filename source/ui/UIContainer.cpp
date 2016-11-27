@@ -27,4 +27,20 @@ void UIContainer::_Dive(std::function<bool(UIElement&)>& func, bool consumable, 
     finished = func(*this) && consumable;
 }
 
+void UIContainer::Add(std::shared_ptr<UIElement> elem) {
+    children.push_back(elem);
+    elem->parent = std::weak_ptr<UIContainer>(std::static_pointer_cast<UIContainer>(this->shared_from_this()));
+}
+void UIContainer::Add(UIElement* elem) {
+    if (std::shared_ptr<UIElement> ptr = elem->shared_from_this()) this->Add(ptr);
+    else this->Add(std::shared_ptr<UIElement>(elem)); // support initial encapsulation
+}
+
+void UIContainer::Remove(std::shared_ptr<UIElement> elem) {
+    if (elem->parent.lock().get() != this) return;
+    elem->parent = std::weak_ptr<UIContainer>(); // explicit null expressed in a slightly silly way
+    //children.remove_if([&elem](std::shared_ptr<UIElement> ie){return ie == elem;});
+    children.remove(elem); // I think this uses operator ==()?
+}
+
 

@@ -31,6 +31,7 @@
   <VirtualDirectory Name="conf">
     <File Name="Makefile"/>
     <File Name="resources/starlauncher.rsf"/>
+    <File Name="todo.txt"/>
   </VirtualDirectory>
   <Settings Type="Dynamic Library">
     <GlobalSettings>

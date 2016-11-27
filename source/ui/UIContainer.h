@@ -24,5 +24,9 @@ public:
     
     void Dive(std::function<bool(UIElement&)>, bool consumable = true, bool frontFirst = true);
     void _Dive(std::function<bool(UIElement&)>& func, bool consumable, bool frontFirst, bool& finished);
+    
+    void Add(std::shared_ptr<UIElement> elem);
+    void Add(UIElement* elem);
+    void Remove(std::shared_ptr<UIElement> elem);
 };
 

@@ -9,7 +9,7 @@
 // forward declare to uncirclify
 class UIContainer;
 
-class UIElement {
+class UIElement : public std::enable_shared_from_this<UIElement> {
 private:
     //
     

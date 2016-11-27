@@ -13,14 +13,14 @@
 
 #define CONFIG_3D_SLIDERSTATE (*(float *)0x1FF81080)
 
-Handle *signalEvent = NULL;
+/*Handle *signalEvent = NULL;
 Handle *resumeEvent = NULL;
 
-Handle *nssHandle = NULL;
+Handle *nssHandle = NULL;//*/
 
 //aptMessageCb callback = {NULL, APPID_HOMEMENU, "boop", sizeof("boop")};
 
-void __nappInit() {
+/*void __appInit() {
   srvInit();
   hidInit();
 
@@ -29,7 +29,7 @@ void __nappInit() {
 
   gfxInitDefault();
   consoleInit(GFX_TOP, NULL);
-}
+}//*/
 
 int main()
 {
@@ -50,14 +50,14 @@ int main()
     // Set the random seed based on the time
     srand(time(NULL));
     
-    //romfsInit();
+    romfsInit();
     
     sf2d_init();
     sf2d_set_clear_color(RGBA8(0x40, 0x40, 0x40, 0xFF));
     sf2d_set_3D(1);
     
     sftd_init();
-    //sftd_font *font = sftd_load_font_file("romfs:/Arcon-Regular.otf");
+    sftd_font *font = sftd_load_font_file("romfs:/Arcon-Regular.otf");
     
     
     //sf2d_texture *tex1 = sf2d_create_texture_mem_RGBA8(dice_img.pixel_data, dice_img.width, dice_img.height, TEXFMT_RGBA8, SF2D_PLACE_RAM);
@@ -111,7 +111,7 @@ int main()
         
         sf2d_start_frame(GFX_TOP, GFX_RIGHT);
             
-            //sftd_draw_text(font, 3, 1, RGBA8(255,255,255,255), 16, "THEY'RE MOULDY YOU PILLOCK\nWelcome to the secret text~");
+            sftd_draw_text(font, 3, 1, RGBA8(255,255,255,255), 16, "THEY'RE MOULDY YOU PILLOCK\nWelcome to the secret text~");
             
             /*sf2d_draw_fill_circle(60, 100, 35, RGBA8(0x00, 0xFF, 0x00, 0xFF));
             sf2d_draw_fill_circle(180, 120, 55, RGBA8(0xFF, 0xFF, 0x00, 0xFF));
@@ -137,8 +137,8 @@ int main()
             
             Vector2 tdrag = InputManager::TouchDelta();
             
-            //sprintf(sbuf, "Circle pad: %f, %f\nTouch: %f, %f\nVec: %f", cpad.x, cpad.y, tdrag.x, tdrag.y, test.x);
-            //sftd_draw_text(font, 3, 3, RGBA8(0xff, 0xff, 0xff, 0xff), 16, sbuf);
+            sprintf(sbuf, "Circle pad: %f, %f\nTouch: %f, %f\nVec: %f", cpad.x, cpad.y, tdrag.x, tdrag.y, test.x);
+            sftd_draw_text(font, 3, 3, RGBA8(0xff, 0xff, 0xff, 0xff), 16, sbuf);
             
             /*sf2d_draw_rectangle_rotate(190, 160, 70, 60, RGBA8(0xFF, 0xFF, 0xFF, 0xFF), 3.0f*rad);
             sf2d_draw_rectangle(30, 100, 40, 60, RGBA8(0xFF, 0x00, 0xFF, 0xFF));
@@ -146,6 +146,10 @@ int main()
             sf2d_draw_rectangle(160-15 + cosf(rad)*50.0f, 120-15 + sinf(rad)*50.0f, 30, 30, RGBA8(0x00, 0xFF, 0xFF, 0xFF));
             sf2d_draw_fill_circle(40, 40, 35, RGBA8(0x00, 0xFF, 0x00, 0xFF));*/
         } sf2d_end_frame();
+        
+        /*sf2d_start_frame(GFX_BOTTOM, GFX_LEFT); {
+            
+        } sf2d_end_frame();*/
         
         rad += 0.2f;
         
