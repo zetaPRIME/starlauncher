@@ -32,6 +32,7 @@
     <File Name="Makefile"/>
     <File Name="resources/starlauncher.rsf"/>
     <File Name="todo.txt"/>
+    <File Name=".gitignore"/>
   </VirtualDirectory>
   <Settings Type="Dynamic Library">
     <GlobalSettings>

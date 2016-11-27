@@ -38,3 +38,7 @@
 .codelite/
 build/
 *.stackdump
+crash_dump_*
+dump.asm
+dump.txt
+exception_dump_parser.py
