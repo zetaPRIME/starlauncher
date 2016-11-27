@@ -148,8 +148,8 @@ int main()
         } sf2d_end_frame();
         
         /*sf2d_start_frame(GFX_BOTTOM, GFX_LEFT); {
-            
-        } sf2d_end_frame();*/
+            sftd_draw_text(font, 3, 48, RGBA8(255,255,255,255), 16, "bottom screen second buffer");
+        } sf2d_end_frame();//*/
         
         rad += 0.2f;
         
