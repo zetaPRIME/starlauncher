@@ -32,7 +32,7 @@ BUILD		:=	build
 SOURCES		:=	source \
 				source/datatypes \
 				source/modules \
-				#source/ui
+				source/ui
 DATA		:=	data
 INCLUDES	:=	include
 ROMFS		:=	romfs

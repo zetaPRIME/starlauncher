@@ -28,7 +28,7 @@ public:
     virtual void Draw() { }
     
     // internals... apparently need to be public?
-    virtual void _Dive(std::function<bool(UIElement&)>& func, bool consumable, bool frontFirst, bool& finished);
+    virtual void _Dive(std::function<bool(UIElement*)>& func, bool consumable, bool frontFirst, bool& finished);
 };
 
 // autoinclude after declaration since these two are pretty inextricably linked
