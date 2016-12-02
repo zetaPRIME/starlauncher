@@ -6,6 +6,10 @@
 
 
 drawable, drawcontext, gfxmanager (pushContext, popContext)
+drawableRef? themeRef? {
+    theme-asset-specific reference so themes can be reloaded
+    -> operator overloaded etc.
+}
 T H E M E S
 
 configurator for ui elements? maybe crtp after all
