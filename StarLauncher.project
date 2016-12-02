@@ -11,21 +11,26 @@
   <Dependencies Name="Release"/>
   <VirtualDirectory Name="source">
     <File Name="source/main.cpp"/>
-    <VirtualDirectory Name="modules">
-      <File Name="source/modules/InputManager.cpp"/>
-      <File Name="source/modules/InputManager.h"/>
-    </VirtualDirectory>
-    <VirtualDirectory Name="datatypes">
-      <File Name="source/datatypes/Vector2.h"/>
-      <File Name="source/datatypes/Vector2.cpp"/>
-      <File Name="source/datatypes/VRect.h"/>
-      <File Name="source/datatypes/VRect.cpp"/>
-    </VirtualDirectory>
-    <VirtualDirectory Name="ui">
-      <File Name="source/ui/UIElement.h"/>
-      <File Name="source/ui/UIElement.cpp"/>
-      <File Name="source/ui/UIContainer.h"/>
-      <File Name="source/ui/UIContainer.cpp"/>
+    <VirtualDirectory Name="starlight">
+      <File Name="source/starlight/InputManager.cpp"/>
+      <File Name="source/starlight/InputManager.h"/>
+      <File Name="source/starlight/ThemeManager.h"/>
+      <File Name="source/starlight/ThemeManager.cpp"/>
+      <File Name="source/starlight/GFXManager.h"/>
+      <File Name="source/starlight/GFXManager.cpp"/>
+      <VirtualDirectory Name="datatypes">
+        <File Name="source/starlight/datatypes/Vector2.h"/>
+        <File Name="source/starlight/datatypes/Vector2.cpp"/>
+        <File Name="source/starlight/datatypes/VRect.h"/>
+        <File Name="source/starlight/datatypes/VRect.cpp"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="ui">
+        <File Name="source/starlight/ui/UIElement.h"/>
+        <File Name="source/starlight/ui/UIElement.cpp"/>
+        <File Name="source/starlight/ui/UIContainer.h"/>
+        <File Name="source/starlight/ui/UIContainer.cpp"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="gfx"/>
     </VirtualDirectory>
   </VirtualDirectory>
   <VirtualDirectory Name="conf">

@@ -6,7 +6,20 @@
 
 
 drawable, drawcontext, gfxmanager (pushContext, popContext)
+T H E M E S
 
-configurator for ui elements?
+configurator for ui elements? maybe crtp after all
+noap, macro/include shenanigans
+new Button().at(40, 40).within(container).ofSize(64, 32).withText("Popsicles!");
+shelved for now because shared_from_this is kind of dumb for what I need it for :D :D :D
+(though maybe some trickery with putting the last-created-element in a static, combined with static factory pattern...)
 
 example button, TouchScreenCanvas
+
+maybe implement this: https://probablydance.com/2013/01/13/a-faster-implementation-of-stdfunction/
+
+split stuff into libstarlight {
+    namespaces
+    actual lib split once everything's working I guess
+    "" to <>
+}

@@ -8,8 +8,12 @@
 #include <sf2d.h>
 #include <sftd.h>
 
-#include "modules/InputManager.h"
-#include "datatypes/Vector2.h"
+#include <functional>
+
+#include "starlight/InputManager.h"
+#include "starlight/datatypes/Vector2.h"
+
+#include "starlight/ui/UIElement.h"
 
 #define CONFIG_3D_SLIDERSTATE (*(float *)0x1FF81080)
 
@@ -58,6 +62,11 @@ int main()
     
     sftd_init();
     sftd_font *font = sftd_load_font_file("romfs:/Arcon-Regular.otf");
+    
+    auto blah = std::make_shared<UIElement>()->shared_from_this();
+    
+    //std::function<void()> blarg = [](){int a = 0;};
+    //blarg();
     
     
     //sf2d_texture *tex1 = sf2d_create_texture_mem_RGBA8(dice_img.pixel_data, dice_img.width, dice_img.height, TEXFMT_RGBA8, SF2D_PLACE_RAM);

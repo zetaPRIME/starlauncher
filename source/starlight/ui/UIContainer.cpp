@@ -27,10 +27,11 @@ void UIContainer::Add(std::shared_ptr<UIElement> elem) {
     children.push_back(elem);
     elem->parent = std::weak_ptr<UIContainer>(std::static_pointer_cast<UIContainer>(this->shared_from_this()));
 }
-void UIContainer::Add(UIElement* elem) {
-    if (std::shared_ptr<UIElement> ptr = elem->shared_from_this()) this->Add(ptr);
-    else this->Add(std::shared_ptr<UIElement>(elem)); // support initial encapsulation
-}
+//void UIContainer::Add(UIElement* elem) {
+    // as it turns out, you *have* to immediately encapsulate because herp derp shared_from_this doesn't even bother to check
+    //if (std::shared_ptr<UIElement> ptr = elem->shared_from_this()) this->Add(ptr);
+    //else this->Add(std::shared_ptr<UIElement>(elem)); // support initial encapsulation
+//}
 
 void UIContainer::Remove(std::shared_ptr<UIElement> elem) {
     if (elem->parent.lock().get() != this) return;

@@ -30,9 +30,10 @@ include $(DEVKITARM)/3ds_rules
 TARGET		:=	starlauncher
 BUILD		:=	build
 SOURCES		:=	source \
-				source/datatypes \
-				source/modules \
-				source/ui
+				source/starlight \
+				source/starlight/datatypes \
+				source/starlight/gfx \
+				source/starlight/ui
 DATA		:=	data
 INCLUDES	:=	include
 ROMFS		:=	romfs
@@ -52,8 +53,8 @@ CFLAGS	:=	-g -Wall -O2 -mword-relocations \
 
 CFLAGS	+=	$(INCLUDE) -DARM11 -D_3DS
 
-# was gnu++11; -fno-rtti
-CXXFLAGS	:= $(CFLAGS) -fno-rtti -fno-exceptions -std=gnu++14
+# was gnu++11; -fno-rtti -fno-exceptions (why no-exceptions???)
+CXXFLAGS	:= $(CFLAGS) -fno-rtti -std=gnu++14
 #CXXFLAGS	:= $(CFLAGS) -std=gnu++14
 
 ASFLAGS	:=	-g $(ARCH)

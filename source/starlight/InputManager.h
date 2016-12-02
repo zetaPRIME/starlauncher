@@ -1,6 +1,6 @@
 #pragma once
 
-#include "datatypes/Vector2.h"
+#include "starlight/datatypes/Vector2.h"
 
 class InputManager {
 public:
