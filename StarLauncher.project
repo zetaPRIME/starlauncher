@@ -23,6 +23,9 @@
         <File Name="source/starlight/datatypes/Vector2.cpp"/>
         <File Name="source/starlight/datatypes/VRect.h"/>
         <File Name="source/starlight/datatypes/VRect.cpp"/>
+        <File Name="source/starlight/datatypes/Color.h"/>
+        <File Name="source/starlight/datatypes/Color.cpp"/>
+        <File Name="source/starlight/datatypes/OptRef.h"/>
       </VirtualDirectory>
       <VirtualDirectory Name="ui">
         <File Name="source/starlight/ui/UIElement.h"/>
@@ -30,7 +33,11 @@
         <File Name="source/starlight/ui/UIContainer.h"/>
         <File Name="source/starlight/ui/UIContainer.cpp"/>
       </VirtualDirectory>
-      <VirtualDirectory Name="gfx"/>
+      <VirtualDirectory Name="gfx">
+        <File Name="source/starlight/gfx/ThemeRef.h"/>
+        <File Name="source/starlight/gfx/Drawable.h"/>
+        <File Name="source/starlight/gfx/Drawable.cpp"/>
+      </VirtualDirectory>
     </VirtualDirectory>
   </VirtualDirectory>
   <VirtualDirectory Name="conf">

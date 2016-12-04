@@ -13,6 +13,10 @@ VRect::VRect(float x, float y, float w, float h) : pos(x, y), size(w, h) { }
 VRect::VRect(Vector2 pos, Vector2 size) : pos(pos), size(size) { }
 
 Vector2 VRect::Center() const { return pos + (size * 0.5f); }
+Vector2 VRect::TopLeft() const { return pos; }
+Vector2 VRect::TopRight() const { return Vector2(pos.x + size.x, pos.y); }
+Vector2 VRect::BottomLeft() const { return Vector2(pos.x, pos.y + size.y); }
+Vector2 VRect::BottomRight() const { return pos + size; }
 
 bool VRect::Overlaps(const VRect & o) const {
     Vector2 c = Center();

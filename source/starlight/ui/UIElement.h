@@ -23,7 +23,7 @@ public:
     VRect rect;
     
     UIElement();
-    ~UIElement();
+    virtual ~UIElement();
     
     virtual void Update() { }
     virtual void Draw() { }

@@ -16,6 +16,10 @@ public:
     ~VRect();
     
     Vector2 Center() const;
+    Vector2 TopLeft() const;
+    Vector2 TopRight() const;
+    Vector2 BottomLeft() const;
+    Vector2 BottomRight() const;
     
     bool Overlaps(const VRect & o) const;
     bool Contains(const Vector2 & vec) const;
