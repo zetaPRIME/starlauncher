@@ -2,8 +2,10 @@
 
 #include "UIContainer.h"
 
-UIContainer::UIContainer() { }
+using starlight::ui::UIElement;
+using starlight::ui::UIContainer;
 
+UIContainer::UIContainer() { }
 UIContainer::~UIContainer() { }
 
 void UIContainer::Dive(std::function<bool(UIElement*)> func, bool consumable, bool frontFirst) {

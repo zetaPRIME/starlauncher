@@ -14,6 +14,9 @@
 // define raw input regs
 #define CONFIG_3D_SLIDERSTATE (*(float *)0x1FF81080)
 
+using starlight::Vector2;
+using starlight::InputManager;
+
 namespace {
     u32 heldLast = 0;
     u32 heldNow = 0;

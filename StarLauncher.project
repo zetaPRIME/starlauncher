@@ -37,6 +37,12 @@
         <File Name="source/starlight/gfx/ThemeRef.h"/>
         <File Name="source/starlight/gfx/Drawable.h"/>
         <File Name="source/starlight/gfx/Drawable.cpp"/>
+        <File Name="source/starlight/gfx/DrawContext.h"/>
+        <File Name="source/starlight/gfx/DrawContext.cpp"/>
+        <File Name="source/starlight/gfx/DrawContextTouchscreen.h"/>
+        <File Name="source/starlight/gfx/DrawContextTouchscreen.cpp"/>
+        <File Name="source/starlight/gfx/DrawableTest.h"/>
+        <File Name="source/starlight/gfx/DrawableTest.cpp"/>
       </VirtualDirectory>
     </VirtualDirectory>
   </VirtualDirectory>
@@ -96,7 +102,8 @@ DEVKITPRO=D:\devkitPro]]>
         <ClangCmpFlagsC/>
         <ClangCmpFlags/>
         <ClangPP/>
-        <SearchPaths>${DEVKITARM}/arm-none-eabi/include
+        <SearchPaths>source
+${DEVKITARM}/arm-none-eabi/include
 ${DEVKITPRO}/libctru/include</SearchPaths>
       </Completion>
     </Configuration>

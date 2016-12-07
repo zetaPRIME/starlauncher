@@ -20,10 +20,12 @@ shelved for now because shared_from_this is kind of dumb for what I need it for 
 
 example button, TouchScreenCanvas
 
+precheck version of Dive
+
 maybe implement this: https://probablydance.com/2013/01/13/a-faster-implementation-of-stdfunction/
 
 split stuff into libstarlight {
-    namespaces
+    namespaces (done except for a couple manager classes)
     actual lib split once everything's working I guess
     "" to <>
 }

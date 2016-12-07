@@ -5,6 +5,9 @@
 
 #include "VRect.h"
 
+using starlight::Vector2;
+using starlight::VRect;
+
 VRect::VRect() : pos(Vector2()), size(Vector2()) { }
 
 VRect::~VRect() { }
