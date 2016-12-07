@@ -8,7 +8,7 @@ namespace starlight {
     namespace gfx {
         template <class T>
         class ThemeRef {
-            friend class ThemeManager;
+            friend class starlight::ThemeManager;
         protected:
             const std::string name;
             T* ptr = nullptr;
@@ -18,13 +18,14 @@ namespace starlight {
             }
             
             ThemeRef(std::string name, T* ptr) : name(name), ptr(ptr) { }
+            ThemeRef(std::string name) : name(name) { }
         public:
             ~ThemeRef() { }
             
-            ThemeRef<T>& operator ++() const { return *this; }
-            T operator ->() const {
+            ThemeRef<T>& operator ++() { return *this; }
+            T* operator ->() {
                 if (ptr == nullptr) {
-                    // call thememanager to grab things
+                    ThemeManager::Fulfill(*this); // call thememanager to grab things
                 }
                 return ptr;
             }

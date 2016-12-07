@@ -1,7 +1,5 @@
 #pragma once
 
-#include <cstddef>
-
 namespace starlight {
     template <class T>
     class OptRef {
@@ -9,7 +7,7 @@ namespace starlight {
         T* ref;
     public:
         OptRef() : ref(nullptr) { }
-        OptRef(std::nullptr_t nul) : ref(nullptr) { }
+        OptRef(decltype(nullptr) nul) : ref(nullptr) { }
         OptRef(const T& ref) : ref(const_cast<T*>(&ref)) { } // whatever, const cast, I know what I'm doing
         ~OptRef() { }
         

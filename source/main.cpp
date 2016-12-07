@@ -14,6 +14,9 @@
 #include "starlight/InputManager.h"
 #include "starlight/datatypes/Vector2.h"
 
+#include "starlight/ThemeManager.h"
+#include "starlight/gfx/ThemeRef.h"
+
 //#include "starlight/ui/UIElement.h"
 
 #include "starlight/gfx/DrawableTest.h"
@@ -87,7 +90,7 @@ int main()
     
     // test drawables
     std::shared_ptr<starlight::gfx::DrawContext> con = std::make_shared<starlight::gfx::DrawContextTouchscreen>();
-    std::shared_ptr<starlight::gfx::Drawable> drw = std::make_shared<starlight::gfx::DrawableTest>();
+    //std::shared_ptr<starlight::gfx::Drawable> drw = std::make_shared<starlight::gfx::DrawableTest>();
     
     while (aptMainLoop()) {
 
@@ -160,7 +163,9 @@ int main()
         
         using starlight::GFXManager;
         GFXManager::PushContext(con.get());
+        static auto drw = starlight::ThemeManager::GetAsset("whatever");
         drw->Draw(Vector2(48, 32));
+        drw->Draw(Vector2(122, 33));
         GFXManager::PopContext();
         
         rad += 0.2f;

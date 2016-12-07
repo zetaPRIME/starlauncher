@@ -14,10 +14,12 @@ namespace starlight {
 
     class ThemeManager {
         template <class T>
-        friend class ThemeRef;
+        friend class starlight::gfx::ThemeRef;
     private:
         static std::unordered_map<std::string, gfx::ThemeRef<gfx::Drawable>> drawables;
         //static std::unordered_map<std::string, ThemeRef<Font>> fonts;
+    protected:
+        static void Fulfill(gfx::ThemeRef<gfx::Drawable>& ref);
     public:
         ThemeManager() = delete; // "static" class
         
