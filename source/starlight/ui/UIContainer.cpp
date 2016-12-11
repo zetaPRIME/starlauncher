@@ -1,6 +1,10 @@
 #include <algorithm>
 
+#include "starlight/GFXManager.h"
+
 #include "UIContainer.h"
+
+using starlight::GFXManager;
 
 using starlight::ui::UIElement;
 using starlight::ui::UIContainer;
@@ -51,7 +55,9 @@ void UIContainer::PreDraw() {
 }
 
 void UIContainer::Draw() {
+    GFXManager::PushOffsetAdd(rect.pos);
     for (auto it = children.begin(); it != children.end(); it++) { (*it)->Draw(); }
+    GFXManager::PopOffset();
 }
 
 

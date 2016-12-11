@@ -83,7 +83,6 @@ void DrawContextCanvas::Draw(const Vector2& position, OptRef<Vector2> hotspot, O
 void DrawContextCanvas::Draw(const VRect& rect, OptRef<VRect> sampleRect, OptRef<Color> color) {
     if (GFXManager::PrepareForDrawing()) {
         const VRect& sr = sampleRect ? sampleRect.get() : this->rect;
-        Vector2 c = rect.Center();
-        sf2d_draw_texture_part_scale_blend(texture, c.x, c.y, sr.pos.x, sr.pos.y, sr.size.x, sr.size.y, rect.size.x / sr.size.x, rect.size.y / sr.size.y, color ? color.get() : Color(1,1,1,1));
+        sf2d_draw_texture_part_scale_blend(texture, rect.pos.x, rect.pos.y, sr.pos.x, sr.pos.y, sr.size.x, sr.size.y, rect.size.x / sr.size.x, rect.size.y / sr.size.y, color ? color.get() : Color(1,1,1,1));
     }
 }

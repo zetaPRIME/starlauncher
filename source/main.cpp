@@ -93,8 +93,11 @@ int main()
     
     // stuff!
     auto touchscreen = std::make_shared<starlight::ui::TouchScreenCanvas>();
-    auto button = std::make_shared<starlight::ui::Button>(VRect(4,80,128,32));
-    touchscreen->Add(button);
+    //auto container = std::make_shared<starlight::ui::UIContainer>(VRect(32,32,320-32,240-32));
+    auto container = std::make_shared<starlight::ui::UICanvas>(VRect(32,32,320-32,240-32));
+    auto button = std::make_shared<starlight::ui::Button>(VRect(0,0,320-32,240-32));//(VRect(4,80,128,32));
+    touchscreen->Add(container);
+    container->Add(button);
     
     while (aptMainLoop()) {
 
@@ -200,6 +203,9 @@ int main()
             rect.pos.y += 34;
         }
         GFXManager::PopContext();*/
+        
+        container->rect += InputManager::TouchDelta();
+        button->rect += InputManager::CirclePad() * 5.0f;
         
         touchscreen->Update();
         touchscreen->PreDraw();

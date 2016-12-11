@@ -26,6 +26,7 @@ namespace starlight {
             VRect ViewportRect() { return VRect(scrollOffset, rect.size); }
             
             UIContainer();
+            UIContainer(VRect rect) { this->rect = rect; }
             ~UIContainer();
             
             void Dive(std::function<bool(UIElement*)>, bool consumable = true, bool frontFirst = true);

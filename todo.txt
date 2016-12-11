@@ -1,11 +1,10 @@
 
 
 
-roadmap to final black triangle {
-    UICanvas - UIContainer prespecialized for being a canvas-target (done I think?)
-    TouchScreenCanvas : public UICanvas (also handles touch input I guess?) (basics done?)
-    Button
-} then {
+roadmap {
+    set up draw offset system (done... though should the offset be taken by drawables? ...or maybe just passed down through Draw()?)
+    make TouchScreenCanvas handle input!
+    make Button recieve input!
     moar utility stuff in Vector2 and VRect {
         -
     }

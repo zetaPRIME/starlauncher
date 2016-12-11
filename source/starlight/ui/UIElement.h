@@ -25,6 +25,7 @@ namespace starlight {
             VRect rect;
             virtual VRect ViewRect();
             virtual VRect ScreenRect();
+            virtual VRect DrawRect();
             
             UIElement();
             virtual ~UIElement();

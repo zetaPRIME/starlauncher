@@ -25,3 +25,7 @@ VRect UIElement::ScreenRect() {
     }
     return rect;
 }
+
+VRect UIElement::DrawRect() {
+    return rect;
+}
