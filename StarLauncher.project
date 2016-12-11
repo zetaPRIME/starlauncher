@@ -32,6 +32,12 @@
         <File Name="source/starlight/ui/UIElement.cpp"/>
         <File Name="source/starlight/ui/UIContainer.h"/>
         <File Name="source/starlight/ui/UIContainer.cpp"/>
+        <File Name="source/starlight/ui/UICanvas.h"/>
+        <File Name="source/starlight/ui/UICanvas.cpp"/>
+        <File Name="source/starlight/ui/TouchScreenCanvas.h"/>
+        <File Name="source/starlight/ui/TouchScreenCanvas.cpp"/>
+        <File Name="source/starlight/ui/Button.h"/>
+        <File Name="source/starlight/ui/Button.cpp"/>
       </VirtualDirectory>
       <VirtualDirectory Name="gfx">
         <File Name="source/starlight/gfx/ThemeRef.h"/>
@@ -43,6 +49,8 @@
         <File Name="source/starlight/gfx/DrawContextTouchscreen.cpp"/>
         <File Name="source/starlight/gfx/DrawableTest.h"/>
         <File Name="source/starlight/gfx/DrawableTest.cpp"/>
+        <File Name="source/starlight/gfx/DrawContextCanvas.h"/>
+        <File Name="source/starlight/gfx/DrawContextCanvas.cpp"/>
       </VirtualDirectory>
     </VirtualDirectory>
   </VirtualDirectory>

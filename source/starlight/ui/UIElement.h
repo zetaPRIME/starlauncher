@@ -23,11 +23,14 @@ namespace starlight {
             std::weak_ptr<UIContainer> parent;
             
             VRect rect;
+            virtual VRect ViewRect();
+            virtual VRect ScreenRect();
             
             UIElement();
             virtual ~UIElement();
             
             virtual void Update() { }
+            virtual void PreDraw() { }
             virtual void Draw() { }
             
         };

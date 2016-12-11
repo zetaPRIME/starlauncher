@@ -16,8 +16,12 @@ namespace starlight {
         float Length() const;
         Vector2 Normalized() const;
         
+        Vector2 Reciprocal() const;
+        
         inline bool operator == (const Vector2 & o) const { return x == o.x && y == o.y; }
         inline bool operator != (const Vector2 & o) const { return x != o.x || y != o.y; }
+        
+        inline Vector2 operator - () const { return *this * -1.0f; }
             
         inline Vector2 operator * (const float scalar) const { return Vector2(x * scalar, y * scalar); }
         inline Vector2 operator / (const float scalar) const { return Vector2(x / scalar, y / scalar); }

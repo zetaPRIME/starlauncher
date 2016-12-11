@@ -1,12 +1,26 @@
 
 
 
+roadmap to final black triangle {
+    UICanvas - UIContainer prespecialized for being a canvas-target (done I think?)
+    TouchScreenCanvas : public UICanvas (also handles touch input I guess?) (basics done?)
+    Button
+} then {
+    moar utility stuff in Vector2 and VRect {
+        -
+    }
+    tween system
+    figure out rotation hotspot etc.
+    actual theme drawables
+    ninepatch, nontrivial drawable format, fonts, etc.
+    figure out theme fallback system
+    
+}
 
 
 
-
-drawable, drawcontext, gfxmanager (pushContext, popContext)
-drawableRef? themeRef? {
+drawable, drawcontext, gfxmanager (pushContext, popContext) (done mostly)
+ThemeRef (done) {
     theme-asset-specific reference so themes can be reloaded
     -> operator overloaded etc.
 }
@@ -21,6 +35,9 @@ shelved for now because shared_from_this is kind of dumb for what I need it for 
 example button, TouchScreenCanvas
 
 precheck version of Dive
+
+maybe LoosePtr (wraps weak_ptr for expired check but references by raw pointer)
+implement this to replace weak_ptr parent if it ends up impacting performance too much
 
 maybe implement this: https://probablydance.com/2013/01/13/a-faster-implementation-of-stdfunction/
 

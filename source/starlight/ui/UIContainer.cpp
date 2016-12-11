@@ -42,4 +42,16 @@ void UIContainer::Remove(std::shared_ptr<UIElement> elem) {
     children.remove(elem); // I think this uses operator ==()?
 }
 
+void UIContainer::Update() {
+    for (auto it = children.begin(); it != children.end(); it++) { (*it)->Update(); }
+}
+
+void UIContainer::PreDraw() {
+    for (auto it = children.begin(); it != children.end(); it++) { (*it)->PreDraw(); }
+}
+
+void UIContainer::Draw() {
+    for (auto it = children.begin(); it != children.end(); it++) { (*it)->Draw(); }
+}
+
 

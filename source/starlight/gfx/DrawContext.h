@@ -1,6 +1,8 @@
 #pragma once
 
 #include "starlight/datatypes/VRect.h"
+#include "starlight/datatypes/Color.h"
+#include "starlight/datatypes/OptRef.h"
 
 namespace starlight {
     class GFXManager;
@@ -17,6 +19,9 @@ namespace starlight {
             DrawContext() : rect(VRect(0,0,1,1)) { }
             DrawContext(VRect rect) : rect(rect) { }
             virtual ~DrawContext() { }
+            
+            virtual void Clear(Color color) { }
+            virtual void Clear() { Clear(Color(0,0,0,0)); }
             
         };
     }

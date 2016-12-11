@@ -17,10 +17,12 @@
 #include "starlight/ThemeManager.h"
 #include "starlight/gfx/ThemeRef.h"
 
-//#include "starlight/ui/UIElement.h"
+#include "starlight/ui/TouchScreenCanvas.h"
+#include "starlight/ui/Button.h"
 
 #include "starlight/gfx/DrawableTest.h"
 #include "starlight/gfx/DrawContextTouchscreen.h"
+#include "starlight/gfx/DrawContextCanvas.h"
 #include "starlight/GFXManager.h"
 
 #define CONFIG_3D_SLIDERSTATE (*(float *)0x1FF81080)
@@ -109,15 +111,14 @@ int main()
             touch_y = touch.py;
         } else if (held & (KEY_L | KEY_R)) {
             sf2d_set_clear_color(RGBA8(rand()%255, rand()%255, rand()%255, 255));
-        }
+        } else if (held & KEY_Y) rad = 0;
         
         //if (InputManager::Held(KEY_TOUCH))
         circpos = circpos + InputManager::TouchDelta();
         
         offset3d = CONFIG_3D_SLIDERSTATE * 30.0f;
         
-        //sf2d_start_frame(GFX_TOP, GFX_LEFT); sf2d_end_frame();
-        sf2d_start_frame(GFX_TOP, GFX_LEFT);
+        /*sf2d_start_frame(GFX_TOP, GFX_LEFT);
             sf2d_draw_fill_circle(offset3d + 60, 100, 35, RGBA8(0x00, 0xFF, 0x00, 0xFF));
             sf2d_draw_fill_circle(circpos.x + cpad.x * 20.0f, circpos.y + cpad.y * 20.0f, 55, RGBA8(0xFF, 0xFF, 0x00, (int)(0xFF * (0.75f * cpad.Length() + 0.25f))));
         
@@ -125,19 +126,26 @@ int main()
             sf2d_draw_rectangle(offset3d + 20, 60, 40, 40, RGBA8(0xFF, 0x00, 0x00, 0xFF));
             sf2d_draw_rectangle(offset3d + 5, 5, 30, 30, RGBA8(0x00, 0xFF, 0xFF, 0xFF));
             //sf2d_draw_texture_rotate(tex1, offset3d + 400/2 + circle.dx, 240/2 - circle.dy, rad);
+        sf2d_end_frame();//*/
+        
+        static int ct = 0;
+        static u32 c1 = starlight::Color(1,0,0);
+        static u32 c2 = starlight::Color(0,0,1);
+        ct = ++ct % 3;
+        if (ct == 0) {
+            //std::swap(c1, c2);
+            c1 = RGBA8(rand()%255, rand()%255, rand()%255, 255);
+            c2 = RGBA8(rand()%255, rand()%255, rand()%255, 255);
+            if (offset3d == 0) c1 = 0;
+        }
+        sf2d_start_frame(GFX_TOP, GFX_LEFT);
+            sf2d_draw_rectangle(0,0,400,240,c1);
         sf2d_end_frame();
         
         sf2d_start_frame(GFX_TOP, GFX_RIGHT);
+            sf2d_draw_rectangle(0,0,400,240,c2);
+            //sftd_draw_text(font, 3, 1, RGBA8(255,255,255,255), 16, "THEY'RE MOULDY YOU PILLOCK\nWelcome to the secret text~");
             
-            sftd_draw_text(font, 3, 1, RGBA8(255,255,255,255), 16, "THEY'RE MOULDY YOU PILLOCK\nWelcome to the secret text~");
-            
-            /*sf2d_draw_fill_circle(60, 100, 35, RGBA8(0x00, 0xFF, 0x00, 0xFF));
-            sf2d_draw_fill_circle(180, 120, 55, RGBA8(0xFF, 0xFF, 0x00, 0xFF));
-        
-            sf2d_draw_rectangle_rotate(260, 20, 40, 40, RGBA8(0xFF, 0xFF, 0x00, 0xFF), -2.0f*rad);
-            sf2d_draw_rectangle(20, 60, 40, 40, RGBA8(0xFF, 0x00, 0x00, 0xFF));
-            sf2d_draw_rectangle(5, 5, 30, 30, RGBA8(0x00, 0xFF, 0xFF, 0xFF));*/
-            //sf2d_draw_texture_rotate(tex1, 400/2 + circle.dx, 240/2 - circle.dy, rad);
         sf2d_end_frame();
         
         /*sf2d_start_frame(GFX_BOTTOM, GFX_LEFT); {
@@ -162,10 +170,35 @@ int main()
         } sf2d_end_frame();*/
         
         using starlight::GFXManager;
-        GFXManager::PushContext(con.get());
         static auto drw = starlight::ThemeManager::GetAsset("whatever");
-        drw->Draw(Vector2(48, 32));
-        drw->Draw(Vector2(122, 33));
+        static auto tgt = std::make_shared<starlight::gfx::DrawContextCanvas>(starlight::VRect(0,0,32*3,32*3));
+        
+        GFXManager::PushContext(con.get());
+        tgt->Clear(starlight::Color(1,0,0,0.5f));
+        GFXManager::PushContext(static_cast<starlight::gfx::DrawContext*>(tgt.get()));
+        
+        drw->Draw(Vector2(0, 0));
+        drw->Draw(Vector2(24, 8));
+        
+        drw->Draw(Vector2(0, 63));
+        drw->Draw(Vector2(48, 63));
+        drw->Draw(Vector2(63, 48));
+        
+        GFXManager::PopContext();
+        tgt->Draw(Vector2(200, 50), nullptr, nullptr, nullptr, rad*0.1f);
+        
+        drw->Draw(Vector2(0, 0));
+        drw->Draw(Vector2(24, 8));
+        
+        auto rect = starlight::VRect(32, 32, 64, 32);
+        for (int q = 0; q < 5; q++) {
+            drw->Draw(rect, nullptr, starlight::Color(1,1,1));
+            drw->Draw(rect.Expand(Vector2::one * -0.5f, Vector2::one), nullptr, starlight::Color(0.5f,0.5f,0.5f));
+            drw->Draw(rect.Expand(Vector2::one * -1), nullptr, starlight::Color(0.75f,0.75f,0.75f));
+            rect.pos.y += 34;
+        }
+        //drw->Draw(Vector2(48, 32));
+        //drw->Draw(Vector2(122, 33));
         GFXManager::PopContext();
         
         rad += 0.2f;

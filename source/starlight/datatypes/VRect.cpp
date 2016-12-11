@@ -39,5 +39,14 @@ VRect VRect::Intersect(const VRect & o) const {
     return res;
 }
 
+VRect VRect::Expand(const Vector2& amount, const Vector2& bias) const {
+    return VRect(pos + amount * bias * -2, size + amount * 2);
+}
+
+VRect VRect::TopEdge(float width) const     { return VRect(pos.x, pos.y, size.x, width); }
+VRect VRect::BottomEdge(float width) const  { return VRect(pos.x, pos.y + size.y - width, size.x, width); }
+VRect VRect::LeftEdge(float width) const    { return VRect(pos.x, pos.y, width, size.y); }
+VRect VRect::RightEdge(float width) const   { return VRect(pos.x + size.x - width, pos.y, width, size.y); }
+
 // constants
 const VRect VRect::zero = VRect(); // should initialize to 0,0,0,0

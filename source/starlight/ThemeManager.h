@@ -3,7 +3,7 @@
 #include <string>
 #include <unordered_map>
 
-#include "starlight/gfx/drawable.h"
+#include "starlight/gfx/Drawable.h"
 
 namespace starlight {
     // forward declare
@@ -26,3 +26,6 @@ namespace starlight {
         static const gfx::ThemeRef<gfx::Drawable>& GetAsset(std::string name);
     };
 }
+
+// post-include dependency
+#include "starlight/gfx/ThemeRef.h"

@@ -26,6 +26,13 @@ namespace starlight {
         bool Contains(const Vector2 & vec) const;
         
         VRect Intersect(const VRect & o) const;
+        VRect Expand(const Vector2& amount, const Vector2& bias) const;
+        VRect Expand(const Vector2& amount) const { return Expand(amount, Vector2::half); }
+        
+        VRect TopEdge(float width) const;
+        VRect BottomEdge(float width) const;
+        VRect LeftEdge(float width) const;
+        VRect RightEdge(float width) const;
         
         inline bool operator == (const VRect & o) const { return pos == o.pos && size == o.size; }
         inline bool operator != (const VRect & o) const { return pos != o.pos || size != o.size; }

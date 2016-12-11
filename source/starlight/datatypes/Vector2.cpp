@@ -16,6 +16,8 @@ Vector2::Vector2(float x, float y) : x(x), y(y) { }
 float Vector2::Length() const { return sqrtf(x * x + y * y); }
 Vector2 Vector2::Normalized() const { float m = Length(); return m == 0.0f ? Vector2::zero : Vector2(x / m, y / m); }
 
+Vector2 Vector2::Reciprocal() const { return Vector2(y, x); }
+
 // operators!
 //inline Vector2 operator *(const Vector2* vec, const float scalar) { return Vector2(vec.x * scalar, vec.y * scalar); }
 
