@@ -27,8 +27,10 @@ bool VRect::Overlaps(const VRect & o) const {
     return fabsf(c.x - oc.x) * 2.0f < size.x + o.size.x && fabsf(c.y - oc.y) * 2.0f < size.y + o.size.y;
 }
 bool VRect::Contains(const Vector2 & vec) const {
-    Vector2 c = Center();
-    return fabsf(c.x - vec.x) < size.x * 0.5f && fabsf(c.y - vec.y) < size.y * 0.5f;
+    // not sure which implementation is faster
+    return (pos.x <= vec.x && vec.x <= pos.x + size.x && pos.y <= vec.y && vec.y <= pos.y + size.y);
+    //Vector2 c = Center();
+    //return fabsf(c.x - vec.x) < size.x * 0.5f && fabsf(c.y - vec.y) < size.y * 0.5f;
 }
 
 VRect VRect::Intersect(const VRect & o) const {

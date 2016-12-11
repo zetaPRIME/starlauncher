@@ -8,6 +8,11 @@ using starlight::ui::UIContainer;
 UIElement::UIElement() { }
 UIElement::~UIElement() { }
 
+void UIElement::_Dive(std::function<bool(UIElement*)>& check, std::function<bool(UIElement*)>& func, bool consumable, bool frontFirst, bool& finished) {
+    if (!check(this)) return;
+    finished = func(this) && consumable;
+}
+
 void UIElement::_Dive(std::function<bool(UIElement*)>& func, bool consumable, bool frontFirst, bool& finished) {
     finished = func(this) && consumable;
 }
@@ -23,9 +28,5 @@ VRect UIElement::ScreenRect() {
     if (auto p = parent.lock()) {
         return ViewRect() + p->ScreenRect().pos;
     }
-    return rect;
-}
-
-VRect UIElement::DrawRect() {
     return rect;
 }

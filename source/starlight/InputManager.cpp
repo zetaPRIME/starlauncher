@@ -18,8 +18,8 @@ using starlight::Vector2;
 using starlight::InputManager;
 
 namespace {
-    u32 heldLast = 0;
-    u32 heldNow = 0;
+    unsigned int heldLast = 0;
+    unsigned int heldNow = 0;
     
     Vector2 stickLeftLast;
     Vector2 stickLeftNow;
@@ -68,9 +68,9 @@ void InputManager::Update() {
 Vector2 InputManager::CirclePad() { return stickLeftNow; }
 Vector2 InputManager::CStick() { return stickRightNow; }
 
-bool InputManager::Held(u32 mask) { return heldNow & mask; }
-bool InputManager::Pressed(u32 mask) { return (heldNow & ~heldLast) & mask; }
-bool InputManager::Released(u32 mask) { return (heldLast & ~heldNow) & mask; }
+bool InputManager::Held(unsigned int mask) { return heldNow & mask; }
+bool InputManager::Pressed(unsigned int mask) { return (heldNow & ~heldLast) & mask; }
+bool InputManager::Released(unsigned int mask) { return (heldLast & ~heldNow) & mask; }
 
 Vector2 InputManager::TouchPos() { return touchNow; }
 Vector2 InputManager::TouchDelta() { return touchNow - touchLast; }

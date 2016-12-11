@@ -11,6 +11,9 @@ namespace starlight {
             
             void Draw() override;
             
+            // events
+            void OnTap() override;
+            
         };
     }
 }

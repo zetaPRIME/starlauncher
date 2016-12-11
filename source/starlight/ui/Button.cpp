@@ -18,3 +18,6 @@ void Button::Draw() {
     drw->Draw(rect.Expand(Vector2::one * -1), nullptr, starlight::Color(0.75f,0.75f,0.75f));
 }
 
+void Button::OnTap() {
+    rect += Vector2::one * 4;
+}

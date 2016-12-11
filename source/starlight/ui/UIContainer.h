@@ -18,10 +18,11 @@ namespace starlight {
             
         protected:
             std::list<std::shared_ptr<UIElement>> children;
+            void _Dive(std::function<bool(UIElement*)>& check, std::function<bool(UIElement*)>& func, bool consumable, bool frontFirst, bool& finished);
             void _Dive(std::function<bool(UIElement*)>& func, bool consumable, bool frontFirst, bool& finished);
             
         public:
-            Vector2 scrollOffset;
+            Vector2 scrollOffset = Vector2(0,0);
             
             VRect ViewportRect() { return VRect(scrollOffset, rect.size); }
             
@@ -29,7 +30,8 @@ namespace starlight {
             UIContainer(VRect rect) { this->rect = rect; }
             ~UIContainer();
             
-            void Dive(std::function<bool(UIElement*)>, bool consumable = true, bool frontFirst = true);
+            void Dive(std::function<bool(UIElement*)> check, std::function<bool(UIElement*)> func, bool consumable = true, bool frontFirst = true);
+            void Dive(std::function<bool(UIElement*)> func, bool consumable = true, bool frontFirst = true);
             
             void Add(std::shared_ptr<UIElement> elem);
             //void Add(UIElement* elem);

@@ -17,6 +17,7 @@ namespace starlight {
             //
             
         protected:
+            virtual void _Dive(std::function<bool(UIElement*)>& check, std::function<bool(UIElement*)>& func, bool consumable, bool frontFirst, bool& finished);
             virtual void _Dive(std::function<bool(UIElement*)>& func, bool consumable, bool frontFirst, bool& finished);
             
         public:
@@ -25,7 +26,6 @@ namespace starlight {
             VRect rect;
             virtual VRect ViewRect();
             virtual VRect ScreenRect();
-            virtual VRect DrawRect();
             
             UIElement();
             virtual ~UIElement();
@@ -33,6 +33,9 @@ namespace starlight {
             virtual void Update() { }
             virtual void PreDraw() { }
             virtual void Draw() { }
+            
+            // events
+            virtual void OnTap() { }
             
         };
     }

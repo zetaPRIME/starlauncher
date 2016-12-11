@@ -29,6 +29,6 @@ void UICanvas::PreDraw() {
 }
 
 void UICanvas::Draw() {
-    static_cast<DrawContextCanvas*>(drawContext.get())->Draw(this->rect);
+    static_cast<DrawContextCanvas*>(drawContext.get())->Draw(rect + GFXManager::GetOffset());
 }
 

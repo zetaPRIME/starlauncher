@@ -9,6 +9,7 @@ namespace starlight {
             TouchScreenCanvas();
             ~TouchScreenCanvas() { }
             
+            void Update() override;
             void PreDraw() override;
             void Draw() override;
         };

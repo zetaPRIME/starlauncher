@@ -204,7 +204,7 @@ int main()
         }
         GFXManager::PopContext();*/
         
-        container->rect += InputManager::TouchDelta();
+        //container->rect += InputManager::TouchDelta();
         button->rect += InputManager::CirclePad() * 5.0f;
         
         touchscreen->Update();
