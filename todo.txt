@@ -14,7 +14,8 @@ roadmap to final black triangle {
     actual theme drawables
     ninepatch, nontrivial drawable format, fonts, etc.
     figure out theme fallback system
-    
+    ...
+    Application base class (patterned after XNA/Monogame's Game class)
 }
 
 

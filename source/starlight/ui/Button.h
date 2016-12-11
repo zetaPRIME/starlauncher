@@ -6,7 +6,7 @@ namespace starlight {
     namespace ui {
         class Button : public UIElement {
         public:
-            Button(VRect rect) : rect(rect) { }
+            Button(VRect rect) { this->rect = rect; }
             ~Button() { }
             
             void Draw() override;

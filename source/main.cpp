@@ -28,6 +28,7 @@
 #define CONFIG_3D_SLIDERSTATE (*(float *)0x1FF81080)
 
 using starlight::Vector2;
+using starlight::VRect;
 using starlight::InputManager;
 
 /*Handle *signalEvent = NULL;
@@ -90,9 +91,10 @@ int main()
     
     char sbuf[100];
     
-    // test drawables
-    std::shared_ptr<starlight::gfx::DrawContext> con = std::make_shared<starlight::gfx::DrawContextTouchscreen>();
-    //std::shared_ptr<starlight::gfx::Drawable> drw = std::make_shared<starlight::gfx::DrawableTest>();
+    // stuff!
+    auto touchscreen = std::make_shared<starlight::ui::TouchScreenCanvas>();
+    auto button = std::make_shared<starlight::ui::Button>(VRect(4,80,128,32));
+    touchscreen->Add(button);
     
     while (aptMainLoop()) {
 
@@ -169,7 +171,7 @@ int main()
             
         } sf2d_end_frame();*/
         
-        using starlight::GFXManager;
+        /*using starlight::GFXManager;
         static auto drw = starlight::ThemeManager::GetAsset("whatever");
         static auto tgt = std::make_shared<starlight::gfx::DrawContextCanvas>(starlight::VRect(0,0,32*3,32*3));
         
@@ -197,9 +199,11 @@ int main()
             drw->Draw(rect.Expand(Vector2::one * -1), nullptr, starlight::Color(0.75f,0.75f,0.75f));
             rect.pos.y += 34;
         }
-        //drw->Draw(Vector2(48, 32));
-        //drw->Draw(Vector2(122, 33));
-        GFXManager::PopContext();
+        GFXManager::PopContext();*/
+        
+        touchscreen->Update();
+        touchscreen->PreDraw();
+        touchscreen->Draw();
         
         rad += 0.2f;
         

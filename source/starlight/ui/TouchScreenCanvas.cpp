@@ -26,5 +26,7 @@ void TouchScreenCanvas::PreDraw() {
 }
 
 void TouchScreenCanvas::Draw() {
+    GFXManager::PushContext(drawContext.get());
     this->UIContainer::Draw();
+    GFXManager::PopContext();
 }
