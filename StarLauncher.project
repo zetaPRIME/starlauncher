@@ -52,6 +52,7 @@
         <File Name="source/starlight/gfx/DrawContextCanvas.h"/>
         <File Name="source/starlight/gfx/DrawContextCanvas.cpp"/>
       </VirtualDirectory>
+      <File Name="source/starlight/_global.h"/>
     </VirtualDirectory>
   </VirtualDirectory>
   <VirtualDirectory Name="conf">

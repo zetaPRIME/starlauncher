@@ -2,9 +2,11 @@
 
 
 roadmap {
-    set up draw offset system (done... though should the offset be taken by drawables? ...or maybe just passed down through Draw()?)
-    make TouchScreenCanvas handle input!
-    make Button recieve input!
+    maybe switch drawoffset system from a stack to a pass-in
+    finish touch input system {
+        DragHandle?
+        ?
+    }
     moar utility stuff in Vector2 and VRect {
         -
     }

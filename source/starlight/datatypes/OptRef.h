@@ -1,4 +1,5 @@
 #pragma once
+#include "starlight/_global.h"
 
 namespace starlight {
     template <class T>
@@ -13,9 +14,9 @@ namespace starlight {
         
         const T& get() { return *ref; } // ... I guess :(
         
-        explicit operator bool() const { return ref != nullptr; }
-        const T& operator ->() { return *ref; } // meh, technically unsafe but it's not meant to be used without explicit checking
-        operator const T&() { return *ref; } // same here
+        inline explicit operator bool() const { return ref != nullptr; }
+        inline const T& operator ->() { return *ref; } // meh, technically unsafe but it's not meant to be used without explicit checking
+        inline operator const T&() { return *ref; } // same here
     };
 }
 

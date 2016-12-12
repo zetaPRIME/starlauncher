@@ -1,4 +1,5 @@
 #pragma once
+#include "starlight/_global.h"
 
 namespace starlight {
     class Vector2 {
@@ -17,6 +18,9 @@ namespace starlight {
         Vector2 Normalized() const;
         
         Vector2 Reciprocal() const;
+        
+        Vector2 CardinalAxis() const;
+        Vector2 Cardinal() const;
         
         inline bool operator == (const Vector2 & o) const { return x == o.x && y == o.y; }
         inline bool operator != (const Vector2 & o) const { return x != o.x || y != o.y; }
@@ -41,5 +45,7 @@ namespace starlight {
         static const Vector2 zero;
         static const Vector2 one;
         static const Vector2 half;
+        static const Vector2 h;
+        static const Vector2 v;
     };
 }

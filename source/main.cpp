@@ -108,7 +108,7 @@ int main()
         
         Vector2 cpad = InputManager::CirclePad();
         
-        if (held & KEY_START) {
+        if (held & KEY_Y/*START*/) {
             break;
         } else if (held & KEY_TOUCH) {
             hidTouchRead(&touch);

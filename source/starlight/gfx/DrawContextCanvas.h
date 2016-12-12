@@ -1,4 +1,5 @@
 #pragma once
+#include "starlight/_global.h"
 
 #include <sf2d.h>
 

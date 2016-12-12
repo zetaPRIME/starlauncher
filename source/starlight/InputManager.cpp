@@ -8,13 +8,14 @@
 
 #include "datatypes/Vector2.h"
 
-// own header
 #include "InputManager.h"
 
 // define raw input regs
 #define CONFIG_3D_SLIDERSTATE (*(float *)0x1FF81080)
 
 using starlight::Vector2;
+using starlight::ui::UIElement;
+using starlight::DragHandle;
 using starlight::InputManager;
 
 namespace {
@@ -76,3 +77,45 @@ Vector2 InputManager::TouchPos() { return touchNow; }
 Vector2 InputManager::TouchDelta() { return touchNow - touchLast; }
 Vector2 InputManager::TouchStart() { return touchStart; }
 Vector2 InputManager::TouchDragDist() { return touchNow - touchStart; }
+
+// drag stuff!
+DragHandle InputManager::drag = DragHandle();
+DragHandle& DragHandle::Grab(UIElement* e) {
+    if (rptr == e) return *this;
+    Release();
+    rptr = e;
+    wptr = e->shared_from_this();
+    released = false;
+    e->OnDragStart();
+    return *this;
+}
+
+DragHandle& DragHandle::PassUp(bool releaseOnFail) {
+    if (!valid()) return *this; // invalid
+    UIElement* e = rptr;
+    while (true) {
+        if (auto p = e->parent.lock()) {
+            if (p->OnDragPassed()) {
+                return Grab(p.get());
+            }
+            continue;
+        } else {
+            if (releaseOnFail) Release();
+            return *this;
+        }
+        break;
+    }
+}
+
+#define err(nth, wat) *((unsigned int*)0x00100000+(nth))=wat;
+#define ded(wat) err(0,wat)
+void DragHandle::Release() {
+    if (!valid()) return; // nothing to release
+    UIElement* e = rptr;
+    rptr = nullptr;
+    wptr = std::shared_ptr<UIElement>(nullptr);
+    released = true;
+    if (valid()) { ded(0x1336FAFF); }
+    e->OnDragRelease();
+    rptr = nullptr;
+}

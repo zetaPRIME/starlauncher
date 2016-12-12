@@ -18,35 +18,54 @@ using starlight::ui::UIContainer;
 using starlight::ui::UICanvas;
 using starlight::ui::TouchScreenCanvas;
 
-namespace {
-    VRect brah;
-    Vector2 tpos;
-    bool bt = true;
-}
-
-TouchScreenCanvas::TouchScreenCanvas() {
+TouchScreenCanvas::TouchScreenCanvas() : touchedNow(this->_touched1), touchedLast(this->_touched2) {
     rect = VRect(0, 0, 320, 240);
     drawContext = std::make_unique<DrawContextTouchscreen>();
+    
+    //touchedNow = _touched1;
+    //touchedLast = _touched2;
 }
 
 void TouchScreenCanvas::Update() {
-    // input test
-    if (InputManager::Pressed(KEY_TOUCH)) {
-        tpos = InputManager::TouchPos();
-        bt = true;
+    std::swap(touchedLast, touchedNow);
+    touchedNow.clear();
+    
+    // scan input
+    Vector2 tpos = InputManager::TouchPos();
+    auto drag = InputManager::GetDragHandle();
+    if (!drag.valid() && InputManager::Held(KEY_TOUCH)) {
         Dive(
-            [&tpos, &brah, &bt, this](UIElement* e){
-                //brah = e->ScreenRect();
+            [&tpos](UIElement* e){
                 return e->ScreenRect().Contains(tpos);
             },
-            [&tpos, &brah, &bt](UIElement* e){
-                e->OnTap();
-                if (bt) {
-                    brah = e->ScreenRect();
-                    bt = false;
-                }
-                return true;
+            [&tpos, this](UIElement* e){
+                touchedNow.insert({e, std::weak_ptr<UIElement>(e->shared_from_this())});
+                return e->InterceptsTouch(tpos - e->ScreenRect().pos);
             }, true, true);
+    } else if (drag.valid()) {
+        UIElement* e = drag.get();
+        if (InputManager::Held(KEY_TOUCH) && e != nullptr) {
+            if (e->ScreenRect().Contains(tpos)) {
+                //touchedNow.insert({e, std::weak_ptr<UIElement>(e->shared_from_this())});
+            }
+            e->OnDragHold();
+        } else {
+            drag.Release();
+        }
+    }
+    
+    for (auto& it : touchedLast) {
+        if (touchedNow.find(it.first) == touchedNow.end()) { // released
+            if (auto e = it.second.lock()) {
+                e->OnTouchOff();
+            }
+        }
+    }
+    for (auto& it : touchedNow) {
+        if (auto e = it.second.lock()) {
+            if (touchedLast.find(it.first) == touchedLast.end()) e->OnTouchOn();
+            else e->OnTouchHold();
+        }
     }
     
     // and update children
@@ -61,7 +80,7 @@ void TouchScreenCanvas::Draw() {
     static auto blah = ThemeManager::GetAsset("");
     GFXManager::PushContext(drawContext.get());
     this->UIContainer::Draw();
-    blah->Draw(brah, nullptr, Color(0,0,1,0.25f));
-    blah->Draw(VRect(tpos, Vector2::one).Expand(Vector2::one), nullptr, Color(0,1,0));
+    //blah->Draw(brah, nullptr, Color(0,0,1,0.25f));
+    //blah->Draw(VRect(tpos, Vector2::one).Expand(Vector2::one), nullptr, Color(0,1,0));
     GFXManager::PopContext();
 }

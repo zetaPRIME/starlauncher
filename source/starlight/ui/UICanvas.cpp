@@ -22,8 +22,8 @@ void UICanvas::PreDraw() {
     GFXManager::PushContext(drawContext.get());
     
     // both passes here so as not to mix things; one rendertarget at a time, please
-    for (auto it = children.begin(); it != children.end(); it++) { (*it)->PreDraw(); }
-    for (auto it = children.begin(); it != children.end(); it++) { (*it)->Draw(); }
+    for (auto& it : children) { it->PreDraw(); }
+    for (auto& it : children) { it->Draw(); }
     
     GFXManager::PopContext();
 }

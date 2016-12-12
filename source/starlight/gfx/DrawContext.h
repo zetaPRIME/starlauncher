@@ -1,4 +1,5 @@
 #pragma once
+#include "starlight/_global.h"
 
 #include "starlight/datatypes/VRect.h"
 #include "starlight/datatypes/Color.h"

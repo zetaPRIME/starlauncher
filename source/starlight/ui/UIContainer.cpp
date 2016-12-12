@@ -65,16 +65,16 @@ void UIContainer::Remove(std::shared_ptr<UIElement> elem) {
 }
 
 void UIContainer::Update() {
-    for (auto it = children.begin(); it != children.end(); it++) { (*it)->Update(); }
+    for (auto& it : children) { it->Update(); }
 }
 
 void UIContainer::PreDraw() {
-    for (auto it = children.begin(); it != children.end(); it++) { (*it)->PreDraw(); }
+    for (auto& it : children) { it->PreDraw(); }
 }
 
 void UIContainer::Draw() {
     GFXManager::PushOffsetAdd(rect.pos);
-    for (auto it = children.begin(); it != children.end(); it++) { (*it)->Draw(); }
+    for (auto& it : children) { it->Draw(); }
     GFXManager::PopOffset();
 }
 

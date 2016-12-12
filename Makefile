@@ -29,11 +29,12 @@ include $(DEVKITARM)/3ds_rules
 #---------------------------------------------------------------------------------
 TARGET		:=	starlauncher
 BUILD		:=	build
-SOURCES		:=	source \
-				source/starlight \
-				source/starlight/datatypes \
-				source/starlight/gfx \
-				source/starlight/ui
+SOURCES		:=	$(sort $(dir $(wildcard source/*/ source/*/*/ source/*/*/*/ source/*/*/*/*/ source/*/*/*/*/*/)))
+#SOURCES		:=	source \
+#				source/starlight \
+#				source/starlight/datatypes \
+#				source/starlight/gfx \
+#				source/starlight/ui
 DATA		:=	data
 INCLUDES	:=	include
 ROMFS		:=	romfs

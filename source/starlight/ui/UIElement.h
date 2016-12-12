@@ -1,4 +1,5 @@
 #pragma once
+#include "starlight/_global.h"
 
 #include <memory>
 #include <functional>
@@ -35,7 +36,16 @@ namespace starlight {
             virtual void Draw() { }
             
             // events
-            virtual void OnTap() { }
+            virtual void OnTouchOn() { }
+            virtual void OnTouchOff() { }
+            virtual void OnTouchHold() { }
+            
+            virtual bool InterceptsTouch(Vector2 where) { return false; }
+            
+            virtual bool OnDragPassed() { return false; }
+            virtual void OnDragStart() { }
+            virtual void OnDragRelease() { }
+            virtual void OnDragHold() { }
             
         };
     }
