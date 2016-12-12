@@ -50,23 +50,24 @@ namespace starlight {
     private:
         
     protected:
-        DragHandle() { }
+        
     public:
         std::weak_ptr<starlight::ui::UIElement> wptr;
         starlight::ui::UIElement* rptr = nullptr;
-        bool released = true;
         
+        DragHandle() { }
+        DragHandle(const DragHandle&) = delete;
         ~DragHandle() { }
         
         DragHandle& Grab(starlight::ui::UIElement* e);
         DragHandle& PassUp(bool releaseOnFail = false);
         void Release();
         
-        starlight::ui::UIElement* get() const { if (released) return nullptr; if (wptr.expired()) return nullptr; return rptr; }
-        bool valid() const { return !released && rptr != nullptr && !wptr.expired(); };
+        inline starlight::ui::UIElement* get() const { if (wptr.expired()) return nullptr; return rptr; }
+        inline bool valid() const { return rptr != nullptr && !wptr.expired(); };
         
-        explicit operator bool() const { return !released && rptr != nullptr && !wptr.expired(); }
-        bool operator ==(starlight::ui::UIElement* e) const { return valid() && rptr == e; }
+        inline explicit operator bool() const { return rptr != nullptr && !wptr.expired(); }
+        inline bool operator ==(starlight::ui::UIElement* e) const { return rptr == e; }
         //starlight::ui::UIElement& operator *() const { return *rptr; } // as with optref, do *not* call without checking first
     };
     

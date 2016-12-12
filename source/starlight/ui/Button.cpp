@@ -15,7 +15,7 @@ void Button::Draw() {
     
     auto rect = this->rect + GFXManager::GetOffset();
     
-    if (InputManager::GetDragHandle().valid()) {
+    if (InputManager::GetDragHandle() == this) {
         drw->Draw(rect, nullptr, starlight::Color(0.32f,0.32f,0.32f));
         drw->Draw(rect.Expand(Vector2::one * -0.5f, Vector2::one), nullptr, starlight::Color(0.75f,0.75f,0.75f));
         drw->Draw(rect.Expand(Vector2::one * -1), nullptr, starlight::Color(0.5f,0.5f,0.5f));
@@ -30,17 +30,15 @@ void Button::OnTouchOn() {
     if (InputManager::Pressed(KEY_TOUCH)) {
         InputManager::GetDragHandle().Grab(this);
     }
-    rect.pos += Vector2::one * 2;
 }
 
 void Button::OnDragStart() {
-    rect.pos.x += 2;
+    //
 }
 
 void Button::OnDragHold() {
     if (InputManager::TouchDragDist().Length() > InputManager::dragThreshold) {
-        //InputManager::GetDragHandle().PassUp(true);
-        rect.pos.y += 1;
+        InputManager::GetDragHandle().PassUp(true);
     }
 }
 
@@ -49,10 +47,7 @@ void Button::OnDragHold() {
 #define die() ded(0xDEADBEEF);
 
 void Button::OnDragRelease() {
-    //if (this == static_cast<UIElement*>(nullptr)) { ded(0x1337BEEF); }
-    if (!InputManager::GetDragHandle().released) { rect.pos.x = 88; }
     if (InputManager::Released(KEY_TOUCH)) {
-        rect.size = Vector2::one * 64;
-        rect.pos.y += 5;
+        //
     }
 }

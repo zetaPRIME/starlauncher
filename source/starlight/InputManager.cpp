@@ -79,13 +79,12 @@ Vector2 InputManager::TouchStart() { return touchStart; }
 Vector2 InputManager::TouchDragDist() { return touchNow - touchStart; }
 
 // drag stuff!
-DragHandle InputManager::drag = DragHandle();
+DragHandle InputManager::drag;
 DragHandle& DragHandle::Grab(UIElement* e) {
     if (rptr == e) return *this;
     Release();
     rptr = e;
     wptr = e->shared_from_this();
-    released = false;
     e->OnDragStart();
     return *this;
 }
@@ -95,8 +94,9 @@ DragHandle& DragHandle::PassUp(bool releaseOnFail) {
     UIElement* e = rptr;
     while (true) {
         if (auto p = e->parent.lock()) {
-            if (p->OnDragPassed()) {
-                return Grab(p.get());
+            e = p.get();
+            if (e->OnDragPassed()) {
+                return Grab(e);
             }
             continue;
         } else {
@@ -114,8 +114,5 @@ void DragHandle::Release() {
     UIElement* e = rptr;
     rptr = nullptr;
     wptr = std::shared_ptr<UIElement>(nullptr);
-    released = true;
-    if (valid()) { ded(0x1336FAFF); }
     e->OnDragRelease();
-    rptr = nullptr;
 }
