@@ -26,6 +26,7 @@ namespace starlight {
         
         // hmm. I guess this will do ¯\_(ツ)_/¯ don't really want to force cstdint
         inline operator unsigned int() const { return (((((int)(a*255))&0xFF)<<24) | ((((int)(b*255))&0xFF)<<16) | ((((int)(g*255))&0xFF)<<8) | ((((int)(r*255))&0xFF)<<0)); }
+        // premult: inline operator unsigned int() const { return (((((int)(a*255))&0xFF)<<24) | ((((int)(a*b*255))&0xFF)<<16) | ((((int)(a*g*255))&0xFF)<<8) | ((((int)(a*r*255))&0xFF)<<0)); }
         
         static const Color white;
         /*static const Color black;

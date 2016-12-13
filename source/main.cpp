@@ -95,6 +95,7 @@ int main()
     //auto container = std::make_shared<starlight::ui::UIContainer>(VRect(32,32,320-32,240-32));
     auto container = std::make_shared<starlight::ui::UICanvas>(VRect(32,32,320-32,240-32));
     auto button = std::make_shared<starlight::ui::Button>(VRect(4,80,128,32));
+    //auto button = std::make_shared<starlight::ui::Button>(VRect(0,0,320-32,240-32));
     touchscreen->Add(container);
     container->Add(button);
     

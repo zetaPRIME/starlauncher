@@ -28,17 +28,20 @@ void Button::Draw() {
     } else {
         drw->Draw(rect, nullptr, Color(1,1,1));
         drw->Draw(rect.Expand(Vector2::one * -0.5f, Vector2::one), nullptr, Color(0.5f,0.5f,0.5f));
-        drw->Draw(rect.Expand(Vector2::one * -1), nullptr, Color(0.75f,0.75f,0.75f));
+        drw->Draw(rect.Expand(Vector2::one * -1), nullptr, Color(0.75f,0.75f,0.75f,0.5f));
+        drw->Draw(rect+Vector2(0,32), nullptr, Color(0.75f,0.75f,0.75f,0.5f));
+        //drw->Draw(rect + Vector2(100, -16), nullptr, Color(0.75f,0.75f,0.75f));
     }
     
     static std::string label = "Button!\nI'm a grand bananaphone from the planet of the borpletydoos. :D";
-    Vector2 c = rect.Center();
+    /*Vector2 c = rect.Center();
     font->Print(c-Vector2::h, label, Font::defaultSize, Color(0,0,0,0.25f), Vector2::half);
     font->Print(c+Vector2::h, label, Font::defaultSize, Color(0,0,0,0.25f), Vector2::half);
     font->Print(c-Vector2::v, label, Font::defaultSize, Color(0,0,0,0.25f), Vector2::half);
     font->Print(c+Vector2::v, label, Font::defaultSize, Color(0,0,0,0.25f), Vector2::half);
     
-    font->Print(c, label, Font::defaultSize, Color(1,1,1), Vector2::half);
+    font->Print(c, label, Font::defaultSize, Color(1,1,1), Vector2::half);*/
+    font->Print(rect, label, Font::defaultSize, Color(0,1,1), Vector2(0.25f, 0.5f), Color(1,1,1,0.5f));
 }
 
 void Button::OnTouchOn() {

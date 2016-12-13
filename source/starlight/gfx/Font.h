@@ -18,8 +18,8 @@ namespace starlight {
             virtual ~Font() { }
             
             virtual Vector2 Measure(std::string& text, int size = defaultSize, int maxWidth = 400) = 0;
-            virtual void Print(Vector2 position, std::string& text, int size = defaultSize, Color color = Color::white, Vector2 justification = Vector2::zero) = 0;
-            virtual void Print(VRect rect, std::string& text, int size = defaultSize, Color color = Color::white, Vector2 justification = Vector2::zero) = 0;
+            virtual void Print(Vector2 position, std::string& text, int size = defaultSize, Color color = Color::white, Vector2 justification = Vector2::zero, OptRef<Color> borderColor = nullptr) = 0;
+            virtual void Print(VRect rect, std::string& text, int size = defaultSize, Color color = Color::white, Vector2 justification = Vector2::zero, OptRef<Color> borderColor = nullptr) = 0;
         };
         
     }

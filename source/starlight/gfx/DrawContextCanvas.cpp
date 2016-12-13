@@ -69,7 +69,7 @@ bool DrawContextCanvas::Prepare() {
 void DrawContextCanvas::Clear(Color color) {
     sf2d_clear_target(target, color);
 }
-void DrawContextCanvas::Clear() { sf2d_clear_target(target, 0); }
+void DrawContextCanvas::Clear() { sf2d_clear_target(target, Color(0,0,0,0)); }
 
 // drawable stuff
 void DrawContextCanvas::Draw(const Vector2& position, OptRef<Vector2> hotspot, OptRef<VRect> sampleRect, OptRef<Color> color, float rotation, const Vector2& scale) {
