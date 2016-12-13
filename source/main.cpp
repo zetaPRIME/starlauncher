@@ -77,7 +77,6 @@ int main()
     sf2d_set_vblank_wait(1);
     
     sftd_init();
-    sftd_font *font = sftd_load_font_file("romfs:/Arcon-Regular.otf");
     
     float offset3d = 0.0f;
     float rad = 0.0f;
@@ -95,7 +94,7 @@ int main()
     auto touchscreen = std::make_shared<starlight::ui::TouchScreenCanvas>();
     //auto container = std::make_shared<starlight::ui::UIContainer>(VRect(32,32,320-32,240-32));
     auto container = std::make_shared<starlight::ui::UICanvas>(VRect(32,32,320-32,240-32));
-    auto button = std::make_shared<starlight::ui::Button>(VRect(0,0,320-32,240-32));//(VRect(4,80,128,32));
+    auto button = std::make_shared<starlight::ui::Button>(VRect(4,80,128,32));
     touchscreen->Add(container);
     container->Add(button);
     
@@ -108,7 +107,7 @@ int main()
         
         Vector2 cpad = InputManager::CirclePad();
         
-        if (held & KEY_Y/*START*/) {
+        if (held & (KEY_Y | KEY_START)) {
             break;
         } else if (held & KEY_TOUCH) {
             hidTouchRead(&touch);

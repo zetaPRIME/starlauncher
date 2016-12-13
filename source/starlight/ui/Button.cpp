@@ -4,6 +4,11 @@
 
 #include "Button.h"
 
+using starlight::Vector2;
+using starlight::Color;
+
+using starlight::gfx::Font;
+
 using starlight::InputManager;
 using starlight::GFXManager;
 using starlight::ThemeManager;
@@ -11,19 +16,29 @@ using starlight::ThemeManager;
 using starlight::ui::Button;
 
 void Button::Draw() {
-    static auto drw = ThemeManager::GetAsset("whatever");
+    static auto& drw = ThemeManager::GetAsset("whatever");
+    static auto& font = ThemeManager::GetFont("default");
     
     auto rect = this->rect + GFXManager::GetOffset();
     
     if (InputManager::GetDragHandle() == this) {
-        drw->Draw(rect, nullptr, starlight::Color(0.32f,0.32f,0.32f));
-        drw->Draw(rect.Expand(Vector2::one * -0.5f, Vector2::one), nullptr, starlight::Color(0.75f,0.75f,0.75f));
-        drw->Draw(rect.Expand(Vector2::one * -1), nullptr, starlight::Color(0.5f,0.5f,0.5f));
+        drw->Draw(rect, nullptr, Color(0.32f,0.32f,0.32f));
+        drw->Draw(rect.Expand(Vector2::one * -0.5f, Vector2::one), nullptr, Color(0.75f,0.75f,0.75f));
+        drw->Draw(rect.Expand(Vector2::one * -1), nullptr, Color(0.5f,0.5f,0.5f));
     } else {
-        drw->Draw(rect, nullptr, starlight::Color(1,1,1));
-        drw->Draw(rect.Expand(Vector2::one * -0.5f, Vector2::one), nullptr, starlight::Color(0.5f,0.5f,0.5f));
-        drw->Draw(rect.Expand(Vector2::one * -1), nullptr, starlight::Color(0.75f,0.75f,0.75f));
+        drw->Draw(rect, nullptr, Color(1,1,1));
+        drw->Draw(rect.Expand(Vector2::one * -0.5f, Vector2::one), nullptr, Color(0.5f,0.5f,0.5f));
+        drw->Draw(rect.Expand(Vector2::one * -1), nullptr, Color(0.75f,0.75f,0.75f));
     }
+    
+    static std::string label = "Button!\nI'm a grand bananaphone from the planet of the borpletydoos. :D";
+    Vector2 c = rect.Center();
+    font->Print(c-Vector2::h, label, Font::defaultSize, Color(0,0,0,0.25f), Vector2::half);
+    font->Print(c+Vector2::h, label, Font::defaultSize, Color(0,0,0,0.25f), Vector2::half);
+    font->Print(c-Vector2::v, label, Font::defaultSize, Color(0,0,0,0.25f), Vector2::half);
+    font->Print(c+Vector2::v, label, Font::defaultSize, Color(0,0,0,0.25f), Vector2::half);
+    
+    font->Print(c, label, Font::defaultSize, Color(1,1,1), Vector2::half);
 }
 
 void Button::OnTouchOn() {
@@ -32,13 +47,18 @@ void Button::OnTouchOn() {
     }
 }
 
+void Button::OnTouchOff() {
+    auto& drag = InputManager::GetDragHandle();
+    if (drag == this) drag.Release();
+}
+
 void Button::OnDragStart() {
     //
 }
 
 void Button::OnDragHold() {
     if (InputManager::TouchDragDist().Length() > InputManager::dragThreshold) {
-        InputManager::GetDragHandle().PassUp(true);
+        InputManager::GetDragHandle().PassUp();
     }
 }
 

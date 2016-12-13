@@ -17,6 +17,7 @@ namespace starlight {
             
             // events
             void OnTouchOn() override;
+            void OnTouchOff() override;
             
             void OnDragStart() override;
             void OnDragRelease() override;

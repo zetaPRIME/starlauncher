@@ -51,6 +51,10 @@
         <File Name="source/starlight/gfx/DrawableTest.cpp"/>
         <File Name="source/starlight/gfx/DrawContextCanvas.h"/>
         <File Name="source/starlight/gfx/DrawContextCanvas.cpp"/>
+        <File Name="source/starlight/gfx/Font.h"/>
+        <File Name="source/starlight/gfx/Font.cpp"/>
+        <File Name="source/starlight/gfx/FontSFTD.h"/>
+        <File Name="source/starlight/gfx/FontSFTD.cpp"/>
       </VirtualDirectory>
       <File Name="source/starlight/_global.h"/>
     </VirtualDirectory>

@@ -10,3 +10,4 @@ using starlight::Color;
 //#define RGBA8_GET_B(c) (((c) >> 16) & 0xFF)
 //#define RGBA8_GET_A(c) (((c) >> 24) & 0xFF)
 
+const Color Color::white = Color(1,1,1);

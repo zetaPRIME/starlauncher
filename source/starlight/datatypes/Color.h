@@ -27,8 +27,8 @@ namespace starlight {
         // hmm. I guess this will do ¯\_(ツ)_/¯ don't really want to force cstdint
         inline operator unsigned int() const { return (((((int)(a*255))&0xFF)<<24) | ((((int)(b*255))&0xFF)<<16) | ((((int)(g*255))&0xFF)<<8) | ((((int)(r*255))&0xFF)<<0)); }
         
-        /*static const Color white;
-        static const Color black;
+        static const Color white;
+        /*static const Color black;
         static const Color lightGray;
         static const Color midGray;
         static const Color darkGray;

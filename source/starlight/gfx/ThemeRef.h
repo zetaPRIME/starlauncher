@@ -20,13 +20,14 @@ namespace starlight {
             
             ThemeRef(std::string name, T* ptr) : name(name), ptr(ptr) { }
             ThemeRef(std::string name) : name(name) { }
+            //ThemeRef(const ThemeRef&) = default; // if I delete or protect the copy constructor the map breaks...
         public:
             ~ThemeRef() { }
             
             ThemeRef<T>& operator ++() { return *this; }
-            T* operator ->() {
+            T* operator ->() const {
                 if (ptr == nullptr) {
-                    ThemeManager::Fulfill(*this); // call thememanager to grab things
+                    ThemeManager::Fulfill(const_cast<ThemeRef<T>&>(*this)); // call thememanager to grab things
                 }
                 return ptr;
             }

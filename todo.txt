@@ -1,10 +1,16 @@
 
 
 
+today's agenda {
+    top screen canvas, parallax layer container
+    actual theme drawables, ninepatch
+    simple font handling
+}
+
 roadmap {
     maybe switch drawoffset system from a stack to a pass-in
     finish touch input system {
-        DragHandle?
+        DragHandle done, maybe some tuning
         ?
     }
     moar utility stuff in Vector2 and VRect {
