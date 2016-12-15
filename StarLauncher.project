@@ -55,6 +55,9 @@
         <File Name="source/starlight/gfx/Font.cpp"/>
         <File Name="source/starlight/gfx/FontSFTD.h"/>
         <File Name="source/starlight/gfx/FontSFTD.cpp"/>
+        <File Name="source/starlight/gfx/RenderCore.h"/>
+        <File Name="source/starlight/gfx/RenderCore.cpp"/>
+        <File Name="source/starlight/gfx/basic_shader.v.pica"/>
       </VirtualDirectory>
       <File Name="source/starlight/_global.h"/>
     </VirtualDirectory>
