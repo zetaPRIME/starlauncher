@@ -34,6 +34,7 @@ using starlight::VRect;
 using starlight::Color;
 using starlight::InputManager;
 using starlight::GFXManager;
+using starlight::ThemeManager;
 using starlight::gfx::RenderCore;
 
 /*Handle *signalEvent = NULL;
@@ -110,6 +111,8 @@ int main()
     container->Add(button);
     
     Color bgColor = Color(0,0,0);
+    
+    consoleInit(GFX_TOP, consoleGetDefault());
     
     while (aptMainLoop()) {
 
@@ -218,8 +221,8 @@ int main()
         GFXManager::PopContext();*/
         
         RenderCore::BeginFrame();
-        RenderCore::targetTopLeft->Clear(Color(0,0,0));
-        RenderCore::targetTopLeft->BindTarget();
+        //RenderCore::targetTopLeft->Clear(Color(0,0,0));
+        //RenderCore::targetTopLeft->BindTarget();
         RenderCore::targetBottom->Clear(bgColor);
         //container->rect += InputManager::TouchDelta();
         button->rect += InputManager::CirclePad() * 5.0f;
@@ -231,6 +234,7 @@ int main()
         rad += 0.2f;
         
         RenderCore::EndFrame();
+        ThemeManager::LoadProc();
         //sf2d_swapbuffers();
     }
     

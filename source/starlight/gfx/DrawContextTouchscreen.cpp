@@ -7,8 +7,7 @@
 using starlight::gfx::DrawContextTouchscreen;
 
 void DrawContextTouchscreen::Open() {
-    // let's only do this when we're ready to draw
-    //sf2d_start_frame(GFX_BOTTOM, GFX_LEFT);
+    // meh
 }
 
 void DrawContextTouchscreen::Close() {
@@ -18,7 +17,6 @@ void DrawContextTouchscreen::Close() {
 bool DrawContextTouchscreen::Prepare() {
     if (drawReady) return true;
     drawReady = true;
-    //sf2d_start_frame(GFX_BOTTOM, GFX_LEFT);
     RenderCore::targetBottom->BindTarget();
     return true;
 }

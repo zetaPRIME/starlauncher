@@ -64,6 +64,8 @@ namespace starlight {
             static void BindColor(const Color& color);
             static void DrawQuad(const VRect& rect, const VRect& src);
             static void DrawQuad(const VRect& rect, const Vector2& anchor, float angle, const VRect& src);
+            
+            static CTexture* LoadTexture(void* src, int width, int height);
         };
     }
 }

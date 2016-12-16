@@ -58,11 +58,17 @@
         <File Name="source/starlight/gfx/RenderCore.h"/>
         <File Name="source/starlight/gfx/RenderCore.cpp"/>
         <File Name="source/starlight/gfx/basic_shader.v.pica"/>
+        <File Name="source/starlight/gfx/DrawableImage.h"/>
+        <File Name="source/starlight/gfx/DrawableImage.cpp"/>
       </VirtualDirectory>
       <File Name="source/starlight/_global.h"/>
       <VirtualDirectory Name="util">
         <File Name="source/starlight/util/WorkerThread.h"/>
         <File Name="source/starlight/util/WorkerThread.cpp"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="_ext">
+        <File Name="source/starlight/_ext/lodepng.h"/>
+        <File Name="source/starlight/_ext/lodepng.cpp"/>
       </VirtualDirectory>
     </VirtualDirectory>
   </VirtualDirectory>

@@ -19,19 +19,21 @@ void Button::Draw() {
     static auto& drw = ThemeManager::GetAsset("whatever");
     static auto& font = ThemeManager::GetFont("default");
     
+    static auto& idle = ThemeManager::GetAsset("button.idle");
+    static auto& press = ThemeManager::GetAsset("button.press");
+    
     auto rect = this->rect + GFXManager::GetOffset();
     
     if (InputManager::GetDragHandle() == this) {
-        drw->Draw(rect, nullptr, Color(0.32f,0.32f,0.32f));
+        /*drw->Draw(rect, nullptr, Color(0.32f,0.32f,0.32f));
         drw->Draw(rect.Expand(Vector2::one * -0.5f, Vector2::one), nullptr, Color(0.75f,0.75f,0.75f));
-        drw->Draw(rect.Expand(Vector2::one * -1), nullptr, Color(0.5f,0.5f,0.5f));
+        drw->Draw(rect.Expand(Vector2::one * -1), nullptr, Color(0.5f,0.5f,0.5f));*/
+        press->Draw(rect);
     } else {
-        drw->Draw(rect, nullptr, Color(1,1,1));
+        /*drw->Draw(rect, nullptr, Color(1,1,1));
         drw->Draw(rect.Expand(Vector2::one * -0.5f, Vector2::one), nullptr, Color(0.5f,0.5f,0.5f));
-        drw->Draw(rect.Expand(Vector2::one * -1), nullptr, Color(0.75f,0.75f,0.75f));
-        //drw->Draw(rect.Expand(Vector2::one * -1), nullptr, Color(0.75f,0.75f,0.75f,0.5f));
-        //drw->Draw(rect+Vector2(0,32), nullptr, Color(0.75f,0.75f,0.75f,0.5f));
-        //drw->Draw(rect + Vector2(100, -16), nullptr, Color(0.75f,0.75f,0.75f));
+        drw->Draw(rect.Expand(Vector2::one * -1), nullptr, Color(0.75f,0.75f,0.75f));*/
+        idle->Draw(rect);
     }
     
     static std::string label = "Button!\nI'm a grand bananaphone from the planet of the borpletydoos. :D";
@@ -54,6 +56,8 @@ void Button::OnTouchOn() {
 void Button::OnTouchOff() {
     auto& drag = InputManager::GetDragHandle();
     if (drag == this) drag.Release();
+    
+    rect.size = Vector2(32, 32); // test!
 }
 
 void Button::OnDragStart() {

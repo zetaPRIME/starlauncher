@@ -1,3 +1,6 @@
+#include <cstdio>
+#include <cmath>
+
 #include <3ds.h>
 #include <citro3d.h>
 
@@ -48,15 +51,16 @@ namespace { // internals
         return b;
     }
     
-    inline int NextPow2(int x) {
-        if (x < 0) return 0;
+    inline int NextPow2(unsigned int x) {
+        //if (x < 0) return 0;
         --x;
         x |= x >> 1;
         x |= x >> 2;
         x |= x >> 4;
         x |= x >> 8;
         x |= x >> 16;
-        return x+1;
+        x++;//return x+1;
+        return x >= 64 ? x : 64; // min size to prevent crash-on-load... but why does this derp up scaling
     }
     
     class CRawTexture : public CTexture {
@@ -67,6 +71,7 @@ namespace { // internals
         CRawTexture(int width, int height) {
             size = Vector2(width, height);
             auto w = NextPow2(width), h = NextPow2(height);
+            //while (w < 64 || h < 64) { w *= 2; h *= 2; } // prevents crash... but why does this screw up the texture scaling!?
             txSize = Vector2(w, h);
             texture = new C3D_Tex();
             C3D_TexInit(texture, w, h, GPU_RGBA8);
@@ -74,6 +79,9 @@ namespace { // internals
         ~CRawTexture() override {
             C3D_TexDelete(texture);
             delete texture;
+        }
+        void Bind(Color color = Color::white) override {
+            RenderCore::BindTexture(texture, color);
         }
     };
 }
@@ -199,6 +207,26 @@ void RenderCore::DrawQuad(const VRect& rect, const Vector2& anchor, float angle,
     BufInfo_Add(bufInfo, verts, sizeof(vbo_xyzuv), 2, 0x10);
 
     C3D_DrawArrays(GPU_TRIANGLE_STRIP, 0, 4);
+}
+
+// specifically RGBA
+CTexture* RenderCore::LoadTexture(void* src, int width, int height) {
+    // flush to FCRAM
+    GSPGPU_FlushDataCache(src, width*height*4);
+    // assemble texture
+    CRawTexture* tex = new CRawTexture(width, height);
+    int owidth = tex->txSize.x, oheight = tex->txSize.y;
+    constexpr u32 flags = (GX_TRANSFER_FLIP_VERT(1) | GX_TRANSFER_OUT_TILED(1) | GX_TRANSFER_RAW_COPY(0) |  GX_TRANSFER_IN_FORMAT(GX_TRANSFER_FMT_RGBA8) | \
+        GX_TRANSFER_OUT_FORMAT(GX_TRANSFER_FMT_RGBA8) |  GX_TRANSFER_SCALING(GX_TRANSFER_SCALE_NO));
+    C3D_SafeDisplayTransfer(static_cast<u32*>(src), GX_BUFFER_DIM(width, height), static_cast<u32*>(tex->texture->data), GX_BUFFER_DIM(owidth, oheight), flags);
+    gspWaitForPPF();
+    C3D_TexSetFilter(tex->texture, GPU_LINEAR, GPU_NEAREST);
+    
+    C3D_TexBind(0, tex->texture);
+    
+    printf("loaded image w %i (%i) h %i (%i)\n", width, owidth, height, oheight);
+    
+    return tex;
 }
 
 ///////////////////
