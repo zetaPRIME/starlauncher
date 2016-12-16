@@ -33,7 +33,7 @@ namespace starlight {
         inline Vector2 operator + (const Vector2 & o) const { return Vector2(x + o.x, y + o.y); }
         inline Vector2 operator - (const Vector2 & o) const { return Vector2(x - o.x, y - o.y); }
         inline Vector2 operator * (const Vector2 & o) const { return Vector2(x * o.x, y * o.y); }
-        //inline Vector2 operator / (const Vector2 & o) { return Vector2(x / o.x, y / o.y); } // not sure if relevant
+        inline Vector2 operator / (const Vector2 & o) const { return Vector2(x / o.x, y / o.y); }
         
         inline Vector2 & operator *= (const float scalar) { x *= scalar; y *= scalar; return *this; }
         inline Vector2 & operator /= (const float scalar) { x /= scalar; y /= scalar; return *this; } // maybe reciprocate then multiply instead? maybe the compiler does that

@@ -5,6 +5,10 @@
 #include <3ds.h>
 #include <citro3d.h>
 
+#include "starlight/datatypes/Vector2.h"
+#include "starlight/datatypes/VRect.h"
+#include "starlight/datatypes/Color.h"
+
 namespace starlight {
     namespace gfx {
         class RenderCore;
@@ -14,6 +18,9 @@ namespace starlight {
             CTexture() = default;
             
         public:
+            Vector2 size;
+            Vector2 txSize;
+            
             virtual ~CTexture() = default;
             virtual void Bind(Color color = Color::white) = 0;
         };
@@ -26,9 +33,10 @@ namespace starlight {
         public:
             C3D_Mtx projection;
             
-            CRenderTarget(int width, int height);
+            CRenderTarget(int width, int height, bool forceExact = false);
             ~CRenderTarget();
             
+            void Clear(Color color);
             void BindTarget();
             
             void Bind(Color color = Color::white) override;
@@ -50,7 +58,7 @@ namespace starlight {
             
             static void BindTexture(C3D_Tex* tex, const Color& color);
             static void BindColor(const Color& color);
-            static void DrawQuad(VRect rect, VRect src);
+            static void DrawQuad(const VRect& rect, const VRect& src);
         };
     }
 }

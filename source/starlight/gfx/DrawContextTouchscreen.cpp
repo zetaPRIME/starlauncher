@@ -1,5 +1,7 @@
 #include <sf2d.h>
 
+#include "starlight/gfx/RenderCore.h"
+
 #include "DrawContextTouchscreen.h"
 
 using starlight::gfx::DrawContextTouchscreen;
@@ -10,14 +12,14 @@ void DrawContextTouchscreen::Open() {
 }
 
 void DrawContextTouchscreen::Close() {
-    sf2d_end_frame();
     drawReady = false;
 }
 
 bool DrawContextTouchscreen::Prepare() {
     if (drawReady) return true;
     drawReady = true;
-    sf2d_start_frame(GFX_BOTTOM, GFX_LEFT);
+    //sf2d_start_frame(GFX_BOTTOM, GFX_LEFT);
+    RenderCore::targetBottom->BindTarget();
     return true;
 }
 

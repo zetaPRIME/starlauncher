@@ -19,17 +19,17 @@ FontSFTD::~FontSFTD() {
 #define ded(wat) err(0,wat)
 Vector2 FontSFTD::Measure(std::string& text, int size, int maxWidth) {
     Vector2 v;
-    PrintOp(Vector2(), text, size, Color(), Vector2(), nullptr, maxWidth, &v);
+    //PrintOp(Vector2(), text, size, Color(), Vector2(), nullptr, maxWidth, &v);
     return v;
 }
 
 void FontSFTD::Print(Vector2 position, std::string& text, int size, Color color, Vector2 justification, OptRef<Color> borderColor) {
-    PrintOp(position, text, size, color, justification, borderColor, 2147483647, static_cast<Vector2*>(nullptr));
+    //PrintOp(position, text, size, color, justification, borderColor, 2147483647, static_cast<Vector2*>(nullptr));
 }
 
 void FontSFTD::Print(VRect rect, std::string& text, int size, Color color, Vector2 justification, OptRef<Color> borderColor) {
-    Vector2 pos = rect.pos + rect.size * justification;
-    PrintOp(pos, text, size, color, justification, borderColor, rect.size.x, static_cast<Vector2*>(nullptr));
+    //Vector2 pos = rect.pos + rect.size * justification;
+    //PrintOp(pos, text, size, color, justification, borderColor, rect.size.x, static_cast<Vector2*>(nullptr));
 }
 
 void FontSFTD::PrintOp(Vector2 position, std::string& text, int size, const Color& color, Vector2 justification, OptRef<Color> borderColor, int maxWidth, Vector2* measure) {

@@ -1,7 +1,9 @@
 #pragma once
 #include "starlight/_global.h"
 
-#include <sf2d.h>
+#include <memory>
+
+#include "starlight/gfx/RenderCore.h"
 
 #include "starlight/gfx/Drawable.h"
 #include "starlight/gfx/DrawContext.h"
@@ -10,8 +12,7 @@ namespace starlight {
     namespace gfx {
         class DrawContextCanvas : public DrawContext, public Drawable {
         private:
-            sf2d_rendertarget* target;
-            sf2d_texture* texture;
+            std::unique_ptr<CRenderTarget> target;
             
         protected:
             void Open() override;

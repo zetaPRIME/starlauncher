@@ -28,8 +28,9 @@ void Button::Draw() {
     } else {
         drw->Draw(rect, nullptr, Color(1,1,1));
         drw->Draw(rect.Expand(Vector2::one * -0.5f, Vector2::one), nullptr, Color(0.5f,0.5f,0.5f));
-        drw->Draw(rect.Expand(Vector2::one * -1), nullptr, Color(0.75f,0.75f,0.75f,0.5f));
-        drw->Draw(rect+Vector2(0,32), nullptr, Color(0.75f,0.75f,0.75f,0.5f));
+        drw->Draw(rect.Expand(Vector2::one * -1), nullptr, Color(0.75f,0.75f,0.75f));
+        //drw->Draw(rect.Expand(Vector2::one * -1), nullptr, Color(0.75f,0.75f,0.75f,0.5f));
+        //drw->Draw(rect+Vector2(0,32), nullptr, Color(0.75f,0.75f,0.75f,0.5f));
         //drw->Draw(rect + Vector2(100, -16), nullptr, Color(0.75f,0.75f,0.75f));
     }
     

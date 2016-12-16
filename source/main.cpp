@@ -25,11 +25,16 @@
 #include "starlight/gfx/DrawContextCanvas.h"
 #include "starlight/GFXManager.h"
 
+#include "starlight/gfx/RenderCore.h"
+
 #define CONFIG_3D_SLIDERSTATE (*(float *)0x1FF81080)
 
 using starlight::Vector2;
 using starlight::VRect;
+using starlight::Color;
 using starlight::InputManager;
+using starlight::GFXManager;
+using starlight::gfx::RenderCore;
 
 /*Handle *signalEvent = NULL;
 Handle *resumeEvent = NULL;
@@ -48,6 +53,10 @@ Handle *nssHandle = NULL;//*/
   gfxInitDefault();
   consoleInit(GFX_TOP, NULL);
 }//*/
+
+float fRand() {
+    return static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+}
 
 int main()
 {
@@ -70,11 +79,12 @@ int main()
     
     romfsInit();
     
-    sf2d_init();
+    //sf2d_init();
     //sf2d_set_clear_color(RGBA8(0x40, 0x40, 0x40, 0xFF));
-    sf2d_set_clear_color(RGBA8(0x00, 0x00, 0x00, 0xFF));
-    sf2d_set_3D(1);
-    sf2d_set_vblank_wait(1);
+    //sf2d_set_clear_color(RGBA8(0x00, 0x00, 0x00, 0xFF));
+    //sf2d_set_3D(1);
+    //sf2d_set_vblank_wait(1);
+    RenderCore::Open();
     
     sftd_init();
     
@@ -99,6 +109,8 @@ int main()
     touchscreen->Add(container);
     container->Add(button);
     
+    Color bgColor = Color(0,0,0);
+    
     while (aptMainLoop()) {
 
         //hidScanInput();
@@ -115,7 +127,8 @@ int main()
             touch_x = touch.px;
             touch_y = touch.py;
         } else if (held & (KEY_L | KEY_R)) {
-            sf2d_set_clear_color(RGBA8(rand()%255, rand()%255, rand()%255, 255));
+            //sf2d_set_clear_color(RGBA8(rand()%255, rand()%255, rand()%255, 255));
+            bgColor = Color(fRand(), fRand(), fRand());
         } else if (held & KEY_Y) rad = 0;
         
         //if (InputManager::Held(KEY_TOUCH))
@@ -133,7 +146,7 @@ int main()
             //sf2d_draw_texture_rotate(tex1, offset3d + 400/2 + circle.dx, 240/2 - circle.dy, rad);
         sf2d_end_frame();//*/
         
-        static int ct = 0;
+        /*static int ct = 0;
         static u32 c1 = starlight::Color(1,0,0);
         static u32 c2 = starlight::Color(0,0,1);
         ct = ++ct % 3;
@@ -151,7 +164,7 @@ int main()
             sf2d_draw_rectangle(0,0,400,240,c2);
             //sftd_draw_text(font, 3, 1, RGBA8(255,255,255,255), 16, "THEY'RE MOULDY YOU PILLOCK\nWelcome to the secret text~");
             
-        sf2d_end_frame();
+        sf2d_end_frame();*/
         
         /*sf2d_start_frame(GFX_BOTTOM, GFX_LEFT); {
             
@@ -204,6 +217,10 @@ int main()
         }
         GFXManager::PopContext();*/
         
+        RenderCore::BeginFrame();
+        RenderCore::targetTopLeft->Clear(Color(0,0,0));
+        RenderCore::targetTopLeft->BindTarget();
+        RenderCore::targetBottom->Clear(bgColor);
         //container->rect += InputManager::TouchDelta();
         button->rect += InputManager::CirclePad() * 5.0f;
         
@@ -213,10 +230,11 @@ int main()
         
         rad += 0.2f;
         
-        sf2d_swapbuffers();
+        RenderCore::EndFrame();
+        //sf2d_swapbuffers();
     }
     
     sftd_fini();
-    sf2d_fini();
+    RenderCore::Close();//sf2d_fini();
     return 0;
 }

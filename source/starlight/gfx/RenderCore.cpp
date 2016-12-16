@@ -73,9 +73,9 @@ void RenderCore::Open() {
     bufferInd = 0;
     
     // set up screen targets
-    targetTopLeft = std::make_unique<CRenderTarget>(240, 400);
-    targetTopRight = std::make_unique<CRenderTarget>(240, 400);
-    targetBottom = std::make_unique<CRenderTarget>(240, 320);
+    targetTopLeft = std::make_unique<CRenderTarget>(240, 400, true);
+    targetTopRight = std::make_unique<CRenderTarget>(240, 400, true);
+    targetBottom = std::make_unique<CRenderTarget>(240, 320, true);
     C3D_RenderTargetSetOutput(targetTopLeft->tgt, GFX_TOP, GFX_LEFT,  0x1000);
     C3D_RenderTargetSetOutput(targetTopRight->tgt, GFX_TOP, GFX_RIGHT, 0x1000);
     C3D_RenderTargetSetOutput(targetBottom->tgt, GFX_BOTTOM, GFX_LEFT,  0x1000);
@@ -127,7 +127,7 @@ void RenderCore::BindTexture(C3D_Tex* tex, const Color& color) {
     C3D_TexEnvOp(env, C3D_Alpha, GPU_TEVOP_A_SRC_ALPHA, GPU_TEVOP_A_SRC_ALPHA, 0);
     C3D_TexEnvFunc(env, C3D_RGB, GPU_MODULATE);//REPLACE); // let's see...
     C3D_TexEnvFunc(env, C3D_Alpha, GPU_MODULATE);
-    C3D_TexEnvColor(env, color);
+    C3D_TexEnvColor(env, color.Premultiplied());
 }
 
 void RenderCore::BindColor(const Color& color) {
@@ -135,12 +135,12 @@ void RenderCore::BindColor(const Color& color) {
     C3D_TexEnvSrc(env, C3D_Both, GPU_CONSTANT, 0, 0);
     C3D_TexEnvOp(env, C3D_RGB, 0, 0, 0);
     C3D_TexEnvOp(env, C3D_Alpha, GPU_TEVOP_A_SRC_ALPHA, 0, 0);
-    C3D_TexEnvFunc(env, C3D_RGB, GPU_MODULATE);//REPLACE); // let's see...
-    C3D_TexEnvFunc(env, C3D_Alpha, GPU_MODULATE);
-    C3D_TexEnvColor(env, color);
+    C3D_TexEnvFunc(env, C3D_RGB, GPU_REPLACE);//REPLACE); // let's see...
+    C3D_TexEnvFunc(env, C3D_Alpha, GPU_REPLACE);
+    C3D_TexEnvColor(env, color.Premultiplied());
 }
 
-void RenderCore::DrawQuad(VRect rect, VRect src) {
+void RenderCore::DrawQuad(const VRect& rect, const VRect& src) {
     vbo_xyzuv* verts = static_cast<vbo_xyzuv*>(AllocBuffer(4 * sizeof(vbo_xyzuv), 8));
     
     setXYZUV(verts[0], rect.TopLeft(), src.TopLeft());
@@ -164,14 +164,24 @@ void RenderCore::DrawQuad(VRect rect, VRect src) {
 // CRenderTarget //
 ///////////////////
 
-CRenderTarget::CRenderTarget(int width, int height) {
-    auto w = NextPow2(width), h = NextPow2(height);
+CRenderTarget::CRenderTarget(int width, int height, bool forceExact) {
+    size = Vector2(width, height);
+    auto w = forceExact ? width : NextPow2(width),
+         h = forceExact ? height : NextPow2(height);
+    txSize = Vector2(w, h);
     tgt = C3D_RenderTargetCreate(w, h, GPU_RB_RGBA8, GPU_RB_DEPTH24_STENCIL8); // though actually, do we really need stenciling? could drop to 16 if we don't
     Mtx_Ortho(&projection, 0.0f, w, 0.0f, h, 0.0f, 1.0f, true);
+    //Mtx_OrthoTilt(&projection, 0.0f, h, 0.0f, w, 0.0f, 1.0f, true);
 }
 
 CRenderTarget::~CRenderTarget() {
     C3D_RenderTargetDelete(tgt);
+}
+
+void CRenderTarget::Clear(Color color) {
+    unsigned int c = color;
+    c = ((c>>24)&0x000000FF) | ((c>>8)&0x0000FF00) | ((c<<8)&0x00FF0000) | ((c<<24)&0xFF000000); // reverse endianness
+    C3D_RenderTargetSetClear(tgt, C3D_CLEAR_ALL, c, 0);
 }
 
 void CRenderTarget::BindTarget() {

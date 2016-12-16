@@ -12,12 +12,14 @@ namespace starlight {
         float b = 1.0f;
         float a = 1.0f;
         
-        Color() { }
+        Color() : r(0), g(0), b(0), a(0) { }
         Color(float r, float g, float b, float a) : r(r), g(g), b(b), a(a) { }
         Color(float r, float g, float b) : r(r), g(g), b(b), a(1.0f) { }
         ~Color() { }
         
         inline Color Alpha(float alpha) const { return Color(r,g,b,alpha); }
+        
+        inline Color Premultiplied() const { return Color(r*a,g*a,b*a,a); }
         
         inline bool operator == (const Color& o) const { return r == o.r && g == o.g && b == o.b && a == o.a; }
         inline bool operator != (const Color& o) const { return r != o.r || g != o.g || b != o.b || a != o.a; }
