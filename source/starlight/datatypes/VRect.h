@@ -38,8 +38,12 @@ namespace starlight {
         inline bool operator == (const VRect & o) const { return pos == o.pos && size == o.size; }
         inline bool operator != (const VRect & o) const { return pos != o.pos || size != o.size; }
         
+        // add/sub to move...
         inline VRect operator + (const Vector2 & vec) const { return VRect(pos + vec, size); }
         inline VRect operator - (const Vector2 & vec) const { return VRect(pos - vec, size); }
+        // mul/div to scale to a different mapping
+        inline VRect operator * (const Vector2 & vec) const { return VRect(pos * vec, size * vec); }
+        inline VRect operator / (const Vector2 & vec) const { return VRect(pos / vec, size / vec); }
         
         inline VRect & operator += (const Vector2 & vec) { pos += vec; return *this; }
         inline VRect & operator -= (const Vector2 & vec) { pos -= vec; return *this; }

@@ -22,6 +22,9 @@ namespace starlight {
         Vector2 CardinalAxis() const;
         Vector2 Cardinal() const;
         
+        Vector2 Rotate(float angle) const;
+        Vector2 RotateAround(const Vector2& anchor, float angle) const;
+        
         inline bool operator == (const Vector2 & o) const { return x == o.x && y == o.y; }
         inline bool operator != (const Vector2 & o) const { return x != o.x || y != o.y; }
         

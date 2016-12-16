@@ -12,10 +12,10 @@ namespace starlight {
         float b = 1.0f;
         float a = 1.0f;
         
-        Color() : r(0), g(0), b(0), a(0) { }
-        Color(float r, float g, float b, float a) : r(r), g(g), b(b), a(a) { }
-        Color(float r, float g, float b) : r(r), g(g), b(b), a(1.0f) { }
-        ~Color() { }
+        constexpr Color() : r(0), g(0), b(0), a(0) { }
+        constexpr Color(float r, float g, float b, float a) : r(r), g(g), b(b), a(a) { }
+        constexpr Color(float r, float g, float b) : r(r), g(g), b(b), a(1.0f) { }
+        ~Color() = default;
         
         inline Color Alpha(float alpha) const { return Color(r,g,b,alpha); }
         
@@ -30,12 +30,13 @@ namespace starlight {
         inline operator unsigned int() const { return (((((int)(a*255))&0xFF)<<24) | ((((int)(b*255))&0xFF)<<16) | ((((int)(g*255))&0xFF)<<8) | ((((int)(r*255))&0xFF)<<0)); }
         // premult: inline operator unsigned int() const { return (((((int)(a*255))&0xFF)<<24) | ((((int)(a*b*255))&0xFF)<<16) | ((((int)(a*g*255))&0xFF)<<8) | ((((int)(a*r*255))&0xFF)<<0)); }
         
+        static const Color transparent;
         static const Color white;
-        /*static const Color black;
+        static const Color black;
         static const Color lightGray;
         static const Color midGray;
         static const Color darkGray;
-        static const Color transparent;
-         */
+        
+        //
     };
 }

@@ -24,6 +24,12 @@ Vector2 Vector2::CardinalAxis() const {
 }
 Vector2 Vector2::Cardinal() const { return *this * CardinalAxis(); }
 
+Vector2 Vector2::Rotate(float angle) const {
+    float s = sin(angle), c = cos(angle);
+    return Vector2(x * c - y * s, x * s + y * c);
+}
+Vector2 Vector2::RotateAround(const Vector2& anchor, float angle) const { return (*this - anchor).Rotate(angle) + anchor; }
+
 // operators!
 //inline Vector2 operator *(const Vector2* vec, const float scalar) { return Vector2(vec.x * scalar, vec.y * scalar); }
 

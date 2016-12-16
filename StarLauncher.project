@@ -60,6 +60,10 @@
         <File Name="source/starlight/gfx/basic_shader.v.pica"/>
       </VirtualDirectory>
       <File Name="source/starlight/_global.h"/>
+      <VirtualDirectory Name="util">
+        <File Name="source/starlight/util/WorkerThread.h"/>
+        <File Name="source/starlight/util/WorkerThread.cpp"/>
+      </VirtualDirectory>
     </VirtualDirectory>
   </VirtualDirectory>
   <VirtualDirectory Name="conf">

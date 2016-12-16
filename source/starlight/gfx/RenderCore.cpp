@@ -57,6 +57,24 @@ namespace { // internals
         x |= x >> 16;
         return x+1;
     }
+    
+    class CRawTexture : public CTexture {
+        friend class starlight::gfx::RenderCore;
+    protected:
+        C3D_Tex* texture;
+    public:
+        CRawTexture(int width, int height) {
+            size = Vector2(width, height);
+            auto w = NextPow2(width), h = NextPow2(height);
+            txSize = Vector2(w, h);
+            texture = new C3D_Tex();
+            C3D_TexInit(texture, w, h, GPU_RGBA8);
+        }
+        ~CRawTexture() override {
+            C3D_TexDelete(texture);
+            delete texture;
+        }
+    };
 }
 
 std::unique_ptr<CRenderTarget> RenderCore::targetTopLeft = nullptr;
@@ -147,6 +165,26 @@ void RenderCore::DrawQuad(const VRect& rect, const VRect& src) {
     setXYZUV(verts[1], rect.TopRight(), src.TopRight());
     setXYZUV(verts[2], rect.BottomLeft(), src.BottomLeft());
     setXYZUV(verts[3], rect.BottomRight(), src.BottomRight());
+    
+    C3D_AttrInfo* attrInfo = C3D_GetAttrInfo();
+    AttrInfo_Init(attrInfo);
+    AttrInfo_AddLoader(attrInfo, 0, GPU_FLOAT, 3);
+    AttrInfo_AddLoader(attrInfo, 1, GPU_FLOAT, 2);
+
+    C3D_BufInfo* bufInfo = C3D_GetBufInfo();
+    BufInfo_Init(bufInfo);
+    BufInfo_Add(bufInfo, verts, sizeof(vbo_xyzuv), 2, 0x10);
+
+    C3D_DrawArrays(GPU_TRIANGLE_STRIP, 0, 4);
+}
+
+void RenderCore::DrawQuad(const VRect& rect, const Vector2& anchor, float angle, const VRect& src) {
+    vbo_xyzuv* verts = static_cast<vbo_xyzuv*>(AllocBuffer(4 * sizeof(vbo_xyzuv), 8));
+    
+    setXYZUV(verts[0], rect.TopLeft().RotateAround(anchor, angle), src.TopLeft());
+    setXYZUV(verts[1], rect.TopRight().RotateAround(anchor, angle), src.TopRight());
+    setXYZUV(verts[2], rect.BottomLeft().RotateAround(anchor, angle), src.BottomLeft());
+    setXYZUV(verts[3], rect.BottomRight().RotateAround(anchor, angle), src.BottomRight());
     
     C3D_AttrInfo* attrInfo = C3D_GetAttrInfo();
     AttrInfo_Init(attrInfo);

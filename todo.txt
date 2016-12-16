@@ -2,9 +2,12 @@
 
 
 today's agenda {
+    actual png loading (grab from romfs for now)
+    figure out what to do for json (binary json?) support
+} then {
     top screen canvas, parallax layer container
     actual theme drawables, ninepatch
-    simple font handling
+    prerendered bitmap fonts?
 }
 
 roadmap {
