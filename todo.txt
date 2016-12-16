@@ -2,7 +2,7 @@
 
 
 today's agenda {
-    actual png loading (grab from romfs for now)
+    maybe add integer snapping for quads
     figure out what to do for json (binary json?) support
 } then {
     top screen canvas, parallax layer container

@@ -52,15 +52,13 @@ namespace { // internals
     }
     
     inline int NextPow2(unsigned int x) {
-        //if (x < 0) return 0;
         --x;
         x |= x >> 1;
         x |= x >> 2;
         x |= x >> 4;
         x |= x >> 8;
         x |= x >> 16;
-        x++;//return x+1;
-        return x >= 64 ? x : 64; // min size to prevent crash-on-load... but why does this derp up scaling
+        return ++x >= 64 ? x : 64; // min size to keep gpu from locking
     }
     
     class CRawTexture : public CTexture {
@@ -71,7 +69,6 @@ namespace { // internals
         CRawTexture(int width, int height) {
             size = Vector2(width, height);
             auto w = NextPow2(width), h = NextPow2(height);
-            //while (w < 64 || h < 64) { w *= 2; h *= 2; } // prevents crash... but why does this screw up the texture scaling!?
             txSize = Vector2(w, h);
             texture = new C3D_Tex();
             C3D_TexInit(texture, w, h, GPU_RGBA8);
@@ -218,9 +215,11 @@ CTexture* RenderCore::LoadTexture(void* src, int width, int height) {
     int owidth = tex->txSize.x, oheight = tex->txSize.y;
     constexpr u32 flags = (GX_TRANSFER_FLIP_VERT(1) | GX_TRANSFER_OUT_TILED(1) | GX_TRANSFER_RAW_COPY(0) |  GX_TRANSFER_IN_FORMAT(GX_TRANSFER_FMT_RGBA8) | \
         GX_TRANSFER_OUT_FORMAT(GX_TRANSFER_FMT_RGBA8) |  GX_TRANSFER_SCALING(GX_TRANSFER_SCALE_NO));
+    //C3D_SafeDisplayTransfer(static_cast<u32*>(src), GX_BUFFER_DIM(width, height), static_cast<u32*>(tex->texture->data), GX_BUFFER_DIM(owidth, oheight), flags);
     C3D_SafeDisplayTransfer(static_cast<u32*>(src), GX_BUFFER_DIM(width, height), static_cast<u32*>(tex->texture->data), GX_BUFFER_DIM(owidth, oheight), flags);
     gspWaitForPPF();
     C3D_TexSetFilter(tex->texture, GPU_LINEAR, GPU_NEAREST);
+    C3D_TexSetWrap(tex->texture, GPU_CLAMP_TO_BORDER, GPU_CLAMP_TO_BORDER);
     
     C3D_TexBind(0, tex->texture);
     

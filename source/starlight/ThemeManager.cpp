@@ -17,6 +17,8 @@
 
 #include "starlight/gfx/RenderCore.h"
 
+using starlight::Vector2;
+
 using starlight::ThemeManager;
 using starlight::gfx::Drawable;
 using starlight::gfx::Font;
@@ -28,46 +30,67 @@ using starlight::gfx::RenderCore;
 using starlight::gfx::CTexture;
 
 namespace {
+    inline int NextPow2(unsigned int x) {
+        --x;
+        x |= x >> 1;
+        x |= x >> 2;
+        x |= x >> 4;
+        x |= x >> 8;
+        x |= x >> 16;
+        return ++x >= 64 ? x : 64; // min size to keep gpu from locking
+    }
+    
     CTexture* LoadPNG(const std::string& path, bool isPremult = false) {
         unsigned char* imgbuf;
         unsigned width, height;
         lodepng_decode32_file(&imgbuf, &width, &height, path.c_str());
         
-        u8* gpubuf = static_cast<u8*>(linearAlloc(width*height*4));
+        unsigned bw = NextPow2(width), bh = NextPow2(height);
+        
+        u8* gpubuf = static_cast<u8*>(linearAlloc(bw*bh*4));
         
         u8* src = static_cast<u8*>(imgbuf); u8* dst = static_cast<u8*>(gpubuf);
         
         if (isPremult) {
             // just convert endianness
-            for(unsigned i = 0; i<width*height; i++) {
-                int r = *src++;
-                int g = *src++;
-                int b = *src++;
-                int a = *src++;
-                
-                *dst++ = a;
-                *dst++ = b;
-                *dst++ = g;
-                *dst++ = r;
+            for(unsigned iy = 0; iy<height; iy++) {
+                for (unsigned ix = 0; ix < height; ix++) {
+                    int r = *src++;
+                    int g = *src++;
+                    int b = *src++;
+                    int a = *src++;
+                    
+                    *dst++ = a;
+                    *dst++ = b;
+                    *dst++ = g;
+                    *dst++ = r;
+                }
+                dst += (bw - width) * 4; // skip the difference
             }
         } else {
             // convert and premultiply
-            for(unsigned i = 0; i<width*height; i++) {
-                int r = *src++;
-                int g = *src++;
-                int b = *src++;
-                int a = *src++;
-                
-                float aa = (1.0f / 255.0f) * a;
-                
-                *dst++ = a;
-                *dst++ = b*aa;
-                *dst++ = g*aa;
-                *dst++ = r*aa;
+            for(unsigned iy = 0; iy<height; iy++) {
+                for (unsigned ix = 0; ix < height; ix++) {
+                    int r = *src++;
+                    int g = *src++;
+                    int b = *src++;
+                    int a = *src++;
+                    
+                    float aa = (1.0f / 255.0f) * a;
+                    
+                    *dst++ = a;
+                    *dst++ = b*aa;
+                    *dst++ = g*aa;
+                    *dst++ = r*aa;
+                }
+                dst += (bw - width) * 4; // skip the difference
             }
         }
+        // completely skipping over the difference instead of erasing might eventually lead to garbage outside of frame,
+        // but meh; that'll only be visible if you intentionally push the UVs outside the image proper
         
-        CTexture* tx = RenderCore::LoadTexture(static_cast<void*>(gpubuf), width, height);
+        CTexture* tx = RenderCore::LoadTexture(static_cast<void*>(gpubuf), bw, bh);
+        tx->size = Vector2(width, height); // and for now just fix the size after the fact
         
         std::free(imgbuf);
         linearFree(gpubuf);

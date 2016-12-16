@@ -1,4 +1,5 @@
 #include <cstdio>
+#include <cmath>
 
 #include "starlight/datatypes/Color.h"
 #include "starlight/GFXManager.h"
@@ -28,8 +29,5 @@ void DrawableImage::Draw(const VRect& rect, OptRef<VRect> sampleRect, OptRef<Col
         texture->Bind(color ? color.get() : Color(1,1,1,1));
         const VRect& sr = sampleRect ? sampleRect.get() : VRect(Vector2::zero, texture->size);
         RenderCore::DrawQuad(rect, sr / texture->txSize);
-        
-        auto xr = sr / texture->txSize;
-        std::printf("draw br %f, %f\n", xr.BottomRight().x, xr.BottomRight().y);
     }
 }
