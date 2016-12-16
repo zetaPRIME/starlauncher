@@ -12,6 +12,7 @@
 using starlight::Vector2;
 using starlight::VRect;
 using starlight::Color;
+using starlight::util::WorkerThread;
 using starlight::gfx::CTexture;
 using starlight::gfx::CRenderTarget;
 using starlight::gfx::RenderCore;
@@ -76,6 +77,8 @@ namespace { // internals
         }
     };
 }
+
+WorkerThread RenderCore::loadingThread;
 
 std::unique_ptr<CRenderTarget> RenderCore::targetTopLeft = nullptr;
 std::unique_ptr<CRenderTarget> RenderCore::targetTopRight = nullptr;

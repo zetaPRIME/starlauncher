@@ -9,6 +9,8 @@
 #include "starlight/datatypes/VRect.h"
 #include "starlight/datatypes/Color.h"
 
+#include "starlight/util/WorkerThread.h"
+
 namespace starlight {
     namespace gfx {
         class RenderCore;
@@ -44,6 +46,8 @@ namespace starlight {
         
         class RenderCore {
         public:
+            static util::WorkerThread loadingThread;
+            
             static std::unique_ptr<CRenderTarget> targetTopLeft;
             static std::unique_ptr<CRenderTarget> targetTopRight;
             static std::unique_ptr<CRenderTarget> targetBottom;

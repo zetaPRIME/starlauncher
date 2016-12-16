@@ -33,8 +33,15 @@ void WorkerThread::ThreadMain() {
             queue.pop_front();
             lock = false;
             
-            (*func)();
+            auto cfunc = (*func)();
             delete func;
+            
+            if (cfunc) {
+                while (c_lock) { }
+                c_lock = true;
+                cqueue.push_back(cfunc);
+                c_lock = false;
+            }
             
             while (lock) { }
             lock = true;
@@ -44,7 +51,24 @@ void WorkerThread::ThreadMain() {
     running = false;
 }
 
-void WorkerThread::Push(std::function<void()>* func) {
+void WorkerThread::RunCompleteQueue() {
+    while (c_lock) { }
+    c_lock = true;
+    while (!cqueue.empty()) {
+        auto cfunc = cqueue.front();
+        cqueue.pop_front();
+        c_lock = false;
+        
+        (*cfunc)();
+        delete cfunc;
+        
+        while (c_lock) { }
+        c_lock = true;
+    }
+    c_lock = false;
+}
+
+void WorkerThread::PushTask(std::function<std::function<void()>*()>* func) {
     while (lock) { }
     lock = true;
     queue.push_back(func);
