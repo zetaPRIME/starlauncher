@@ -1,4 +1,5 @@
 #pragma once
+#include "starlight/_global.h"
 
 #include <3ds.h>
 

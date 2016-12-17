@@ -1,5 +1,5 @@
-#include <stdlib.h>
-#include <math.h>
+#include <cstdlib>
+#include <cmath>
 #include <fastmath.h>
 
 #include "Vector2.h"
@@ -17,6 +17,7 @@ float Vector2::Length() const { return sqrtf(x * x + y * y); }
 Vector2 Vector2::Normalized() const { float m = Length(); return m == 0.0f ? Vector2::zero : Vector2(x / m, y / m); }
 
 Vector2 Vector2::Reciprocal() const { return Vector2(y, x); }
+Vector2 Vector2::IntSnap() const { return Vector2(roundf(x), roundf(y)); }
 
 Vector2 Vector2::CardinalAxis() const {
     if (fabsf(x) > fabsf(y)) return h;

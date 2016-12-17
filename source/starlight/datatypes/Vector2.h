@@ -18,6 +18,7 @@ namespace starlight {
         Vector2 Normalized() const;
         
         Vector2 Reciprocal() const;
+        Vector2 IntSnap() const;
         
         Vector2 CardinalAxis() const;
         Vector2 Cardinal() const;

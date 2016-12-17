@@ -26,6 +26,7 @@ roadmap {
     figure out theme fallback system
     ...
     Application base class (patterned after XNA/Monogame's Game class)
+    use ctrulib sync features for WorkerThread instead of spinlocks at some point
 }
 
 

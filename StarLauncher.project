@@ -66,9 +66,11 @@
         <File Name="source/starlight/util/WorkerThread.h"/>
         <File Name="source/starlight/util/WorkerThread.cpp"/>
       </VirtualDirectory>
-      <VirtualDirectory Name="_ext">
-        <File Name="source/starlight/_ext/lodepng.h"/>
-        <File Name="source/starlight/_ext/lodepng.cpp"/>
+      <VirtualDirectory Name="_incLib">
+        <File Name="source/starlight/_incLib/lodepng.cpp"/>
+        <File Name="source/starlight/_incLib/lodepng.h"/>
+        <File Name="source/starlight/_incLib/json.hpp"/>
+        <File Name="source/starlight/_incLib/_stringfix.h"/>
       </VirtualDirectory>
     </VirtualDirectory>
   </VirtualDirectory>

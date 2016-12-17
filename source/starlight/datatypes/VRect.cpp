@@ -33,6 +33,8 @@ bool VRect::Contains(const Vector2 & vec) const {
     //return fabsf(c.x - vec.x) < size.x * 0.5f && fabsf(c.y - vec.y) < size.y * 0.5f;
 }
 
+VRect VRect::IntSnap() const { return VRect(pos.IntSnap(), size.IntSnap()); }
+
 VRect VRect::Intersect(const VRect & o) const {
     Vector2 tl ( std::max(pos.x, o.pos.x), std::max(pos.y, o.pos.y) );
     Vector2 br ( std::min(pos.x + size.x, o.pos.x + o.size.x), std::min(pos.y + size.y, o.pos.y + o.size.y) );

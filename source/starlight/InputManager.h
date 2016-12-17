@@ -91,6 +91,7 @@ namespace starlight {
         static Vector2 TouchDelta();
         static Vector2 TouchStart();
         static Vector2 TouchDragDist();
+        static int TouchTime();
         
         static DragHandle& GetDragHandle() { return InputManager::drag; }
         

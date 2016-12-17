@@ -169,10 +169,12 @@ void RenderCore::BindColor(const Color& color) {
 void RenderCore::DrawQuad(const VRect& rect, const VRect& src) {
     vbo_xyzuv* verts = static_cast<vbo_xyzuv*>(AllocBuffer(4 * sizeof(vbo_xyzuv), 8));
     
-    setXYZUV(verts[0], rect.TopLeft(), src.TopLeft());
-    setXYZUV(verts[1], rect.TopRight(), src.TopRight());
-    setXYZUV(verts[2], rect.BottomLeft(), src.BottomLeft());
-    setXYZUV(verts[3], rect.BottomRight(), src.BottomRight());
+    VRect r = rect.IntSnap(); // screen-space snap
+    
+    setXYZUV(verts[0], r.TopLeft(), src.TopLeft());
+    setXYZUV(verts[1], r.TopRight(), src.TopRight());
+    setXYZUV(verts[2], r.BottomLeft(), src.BottomLeft());
+    setXYZUV(verts[3], r.BottomRight(), src.BottomRight());
     
     C3D_AttrInfo* attrInfo = C3D_GetAttrInfo();
     AttrInfo_Init(attrInfo);

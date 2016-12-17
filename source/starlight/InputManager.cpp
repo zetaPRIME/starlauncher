@@ -30,6 +30,7 @@ namespace {
     Vector2 touchLast;
     Vector2 touchNow;
     Vector2 touchStart;
+    int touchTime;
     
     Vector2 stickVec(circlePosition cpos) {
         Vector2 v (cpos.dx, -cpos.dy);
@@ -64,6 +65,9 @@ void InputManager::Update() {
     
     if (Pressed(KEY_TOUCH)) touchStart = touchLast = touchNow;
     
+    if (!Held(KEY_TOUCH) && !Released(KEY_TOUCH)) touchTime = 0;
+    else touchTime++;
+    
 }
 
 Vector2 InputManager::CirclePad() { return stickLeftNow; }
@@ -77,6 +81,7 @@ Vector2 InputManager::TouchPos() { return touchNow; }
 Vector2 InputManager::TouchDelta() { return touchNow - touchLast; }
 Vector2 InputManager::TouchStart() { return touchStart; }
 Vector2 InputManager::TouchDragDist() { return touchNow - touchStart; }
+int InputManager::TouchTime() { return touchTime; }
 
 // drag stuff!
 DragHandle InputManager::drag;

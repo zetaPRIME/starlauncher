@@ -12,8 +12,8 @@ namespace starlight {
         private:
             std::unordered_map<UIElement*, std::weak_ptr<UIElement>> _touched1 = std::unordered_map<UIElement*, std::weak_ptr<UIElement>>();
             std::unordered_map<UIElement*, std::weak_ptr<UIElement>> _touched2 = std::unordered_map<UIElement*, std::weak_ptr<UIElement>>();
-            std::unordered_map<UIElement*, std::weak_ptr<UIElement>>& touchedNow = this->_touched1;
-            std::unordered_map<UIElement*, std::weak_ptr<UIElement>>& touchedLast = this->_touched2;
+            std::unordered_map<UIElement*, std::weak_ptr<UIElement>>* touchedNow = &this->_touched1;
+            std::unordered_map<UIElement*, std::weak_ptr<UIElement>>* touchedLast = &this->_touched2;
             
         public:
             TouchScreenCanvas();

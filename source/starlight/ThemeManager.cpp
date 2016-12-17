@@ -1,12 +1,14 @@
 #include <cstdlib>
 #include <string>
+#include <fstream>
 #include <sys/stat.h>
 
 #include <citro3d.h>
 #include <sf2d.h>
 #include <sftd.h>
 
-#include "starlight/_ext/lodepng.h"
+#include "starlight/_incLib/lodepng.h"
+#include "starlight/_incLib/json.hpp"
 
 #include "ThemeManager.h"
 #include "starlight/gfx/ThemeRef.h"
@@ -16,6 +18,10 @@
 #include "starlight/gfx/FontSFTD.h"
 
 #include "starlight/gfx/RenderCore.h"
+
+using std::string;
+
+using nlohmann::json;
 
 using starlight::Vector2;
 
@@ -38,6 +44,14 @@ namespace {
         x |= x >> 8;
         x |= x >> 16;
         return ++x >= 64 ? x : 64; // min size to keep gpu from locking
+    }
+    
+    inline string FindExtension(const string& path) {
+        auto idot = path.rfind('.');
+        if (idot == string::npos || idot == 0) return string(); // no dot found, or .hiddenfile? return empty
+        auto idir = path.rfind('/');
+        if (idir != string::npos && idir >= idot-1) return string(); // last dot in containing directory, or dir/.hiddenfile? return empty
+        return path.substr(idot+1); // return extension without dot
     }
     
     CTexture* LoadPNG(const std::string& path, bool isPremult = false) {
@@ -126,13 +140,23 @@ void ThemeManager::Fulfill(ThemeRef<Drawable>& ref) {
 }
 
 void ThemeManager::Fulfill_(ThemeRef<Drawable>& ref) {
-    std::string path = "romfs:/" + ref.name + ".png";
-    struct stat buf;
-    if (stat(path.c_str(), &buf) == 0) {
+    string path = ResolveAssetPath(ref.name);
+    string ext = FindExtension(path);
+    printf("load: %s (%s)\n", path.c_str(), ext.c_str());
+    /**/ if (ext == "png") {
         ref.ptr = new DrawableImage(LoadPNG(path));
-        return;
     }
-    ref.ptr = new starlight::gfx::DrawableTest();
+    else if (ext == "json") {
+        json j;
+        { // using:
+            std::ifstream fs(path);
+            fs >> j;
+        }
+        auto st = j.dump();
+        printf("file contents: %s\n", st.c_str());
+        ref.ptr = new starlight::gfx::DrawableTest();
+    }
+    else ref.ptr = new starlight::gfx::DrawableTest();
 }
 
 void ThemeManager::Fulfill(ThemeRef<Font>& ref) {
@@ -146,5 +170,18 @@ void ThemeManager::LoadProc() {
         tq.front()();
         tq.pop_front();
     }
+}
+
+string ThemeManager::ResolveAssetPath(const string& id) {
+    struct stat buf;
+    string path(id.length() + 64, ' '); // preallocate buffer space
+    path.clear(); path.append("romfs:/"); path.append(id); path.append(".json");
+    printf("attempt: %s\n", path.c_str());
+    if (stat(path.c_str(), &buf) == 0) return path;
+    path.erase(path.end()-5, path.end()); path.append(".png");
+    printf("attempt: %s\n", path.c_str());
+    if (stat(path.c_str(), &buf) == 0) return path;
+    
+    return string();
 }
 

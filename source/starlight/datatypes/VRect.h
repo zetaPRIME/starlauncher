@@ -26,6 +26,8 @@ namespace starlight {
         bool Overlaps(const VRect & o) const;
         bool Contains(const Vector2 & vec) const;
         
+        VRect IntSnap() const;
+        
         VRect Intersect(const VRect & o) const;
         VRect Expand(const Vector2& amount, const Vector2& bias) const;
         VRect Expand(const Vector2& amount) const { return Expand(amount, Vector2::half); }

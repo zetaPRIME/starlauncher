@@ -56,6 +56,7 @@ CFLAGS	+=	$(INCLUDE) -DARM11 -D_3DS
 
 # was gnu++11; -fno-rtti -fno-exceptions (why no-exceptions???)
 CXXFLAGS	:= $(CFLAGS) -fno-rtti -std=gnu++14
+# on second thought, let's not use -D_GLIBCXX_USE_C99
 #CXXFLAGS	:= $(CFLAGS) -std=gnu++14
 
 ASFLAGS	:=	-g $(ARCH)

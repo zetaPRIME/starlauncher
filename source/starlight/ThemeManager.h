@@ -34,6 +34,8 @@ namespace starlight {
         static const gfx::ThemeRef<gfx::Font>& GetFont(std::string name);
         
         static void LoadProc();
+        
+        static std::string ResolveAssetPath(const std::string& id);
     };
 }
 
