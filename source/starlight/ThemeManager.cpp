@@ -4,8 +4,6 @@
 #include <sys/stat.h>
 
 #include <citro3d.h>
-#include <sf2d.h>
-#include <sftd.h>
 
 #include "starlight/_incLib/lodepng.h"
 #include "starlight/_incLib/json.hpp"
@@ -14,10 +12,12 @@
 #include "starlight/gfx/ThemeRef.h"
 
 #include "starlight/gfx/DrawableImage.h"
+#include "starlight/gfx/DrawableNinePatch.h"
 #include "starlight/gfx/DrawableTest.h"
 #include "starlight/gfx/FontSFTD.h"
 
 #include "starlight/gfx/RenderCore.h"
+#include "starlight/gfx/BitmapFont.h"
 
 using std::string;
 
@@ -31,9 +31,11 @@ using starlight::gfx::Font;
 using starlight::gfx::ThemeRef;
 
 using starlight::gfx::DrawableImage;
+using starlight::gfx::DrawableNinePatch;
 
 using starlight::gfx::RenderCore;
 using starlight::gfx::CTexture;
+using starlight::gfx::BitmapFont;
 
 namespace {
     inline int NextPow2(unsigned int x) {
@@ -154,15 +156,30 @@ void ThemeManager::Fulfill_(ThemeRef<Drawable>& ref) {
         }
         auto st = j.dump();
         printf("file contents: %s\n", st.c_str());
-        ref.ptr = new starlight::gfx::DrawableTest();
+        
+        string type = j["assetType"];
+        /**/ if (type == "ninepatch") {
+            path.erase(path.end()-5, path.end()); path.append(".png");
+            auto d = new DrawableNinePatch(LoadPNG(path));
+            ref.ptr = d;
+            d->margin = Vector2(j["margin"][0], j["margin"][1]);
+        }
+        else ref.ptr = new starlight::gfx::DrawableTest();
     }
     else ref.ptr = new starlight::gfx::DrawableTest();
 }
 
 void ThemeManager::Fulfill(ThemeRef<Font>& ref) {
-    sftd_font* f = sftd_load_font_file("romfs:/Arcon-Regular.otf");
-    auto test = new starlight::gfx::FontSFTD(f);
-    ref.ptr = test;
+    auto font = new starlight::gfx::FontSFTD();
+    { // using:
+        json j;
+        std::ifstream fs("romfs:/fonts/default.json");
+        fs >> j;
+        font->font = std::make_unique<BitmapFont>(j);
+    }
+    font->font->txMain.reset(LoadPNG("romfs:/fonts/default.png"));
+    font->font->txBorder.reset(LoadPNG("romfs:/fonts/default.border.png"));
+    ref.ptr = font;
 }
 
 void ThemeManager::LoadProc() {

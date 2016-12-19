@@ -31,6 +31,7 @@ namespace starlight {
         VRect Intersect(const VRect & o) const;
         VRect Expand(const Vector2& amount, const Vector2& bias) const;
         VRect Expand(const Vector2& amount) const { return Expand(amount, Vector2::half); }
+        VRect Expand(float x, float y) const { return Expand(Vector2(x, y )); }
         
         VRect TopEdge(float width) const;
         VRect BottomEdge(float width) const;

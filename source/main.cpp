@@ -5,8 +5,6 @@
 #include <time.h>
 #include <math.h>
 #include <3ds.h>
-#include <sf2d.h>
-#include <sftd.h>
 
 #include <functional>
 #include <memory>
@@ -80,14 +78,7 @@ int main()
     
     romfsInit();
     
-    //sf2d_init();
-    //sf2d_set_clear_color(RGBA8(0x40, 0x40, 0x40, 0xFF));
-    //sf2d_set_clear_color(RGBA8(0x00, 0x00, 0x00, 0xFF));
-    //sf2d_set_3D(1);
-    //sf2d_set_vblank_wait(1);
     RenderCore::Open();
-    
-    sftd_init();
     
     float offset3d = 0.0f;
     float rad = 0.0f;
@@ -116,8 +107,6 @@ int main()
     
     while (aptMainLoop()) {
 
-        //hidScanInput();
-        //hidCircleRead(&circle);
         InputManager::Update();
         held = hidKeysHeld();
         
@@ -235,10 +224,8 @@ int main()
         
         RenderCore::EndFrame();
         ThemeManager::LoadProc();
-        //sf2d_swapbuffers();
     }
     
-    sftd_fini();
     RenderCore::Close();//sf2d_fini();
     return 0;
 }

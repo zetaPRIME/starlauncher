@@ -1,5 +1,4 @@
 #include <cmath>
-#include <sf2d.h>
 #include <citro3d.h>
 
 #include "starlight/datatypes/Color.h"

@@ -220,7 +220,8 @@ CTexture* RenderCore::LoadTexture(void* src, int width, int height) {
     //C3D_SafeDisplayTransfer(static_cast<u32*>(src), GX_BUFFER_DIM(width, height), static_cast<u32*>(tex->texture->data), GX_BUFFER_DIM(owidth, oheight), flags);
     C3D_SafeDisplayTransfer(static_cast<u32*>(src), GX_BUFFER_DIM(width, height), static_cast<u32*>(tex->texture->data), GX_BUFFER_DIM(owidth, oheight), flags);
     gspWaitForPPF();
-    C3D_TexSetFilter(tex->texture, GPU_LINEAR, GPU_NEAREST);
+    //C3D_TexSetFilter(tex->texture, GPU_LINEAR, GPU_NEAREST);
+    C3D_TexSetFilter(tex->texture, GPU_LINEAR, GPU_LINEAR); // nearest causes artifacts on ninepatches
     C3D_TexSetWrap(tex->texture, GPU_CLAMP_TO_BORDER, GPU_CLAMP_TO_BORDER);
     
     C3D_TexBind(0, tex->texture);

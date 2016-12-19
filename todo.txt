@@ -2,12 +2,9 @@
 
 
 today's agenda {
-    maybe add integer snapping for quads
-    figure out what to do for json (binary json?) support
+    bitmap font loader/renderer (load from bmfont-to-json format: https://github.com/playcanvas/fonts/blob/master/fnt_to_json.py )
 } then {
     top screen canvas, parallax layer container
-    actual theme drawables, ninepatch
-    prerendered bitmap fonts?
 }
 
 roadmap {
@@ -20,10 +17,7 @@ roadmap {
         -
     }
     tween system
-    figure out rotation hotspot etc.
-    actual theme drawables
-    ninepatch, nontrivial drawable format, fonts, etc.
-    figure out theme fallback system
+    figure out theme layout and fallback system
     ...
     Application base class (patterned after XNA/Monogame's Game class)
     use ctrulib sync features for WorkerThread instead of spinlocks at some point

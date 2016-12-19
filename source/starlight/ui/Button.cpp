@@ -16,7 +16,7 @@ using starlight::ThemeManager;
 using starlight::ui::Button;
 
 void Button::Draw() {
-    static auto& drw = ThemeManager::GetAsset("whatever");
+    //static auto& drw = ThemeManager::GetAsset("whatever");
     static auto& font = ThemeManager::GetFont("default");
     
     static auto& idle = ThemeManager::GetAsset("button.idle");
@@ -36,7 +36,8 @@ void Button::Draw() {
         idle->Draw(rect);
     }
     
-    static std::string label = "Button!\nI'm a grand bananaphone from the planet of the borpletydoos. :D";
+    //static std::string label = "hello motherfucker speedcoredandy";//Button!\nI'm a grand bananaphone from the planet of the borpletydoos. :D";
+    static std::string label = "First line;\nI'm a Button! :D\nshiny new fonts!";
     /*Vector2 c = rect.Center();
     font->Print(c-Vector2::h, label, Font::defaultSize, Color(0,0,0,0.25f), Vector2::half);
     font->Print(c+Vector2::h, label, Font::defaultSize, Color(0,0,0,0.25f), Vector2::half);
@@ -44,7 +45,8 @@ void Button::Draw() {
     font->Print(c+Vector2::v, label, Font::defaultSize, Color(0,0,0,0.25f), Vector2::half);
     
     font->Print(c, label, Font::defaultSize, Color(1,1,1), Vector2::half);*/
-    font->Print(rect, label, Font::defaultSize, Color(0,1,1), Vector2(0.25f, 0.5f), Color(1,1,1,0.5f));
+    font->Print(rect, label, 1, Color::white, Vector2(0.5f, 0.5f), Color::black);
+    //font->Print(rect.Center(), label);
 }
 
 void Button::OnTouchOn() {
@@ -57,7 +59,7 @@ void Button::OnTouchOff() {
     auto& drag = InputManager::GetDragHandle();
     if (drag == this) drag.Release();
     
-    rect.size = Vector2(32, 32); // test!
+    //rect.size = Vector2(32, 32); // test!
 }
 
 void Button::OnDragStart() {

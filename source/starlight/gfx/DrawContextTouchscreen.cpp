@@ -1,5 +1,3 @@
-#include <sf2d.h>
-
 #include "starlight/gfx/RenderCore.h"
 
 #include "DrawContextTouchscreen.h"

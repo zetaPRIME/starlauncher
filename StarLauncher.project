@@ -60,6 +60,10 @@
         <File Name="source/starlight/gfx/basic_shader.v.pica"/>
         <File Name="source/starlight/gfx/DrawableImage.h"/>
         <File Name="source/starlight/gfx/DrawableImage.cpp"/>
+        <File Name="source/starlight/gfx/DrawableNinePatch.h"/>
+        <File Name="source/starlight/gfx/DrawableNinePatch.cpp"/>
+        <File Name="source/starlight/gfx/BitmapFont.h"/>
+        <File Name="source/starlight/gfx/BitmapFont.cpp"/>
       </VirtualDirectory>
       <File Name="source/starlight/_global.h"/>
       <VirtualDirectory Name="util">
@@ -71,6 +75,7 @@
         <File Name="source/starlight/_incLib/lodepng.h"/>
         <File Name="source/starlight/_incLib/json.hpp"/>
         <File Name="source/starlight/_incLib/_stringfix.h"/>
+        <File Name="source/starlight/_incLib/json_fwd.hpp"/>
       </VirtualDirectory>
     </VirtualDirectory>
   </VirtualDirectory>
@@ -130,7 +135,7 @@ DEVKITPRO=D:\devkitPro]]>
         <ClangCmpFlagsC/>
         <ClangCmpFlags/>
         <ClangPP/>
-        <SearchPaths>source
+        <SearchPaths>$(ProjectPath)/source
 ${DEVKITARM}/arm-none-eabi/include
 ${DEVKITPRO}/libctru/include</SearchPaths>
       </Completion>

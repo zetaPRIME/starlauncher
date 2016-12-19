@@ -1,5 +1,3 @@
-#include <sf2d.h>
-
 #include "starlight/datatypes/Color.h"
 #include "starlight/GFXManager.h"
 

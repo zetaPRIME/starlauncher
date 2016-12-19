@@ -2,12 +2,14 @@
 
 #pragma once
 
-#include <string>
-#include <sstream>
+// !! UNCOMMENT if using devkitARM r45 or earlier !!
+//#include <string>
+//#include <sstream>
 
 // add in missing string functions
 #if defined(_GLIBCXX_STRING) && !defined(_GLIBCXX_USE_C99)
-namespace std { // whee ugly hacks!
+// !! UNCOMMENT if using devkitARM r45 or earlier !!
+/*namespace std { // whee ugly hacks!
     template <typename T>
     std::string to_string(T value) {
         std::ostringstream os;
@@ -42,5 +44,5 @@ namespace std { // whee ugly hacks!
        ss>>N;
        return N;
     }
-}
+}//*/
 #endif
