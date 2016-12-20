@@ -2,12 +2,14 @@
 
 
 today's agenda {
-    bitmap font loader/renderer (load from bmfont-to-json format: https://github.com/playcanvas/fonts/blob/master/fnt_to_json.py )
+    basic scrollarea
 } then {
     top screen canvas, parallax layer container
+    hmm. thinking default.12 and default.16 font variants; also mono.12/16
 }
 
-roadmap {
+unordered_roadmap {
+    redraw-only-when-needed for canvases!
     maybe switch drawoffset system from a stack to a pass-in
     finish touch input system {
         DragHandle done, maybe some tuning
@@ -18,11 +20,27 @@ roadmap {
     }
     tween system
     figure out theme layout and fallback system
+    maybe a few further refinements to bitmap fonts
     ...
     Application base class (patterned after XNA/Monogame's Game class)
     use ctrulib sync features for WorkerThread instead of spinlocks at some point
+    - http://smealum.github.io/ctrulib/synchronization_8h.html#a9fe83ca3ec3c6ae269203acf367ad5a9
+    duck l'orange
 }
 
+theme layout {
+    sdmc:/.starlight/themes/<name>/ {
+        fonts {
+            default.12.json/png/border.png
+            default.16
+            mono.12/16
+        }
+        controls {
+            button.idle/pressed
+            ...
+        }
+    }
+}
 
 
 drawable, drawcontext, gfxmanager (pushContext, popContext) (done mostly)
@@ -38,10 +56,6 @@ new Button().at(40, 40).within(container).ofSize(64, 32).withText("Popsicles!");
 shelved for now because shared_from_this is kind of dumb for what I need it for :D :D :D
 (though maybe some trickery with putting the last-created-element in a static, combined with static factory pattern...)
 
-example button, TouchScreenCanvas
-
-precheck version of Dive
-
 maybe LoosePtr (wraps weak_ptr for expired check but references by raw pointer)
 implement this to replace weak_ptr parent if it ends up impacting performance too much
 
@@ -50,5 +64,9 @@ maybe implement this: https://probablydance.com/2013/01/13/a-faster-implementati
 split stuff into libstarlight {
     namespaces (done except for a couple manager classes)
     actual lib split once everything's working I guess
-    "" to <>
+    "" to <> (???)
+}
+
+// notes {
+    bitmap font converter - https://github.com/playcanvas/fonts/blob/master/fnt_to_json.py
 }

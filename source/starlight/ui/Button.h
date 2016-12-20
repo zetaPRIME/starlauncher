@@ -1,6 +1,9 @@
 #pragma once
 #include "starlight/_global.h"
 
+#include <string>
+#include <functional>
+
 #include "starlight/ui/UIElement.h"
 
 namespace starlight {
@@ -10,7 +13,11 @@ namespace starlight {
             //
             
         public:
+            std::string label;
+            std::function<void(Button&)> eOnTap;
+            
             Button(VRect rect) { this->rect = rect; }
+            Button(Vector2 pos) { this->rect = VRect(pos, Vector2(128, 32)); }
             ~Button() { }
             
             void Draw() override;

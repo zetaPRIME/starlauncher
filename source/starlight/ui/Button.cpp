@@ -16,37 +16,20 @@ using starlight::ThemeManager;
 using starlight::ui::Button;
 
 void Button::Draw() {
-    //static auto& drw = ThemeManager::GetAsset("whatever");
-    static auto& font = ThemeManager::GetFont("default");
+    static auto& font = ThemeManager::GetFont("default.12");
     
     static auto& idle = ThemeManager::GetAsset("button.idle");
     static auto& press = ThemeManager::GetAsset("button.press");
     
-    auto rect = this->rect + GFXManager::GetOffset();
+    auto rect = (this->rect + GFXManager::GetOffset()).IntSnap();
     
     if (InputManager::GetDragHandle() == this) {
-        /*drw->Draw(rect, nullptr, Color(0.32f,0.32f,0.32f));
-        drw->Draw(rect.Expand(Vector2::one * -0.5f, Vector2::one), nullptr, Color(0.75f,0.75f,0.75f));
-        drw->Draw(rect.Expand(Vector2::one * -1), nullptr, Color(0.5f,0.5f,0.5f));*/
         press->Draw(rect);
     } else {
-        /*drw->Draw(rect, nullptr, Color(1,1,1));
-        drw->Draw(rect.Expand(Vector2::one * -0.5f, Vector2::one), nullptr, Color(0.5f,0.5f,0.5f));
-        drw->Draw(rect.Expand(Vector2::one * -1), nullptr, Color(0.75f,0.75f,0.75f));*/
         idle->Draw(rect);
     }
     
-    //static std::string label = "hello motherfucker speedcoredandy";//Button!\nI'm a grand bananaphone from the planet of the borpletydoos. :D";
-    static std::string label = "First line;\nI'm a Button! :D\nshiny new fonts!";
-    /*Vector2 c = rect.Center();
-    font->Print(c-Vector2::h, label, Font::defaultSize, Color(0,0,0,0.25f), Vector2::half);
-    font->Print(c+Vector2::h, label, Font::defaultSize, Color(0,0,0,0.25f), Vector2::half);
-    font->Print(c-Vector2::v, label, Font::defaultSize, Color(0,0,0,0.25f), Vector2::half);
-    font->Print(c+Vector2::v, label, Font::defaultSize, Color(0,0,0,0.25f), Vector2::half);
-    
-    font->Print(c, label, Font::defaultSize, Color(1,1,1), Vector2::half);*/
     font->Print(rect, label, 1, Color::white, Vector2(0.5f, 0.5f), Color::black);
-    //font->Print(rect.Center(), label);
 }
 
 void Button::OnTouchOn() {
@@ -58,12 +41,10 @@ void Button::OnTouchOn() {
 void Button::OnTouchOff() {
     auto& drag = InputManager::GetDragHandle();
     if (drag == this) drag.Release();
-    
-    //rect.size = Vector2(32, 32); // test!
 }
 
 void Button::OnDragStart() {
-    //
+    // do we need to do anything here?
 }
 
 void Button::OnDragHold() {
@@ -72,12 +53,8 @@ void Button::OnDragHold() {
     }
 }
 
-#define err(nth, wat) *((unsigned int*)0x00100000+(nth))=wat;
-#define ded(wat) err(0,wat)
-#define die() ded(0xDEADBEEF);
-
 void Button::OnDragRelease() {
     if (InputManager::Released(KEY_TOUCH)) {
-        //
+        if (eOnTap) eOnTap(*this);
     }
 }

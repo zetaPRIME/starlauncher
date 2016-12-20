@@ -75,7 +75,7 @@ float BitmapFont::DrawText(const Vector2& penStart, std::string& msg, float scal
         //printf("%c w %f h %f adv %f sc %f\n", c, ci.width, ci.height, ci.advX, scale);
         VRect crect(ci.imgX, ci.imgY, ci.width, ci.height);
         if (draw) RenderCore::DrawQuad(VRect(pen, crect.size * scale), crect * uvScale);
-        pen.x += ci.advX;
+        pen.x += ci.advX * scale;
         
         cl = c;
     }

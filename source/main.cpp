@@ -57,6 +57,7 @@ float fRand() {
     return static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
 }
 
+bool quit = false;
 int main()
 {
     /*printf("does this draw\n");
@@ -100,12 +101,23 @@ int main()
     //auto button = std::make_shared<starlight::ui::Button>(VRect(0,0,320-32,240-32));
     touchscreen->Add(container);
     container->Add(button);
+    button->label = "I'm a button.";
+    button->eOnTap = [](auto& btn){
+        btn.label = "I was pressed!";
+        btn.eOnTap = [](auto& btn){
+            btn.label = "Event swap!";
+            btn.eOnTap = [](auto& btn){
+                quit = true;
+            };
+        };
+    };
     
     Color bgColor = Color(0,0,0);
     
     consoleInit(GFX_TOP, consoleGetDefault());
     
     while (aptMainLoop()) {
+        if (quit) break;
 
         InputManager::Update();
         held = hidKeysHeld();
