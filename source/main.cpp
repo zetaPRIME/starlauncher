@@ -16,6 +16,7 @@
 #include "starlight/gfx/ThemeRef.h"
 
 #include "starlight/ui/TouchScreenCanvas.h"
+#include "starlight/ui/ScrollField.h"
 #include "starlight/ui/Button.h"
 
 #include "starlight/gfx/DrawableTest.h"
@@ -96,7 +97,8 @@ int main()
     // stuff!
     auto touchscreen = std::make_shared<starlight::ui::TouchScreenCanvas>();
     //auto container = std::make_shared<starlight::ui::UIContainer>(VRect(32,32,320-32,240-32));
-    auto container = std::make_shared<starlight::ui::UICanvas>(VRect(32,32,320-32,240-32));
+    //auto container = std::make_shared<starlight::ui::UICanvas>(VRect(32,32,320-32,240-32));
+    auto container = std::make_shared<starlight::ui::ScrollField>(VRect(0,0,320-0,240-0));
     auto button = std::make_shared<starlight::ui::Button>(VRect(4,80,128,32));
     //auto button = std::make_shared<starlight::ui::Button>(VRect(0,0,320-32,240-32));
     touchscreen->Add(container);
@@ -107,7 +109,9 @@ int main()
         btn.eOnTap = [](auto& btn){
             btn.label = "Event swap!";
             btn.eOnTap = [](auto& btn){
-                quit = true;
+                //quit = true;
+                btn.label = "Clicked again!\nBunch of lines!\nNow testing scrollarea fling with some extra size!\n\n\nPotato.";
+                btn.rect.size.y = 573;
             };
         };
     };

@@ -47,6 +47,15 @@ VRect VRect::Expand(const Vector2& amount, const Vector2& bias) const {
     return VRect(pos + amount * bias * -2, size + amount * 2);
 }
 
+VRect VRect::Include(const Vector2& point) const { // could probably be more optimized
+    Vector2 tl = TopLeft(), br = BottomRight();
+    if (point.x < tl.x) tl.x = point.x;
+    else if (point.x > br.x) br.x = point.x;
+    if (point.y < tl.y) tl.y = point.y;
+    else if (point.y > br.y) br.y = point.y;
+    return VRect(tl, br - tl);
+}
+
 VRect VRect::TopEdge(float width) const     { return VRect(pos.x, pos.y, size.x, width); }
 VRect VRect::BottomEdge(float width) const  { return VRect(pos.x, pos.y + size.y - width, size.x, width); }
 VRect VRect::LeftEdge(float width) const    { return VRect(pos.x, pos.y, width, size.y); }

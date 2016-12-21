@@ -2,8 +2,11 @@
 
 
 today's agenda {
-    basic scrollarea
+    figure out how to stop scroll on touching child?
+    kill scroll velocity when hitting the edge
+    make scrollfield autofit a flag
 } then {
+    figure out why fonts are biasing like 2px to the right?
     top screen canvas, parallax layer container
     hmm. thinking default.12 and default.16 font variants; also mono.12/16
 }

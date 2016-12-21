@@ -1,8 +1,8 @@
+#include "Button.h"
+
 #include "starlight/InputManager.h"
 #include "starlight/GFXManager.h"
 #include "starlight/ThemeManager.h"
-
-#include "Button.h"
 
 using starlight::Vector2;
 using starlight::Color;

@@ -33,6 +33,8 @@ namespace starlight {
         VRect Expand(const Vector2& amount) const { return Expand(amount, Vector2::half); }
         VRect Expand(float x, float y) const { return Expand(Vector2(x, y )); }
         
+        VRect Include(const Vector2& point) const;
+        
         VRect TopEdge(float width) const;
         VRect BottomEdge(float width) const;
         VRect LeftEdge(float width) const;

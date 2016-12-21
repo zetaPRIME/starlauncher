@@ -77,6 +77,7 @@ namespace starlight {
         
     public:
         static constexpr const float dragThreshold = 8.0f;
+        static constexpr const float flingThreshold = 5.0f;
         
         static void Update();
         

@@ -19,7 +19,7 @@ void UIElement::_Dive(std::function<bool(UIElement*)>& func, bool consumable, bo
 
 VRect UIElement::ViewRect() {
     if (auto p = parent.lock()) {
-        return rect + p->scrollOffset;
+        return rect - p->scrollOffset;
     }
     return rect;
 }

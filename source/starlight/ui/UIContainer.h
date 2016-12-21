@@ -23,7 +23,7 @@ namespace starlight {
             void _Dive(std::function<bool(UIElement*)>& func, bool consumable, bool frontFirst, bool& finished);
             
         public:
-            Vector2 scrollOffset = Vector2(0,0);
+            Vector2 scrollOffset = Vector2::zero;
             
             VRect ViewportRect() { return VRect(scrollOffset, rect.size); }
             

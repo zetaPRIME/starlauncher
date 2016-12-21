@@ -73,7 +73,7 @@ void UIContainer::PreDraw() {
 }
 
 void UIContainer::Draw() {
-    GFXManager::PushOffsetAdd(rect.pos);
+    GFXManager::PushOffsetAdd(rect.pos - scrollOffset);
     for (auto& it : children) { it->Draw(); }
     GFXManager::PopOffset();
 }

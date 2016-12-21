@@ -173,12 +173,12 @@ void ThemeManager::Fulfill(ThemeRef<Font>& ref) {
     auto font = new starlight::gfx::FontSFTD();
     { // using:
         json j;
-        std::ifstream fs("romfs:/fonts/default.json");
+        std::ifstream fs("romfs:/fonts/default.12.json");
         fs >> j;
         font->font = std::make_unique<BitmapFont>(j);
     }
-    font->font->txMain.reset(LoadPNG("romfs:/fonts/default.png"));
-    font->font->txBorder.reset(LoadPNG("romfs:/fonts/default.border.png"));
+    font->font->txMain.reset(LoadPNG("romfs:/fonts/default.12.png"));
+    font->font->txBorder.reset(LoadPNG("romfs:/fonts/default.12.border.png"));
     ref.ptr = font;
 }
 
