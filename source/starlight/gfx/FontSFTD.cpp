@@ -24,6 +24,7 @@ void FontSFTD::Print(Vector2 position, std::string& text, float scale, Color col
 }
 
 void FontSFTD::Print(VRect rect, std::string& text, float scale, Color color, Vector2 justification, OptRef<Color> borderColor) {
+    if (borderColor && borderColor.get() != Color::transparent) rect = rect.Expand(-1, -1);
     Vector2 pos = rect.pos + rect.size * justification;
     PrintOp(pos, text, scale, color, justification, borderColor, rect.size.x, static_cast<Vector2*>(nullptr));
 }

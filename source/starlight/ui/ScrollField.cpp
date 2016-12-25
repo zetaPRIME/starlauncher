@@ -38,6 +38,10 @@ void ScrollField::Update() {
     scrollOffset.y = std::max(0.0f, std::min(scrollOffset.y, scrollMax.y));
 }
 
+void ScrollField::OnProcessTouchEvent() { // stop when child element touched
+    if (InputManager::Pressed(KEY_TOUCH)) scrollVel = Vector2::zero;
+}
+
 void ScrollField::OnTouchOn() {
     if (InputManager::Pressed(KEY_TOUCH)) {
         InputManager::GetDragHandle().Grab(this);

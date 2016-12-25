@@ -36,7 +36,10 @@ void TouchScreenCanvas::Update() {
     if (!drag.valid() && InputManager::Held(KEY_TOUCH)) {
         Dive(
             [&tpos](UIElement* e){
-                return e->ScreenRect().Contains(tpos);
+                if (e->ScreenRect().Contains(tpos)) {
+                    e->OnProcessTouchEvent();
+                    return true;
+                } return false;
             },
             [&tpos, this](UIElement* e){
                 touchedNow->insert({e, std::weak_ptr<UIElement>(e->shared_from_this())});

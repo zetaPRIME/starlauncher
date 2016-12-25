@@ -40,6 +40,8 @@ namespace starlight {
             virtual void OnTouchOff() { }
             virtual void OnTouchHold() { }
             
+            virtual void OnProcessTouchEvent() { } // name?
+            
             virtual bool InterceptsTouch(Vector2 where) { return false; }
             
             virtual bool OnDragPassed() { return false; }

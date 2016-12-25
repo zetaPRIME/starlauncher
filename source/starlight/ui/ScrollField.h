@@ -21,6 +21,8 @@ namespace starlight {
             void OnTouchOff() override { }
             void OnTouchHold() override { }
             
+            void OnProcessTouchEvent() override;
+            
             bool InterceptsTouch(Vector2 where) override { return true; }
             
             bool OnDragPassed() override;

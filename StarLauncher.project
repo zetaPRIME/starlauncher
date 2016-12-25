@@ -79,7 +79,11 @@
         <File Name="source/starlight/_incLib/_stringfix.h"/>
         <File Name="source/starlight/_incLib/json_fwd.hpp"/>
       </VirtualDirectory>
+      <File Name="source/starlight/Application.h"/>
+      <File Name="source/starlight/Application.cpp"/>
     </VirtualDirectory>
+    <File Name="source/Core.h"/>
+    <File Name="source/Core.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="conf">
     <File Name="Makefile"/>

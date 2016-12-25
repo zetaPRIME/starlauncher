@@ -19,6 +19,8 @@ BitmapFont::BitmapFont(json& j) {
     fontSize = fabsf(j["info"]["size"]);
     lineHeight = j["common"]["lineHeight"];
     baseY = j["common"]["base"];
+    padX = j["info"]["padding"][3];
+    padY = j["info"]["padding"][0];
     
     // assemble charinfo structs
     for (auto& c : json::iterator_wrapper(j["chars"])) {
@@ -63,18 +65,19 @@ BitmapFont::CharInfo& BitmapFont::Char(char c) {
 
 float BitmapFont::DrawText(const Vector2& penStart, std::string& msg, float scale, Color color, bool border) {
     Vector2 pen = penStart;
+    Vector2 pad(padX, -padY); // compensate for padding around glyphs
     bool draw = color != Color::transparent;
     if (draw) ((border && txBorder) ? txBorder : txMain)->Bind(color);
     
     Vector2 uvScale = Vector2::one / txMain->txSize;
     
-    char cl = ' ';
+    char cl = 0xFF;//' ';
     for (auto c : msg) {
         pen.x += GetKerning(cl, c) * scale;
         auto& ci = Char(c);
         //printf("%c w %f h %f adv %f sc %f\n", c, ci.width, ci.height, ci.advX, scale);
         VRect crect(ci.imgX, ci.imgY, ci.width, ci.height);
-        if (draw) RenderCore::DrawQuad(VRect(pen, crect.size * scale), crect * uvScale);
+        if (draw) RenderCore::DrawQuad(VRect(pen - pad, crect.size * scale), crect * uvScale);
         pen.x += ci.advX * scale;
         
         cl = c;

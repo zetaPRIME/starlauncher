@@ -28,6 +28,8 @@
 
 #define CONFIG_3D_SLIDERSTATE (*(float *)0x1FF81080)
 
+#include "Core.h"
+
 using starlight::Vector2;
 using starlight::VRect;
 using starlight::Color;
@@ -61,6 +63,8 @@ float fRand() {
 bool quit = false;
 int main()
 {
+    Core().Run();
+    return 0;
     /*printf("does this draw\n");
     APT_Initialize(APPID_HOMEMENU, aptMakeAppletAttr(APTPOS_SYS, true, true), signalEvent, resumeEvent);
     while (aptMainLoop()) {

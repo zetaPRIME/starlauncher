@@ -2,16 +2,23 @@
 
 
 today's agenda {
-    figure out how to stop scroll on touching child?
-    kill scroll velocity when hitting the edge
-    make scrollfield autofit a flag
+    UIElement.Resize(), UIElement.OnResize(), UIContainer.OnChildResize(UIElement& child)
+    simple Label element
+    
 } then {
-    figure out why fonts are biasing like 2px to the right?
+    kill scroll velocity when hitting the edge (or rapid decel)
+    make scrollfield autofit a flag
+    DONE - figure out why fonts are biasing like 2px to the right? herp derp it was font padding
     top screen canvas, parallax layer container
     hmm. thinking default.12 and default.16 font variants; also mono.12/16
+    actually implement named font loading you dolt
+    make le scrollfield check threshold itself and only count directions it can actually scroll
+    visual sugar such as "bump glow" for scrollfields
 }
 
 unordered_roadmap {
+    
+    
     redraw-only-when-needed for canvases!
     maybe switch drawoffset system from a stack to a pass-in
     finish touch input system {
@@ -25,7 +32,6 @@ unordered_roadmap {
     figure out theme layout and fallback system
     maybe a few further refinements to bitmap fonts
     ...
-    Application base class (patterned after XNA/Monogame's Game class)
     use ctrulib sync features for WorkerThread instead of spinlocks at some point
     - http://smealum.github.io/ctrulib/synchronization_8h.html#a9fe83ca3ec3c6ae269203acf367ad5a9
     duck l'orange

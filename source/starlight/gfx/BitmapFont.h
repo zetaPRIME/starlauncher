@@ -30,6 +30,7 @@ namespace starlight {
             float fontSize;
             float lineHeight;
             float baseY;
+            float padX, padY;
             
             
             std::unordered_map<char, CharInfo> chars;
