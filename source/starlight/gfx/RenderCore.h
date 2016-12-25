@@ -46,7 +46,7 @@ namespace starlight {
         
         class RenderCore {
         public:
-            static util::WorkerThread loadingThread;
+            //static util::WorkerThread loadingThread;
             
             static std::unique_ptr<CRenderTarget> targetTopLeft;
             static std::unique_ptr<CRenderTarget> targetTopRight;

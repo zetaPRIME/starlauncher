@@ -83,7 +83,7 @@ namespace { // internals
     };
 }
 
-WorkerThread RenderCore::loadingThread;
+//WorkerThread RenderCore::loadingThread;
 
 std::unique_ptr<CRenderTarget> RenderCore::targetTopLeft = nullptr;
 std::unique_ptr<CRenderTarget> RenderCore::targetTopRight = nullptr;
