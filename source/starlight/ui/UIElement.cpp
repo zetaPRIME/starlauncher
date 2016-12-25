@@ -30,3 +30,13 @@ VRect UIElement::ScreenRect() {
     }
     return rect;
 }
+
+VRect& UIElement::Resize(Vector2 size) {
+    if (size == rect.size) return rect; // don't trigger events on false alarm
+    rect.size = size;
+    OnResize();
+    if (auto p = parent.lock()) {
+        p->OnChildResize(*this);
+    }
+    return rect;
+}

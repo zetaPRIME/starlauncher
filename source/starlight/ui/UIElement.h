@@ -28,6 +28,8 @@ namespace starlight {
             virtual VRect ViewRect();
             virtual VRect ScreenRect();
             
+            VRect& Resize(Vector2 size);
+            
             UIElement();
             virtual ~UIElement();
             
@@ -48,6 +50,8 @@ namespace starlight {
             virtual void OnDragStart() { }
             virtual void OnDragRelease() { }
             virtual void OnDragHold() { }
+            
+            virtual void OnResize() { }
             
         };
     }

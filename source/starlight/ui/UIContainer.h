@@ -41,6 +41,8 @@ namespace starlight {
             void Update() override;
             void PreDraw() override;
             void Draw() override;
+            
+            virtual void OnChildResize(UIElement& child) { }
         };
     }
 }
