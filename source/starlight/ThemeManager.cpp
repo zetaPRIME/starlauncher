@@ -14,7 +14,7 @@
 #include "starlight/gfx/DrawableImage.h"
 #include "starlight/gfx/DrawableNinePatch.h"
 #include "starlight/gfx/DrawableTest.h"
-#include "starlight/gfx/FontSFTD.h"
+#include "starlight/gfx/FontBMF.h"
 
 #include "starlight/gfx/RenderCore.h"
 #include "starlight/gfx/BitmapFont.h"
@@ -170,7 +170,7 @@ void ThemeManager::Fulfill_(ThemeRef<Drawable>& ref) {
 }
 
 void ThemeManager::Fulfill(ThemeRef<Font>& ref) {
-    auto font = new starlight::gfx::FontSFTD();
+    auto font = new starlight::gfx::FontBMF();
     { // using:
         json j;
         std::ifstream fs("romfs:/fonts/default.12.json");

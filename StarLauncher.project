@@ -55,8 +55,6 @@
         <File Name="source/starlight/gfx/DrawContextCanvas.cpp"/>
         <File Name="source/starlight/gfx/Font.h"/>
         <File Name="source/starlight/gfx/Font.cpp"/>
-        <File Name="source/starlight/gfx/FontSFTD.h"/>
-        <File Name="source/starlight/gfx/FontSFTD.cpp"/>
         <File Name="source/starlight/gfx/RenderCore.h"/>
         <File Name="source/starlight/gfx/RenderCore.cpp"/>
         <File Name="source/starlight/gfx/basic_shader.v.pica"/>
@@ -66,6 +64,8 @@
         <File Name="source/starlight/gfx/DrawableNinePatch.cpp"/>
         <File Name="source/starlight/gfx/BitmapFont.h"/>
         <File Name="source/starlight/gfx/BitmapFont.cpp"/>
+        <File Name="source/starlight/gfx/FontBMF.cpp"/>
+        <File Name="source/starlight/gfx/FontBMF.h"/>
       </VirtualDirectory>
       <File Name="source/starlight/_global.h"/>
       <VirtualDirectory Name="util">
