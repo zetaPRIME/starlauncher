@@ -9,6 +9,7 @@
 
 #include "starlight/ui/ScrollField.h"
 #include "starlight/ui/Button.h"
+#include "starlight/ui/Label.h"
 
 using starlight::Vector2;
 using starlight::VRect;
@@ -23,22 +24,34 @@ using starlight::Application;
 void Core::Init() {
     consoleInit(GFX_TOP, consoleGetDefault());
     
-    auto container = std::make_shared<starlight::ui::ScrollField>(VRect(0,0,320-0,240-0));
-    auto button = std::make_shared<starlight::ui::Button>(VRect(64,80,128,32));
+    auto container = std::make_shared<sl::ui::ScrollField>(VRect(0,0,320-0,240-0));
     touchScreen->Add(container);
-    container->Add(button);
-    button->label = "I'm a button.";
-    button->eOnTap = [](auto& btn){
-        btn.label = "I was pressed!";
-        btn.eOnTap = [](auto& btn){
-            btn.label = "Event swap!";
-            btn.eOnTap = [](auto& btn){
-                //quit = true;
-                btn.label = "Clicked again!\nBunch of lines!\nNow testing scrollarea fling with some extra size!\n\n\nPotato.\nCalamari sandwich on rye with a side of octagonal pimento; a jar of butter?";
+    
+    auto label = std::make_shared<sl::ui::Label>(VRect(0,0,320,0));
+    label->autoSizeV = true;
+    //label->justification = Vector2::zero;
+    //label->SetText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+    label->SetText("~libstardust UI test~\n\nHello. I'm a label.\nI have multiple lines and can resize to fit my content. Did you know that miles per gallon is actually a measure of volume?");
+    //label->SetFont("default.16");
+    //label->SetFont("default.12");
+    container->Add(label);
+    
+    auto button = std::make_shared<sl::ui::Button>(VRect(64,80,128,32));
+    button->SetText("I'm a button.");
+    button->eOnTap = [label](auto& btn){
+        label->SetFont("default.16");
+        btn.SetText("I was pressed!");
+        btn.eOnTap = [label](auto& btn){
+            label->borderColor = Color::black;
+            btn.SetText("Event swap!");
+            btn.eOnTap = [label](auto& btn){
+                label->SetFont("default.12");
+                btn.SetText("Clicked again!\nBunch of lines!\nNow testing scrollarea fling with some extra size!\n\n\nPotato.\nCalamari sandwich on rye with a side of octagonal pimento; a jar of butter?");
                 btn.rect.size.y = 573;
             };
         };
     };
+    container->Add(button);
     
     clearColor = Color(0.0f, 0.5f, 0.5f);
     

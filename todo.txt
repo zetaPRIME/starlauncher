@@ -2,12 +2,10 @@
 
 
 today's agenda {
-    simple Label element
     
 } then {
     kill scroll velocity when hitting the edge (or rapid decel)
     make scrollfield autofit a flag
-    DONE - figure out why fonts are biasing like 2px to the right? herp derp it was font padding
     top screen canvas, parallax layer container
     hmm. thinking default.12 and default.16 font variants; also mono.12/16
     actually implement named font loading you dolt

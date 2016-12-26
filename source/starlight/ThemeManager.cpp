@@ -170,15 +170,18 @@ void ThemeManager::Fulfill_(ThemeRef<Drawable>& ref) {
 }
 
 void ThemeManager::Fulfill(ThemeRef<Font>& ref) {
+    string path = ResolveFontPath(ref.name);
     auto font = new starlight::gfx::FontBMF();
     { // using:
         json j;
-        std::ifstream fs("romfs:/fonts/default.12.json");
+        std::ifstream fs(path);
         fs >> j;
         font->font = std::make_unique<BitmapFont>(j);
     }
-    font->font->txMain.reset(LoadPNG("romfs:/fonts/default.12.png"));
-    font->font->txBorder.reset(LoadPNG("romfs:/fonts/default.12.border.png"));
+    path.erase(path.end()-5, path.end()); path.append(".png");
+    font->font->txMain.reset(LoadPNG(path));
+    path.erase(path.end()-4, path.end()); path.append(".border.png");
+    font->font->txBorder.reset(LoadPNG(path));
     ref.ptr = font;
 }
 
@@ -193,6 +196,19 @@ string ThemeManager::ResolveAssetPath(const string& id) {
     struct stat buf;
     string path(id.length() + 64, ' '); // preallocate buffer space
     path.clear(); path.append("romfs:/"); path.append(id); path.append(".json");
+    printf("attempt: %s\n", path.c_str());
+    if (stat(path.c_str(), &buf) == 0) return path;
+    path.erase(path.end()-5, path.end()); path.append(".png");
+    printf("attempt: %s\n", path.c_str());
+    if (stat(path.c_str(), &buf) == 0) return path;
+    
+    return string();
+}
+
+string ThemeManager::ResolveFontPath(const string& id) { // this needs redone, but whatever
+    struct stat buf;
+    string path(id.length() + 64, ' '); // preallocate buffer space
+    path.clear(); path.append("romfs:/fonts/"); path.append(id); path.append(".json");
     printf("attempt: %s\n", path.c_str());
     if (stat(path.c_str(), &buf) == 0) return path;
     path.erase(path.end()-5, path.end()); path.append(".png");

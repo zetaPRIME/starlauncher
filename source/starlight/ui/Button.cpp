@@ -15,6 +15,11 @@ using starlight::ThemeManager;
 
 using starlight::ui::Button;
 
+void Button::SetText(const std::string& text) {
+    label = text;
+    MarkForRedraw();
+}
+
 void Button::Draw() {
     static auto& font = ThemeManager::GetFont("default.12");
     

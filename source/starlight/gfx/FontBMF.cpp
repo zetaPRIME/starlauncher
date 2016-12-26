@@ -4,10 +4,13 @@
 #include <list>
 #include <cmath>
 
+#include "starlight/GFXManager.h"
+
 #include "FontBMF.h"
 
 using starlight::Vector2;
 using starlight::VRect;
+using starlight::GFXManager;
 using starlight::gfx::Font;
 using starlight::gfx::FontBMF;
 
@@ -20,13 +23,17 @@ Vector2 FontBMF::Measure(std::string& text, float scale, float maxWidth) {
 }
 
 void FontBMF::Print(Vector2 position, std::string& text, float scale, Color color, Vector2 justification, OptRef<Color> borderColor) {
-    PrintOp(position, text, scale, color, justification, borderColor, 2147483647, static_cast<Vector2*>(nullptr));
+    if (GFXManager::PrepareForDrawing()) {
+        PrintOp(position, text, scale, color, justification, borderColor, 2147483647, static_cast<Vector2*>(nullptr));
+    }
 }
 
 void FontBMF::Print(VRect rect, std::string& text, float scale, Color color, Vector2 justification, OptRef<Color> borderColor) {
-    if (borderColor && borderColor.get() != Color::transparent) rect = rect.Expand(-1, -1);
-    Vector2 pos = rect.pos + rect.size * justification;
-    PrintOp(pos, text, scale, color, justification, borderColor, rect.size.x, static_cast<Vector2*>(nullptr));
+    if (GFXManager::PrepareForDrawing()) {
+        if (borderColor && borderColor.get() != Color::transparent) rect = rect.Expand(-1, -1);
+        Vector2 pos = rect.pos + rect.size * justification;
+        PrintOp(pos, text, scale, color, justification, borderColor, rect.size.x, static_cast<Vector2*>(nullptr));
+    }
 }
 
 void FontBMF::PrintOp(Vector2 position, std::string& text, float scale, const Color& color, Vector2 justification, OptRef<Color> borderColor, float maxWidth, Vector2* measure) {

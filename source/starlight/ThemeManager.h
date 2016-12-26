@@ -31,15 +31,12 @@ namespace starlight {
         ThemeManager() = delete; // "static" class
         
         static const gfx::ThemeRef<gfx::Drawable>& GetAsset(const std::string& name);
-        template <typename T>
-        static const gfx::ThemeRef<gfx::Drawable>& GetAsset(std::string name) { return GetAsset(name); }
         static const gfx::ThemeRef<gfx::Font>& GetFont(const std::string& name);
-        template <typename T>
-        static const gfx::ThemeRef<gfx::Font>& GetFont(std::string name) { return GetFont(name); }
         
         static void LoadProc();
         
         static std::string ResolveAssetPath(const std::string& id);
+        static std::string ResolveFontPath(const std::string& id);
     };
 }
 

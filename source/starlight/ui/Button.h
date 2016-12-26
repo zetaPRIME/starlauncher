@@ -20,6 +20,8 @@ namespace starlight {
             Button(Vector2 pos) { this->rect = VRect(pos, Vector2(128, 32)); }
             ~Button() { }
             
+            void SetText(const std::string& text);
+            
             void Draw() override;
             
             // events

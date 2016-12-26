@@ -1,5 +1,9 @@
 #include "Label.h"
 
+#include "starlight/GFXManager.h"
+
+using starlight::GFXManager;
+
 using starlight::ui::Label;
 
 Label::Label(VRect rect) {
@@ -27,6 +31,7 @@ void Label::SetFont(const std::string& fontName) {
 }
 
 void Label::Draw() {
+    auto rect = (this->rect + GFXManager::GetOffset()).IntSnap();
     (*font)->Print(rect, text, 1, color, justification, borderColor);
 }
 
