@@ -50,6 +50,7 @@ void UIContainer::_Dive(std::function<bool(UIElement*)>& func, bool consumable, 
 void UIContainer::Add(std::shared_ptr<UIElement> elem) {
     children.push_back(elem);
     elem->parent = std::weak_ptr<UIContainer>(std::static_pointer_cast<UIContainer>(this->shared_from_this()));
+    MarkForRedraw();
 }
 //void UIContainer::Add(UIElement* elem) {
     // as it turns out, you *have* to immediately encapsulate because herp derp shared_from_this doesn't even bother to check
@@ -62,6 +63,7 @@ void UIContainer::Remove(std::shared_ptr<UIElement> elem) {
     elem->parent = std::weak_ptr<UIContainer>(); // explicit null expressed in a slightly silly way
     //children.remove_if([&elem](std::shared_ptr<UIElement> ie){return ie == elem;});
     children.remove(elem); // I think this uses operator ==()?
+    MarkForRedraw();
 }
 
 void UIContainer::Update() {

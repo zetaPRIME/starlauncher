@@ -32,6 +32,13 @@ namespace starlight {
                 return ptr;
             }
             
+            /*T& operator *() const {
+                if (ptr == nullptr) {
+                    ThemeManager::Fulfill(const_cast<ThemeRef<T>&>(*this)); // call thememanager to grab things
+                }
+                return *ptr;
+            }*/
+            
         };
     }
 }

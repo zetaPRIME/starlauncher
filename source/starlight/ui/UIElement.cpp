@@ -40,3 +40,7 @@ VRect& UIElement::Resize(Vector2 size) {
     }
     return rect;
 }
+
+void UIElement::MarkForRedraw() {
+    if (auto p = parent.lock()) p->MarkForRedraw();
+}

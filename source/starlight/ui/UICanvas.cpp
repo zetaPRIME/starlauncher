@@ -17,7 +17,14 @@ UICanvas::UICanvas(VRect rect) {
     drawContext = std::make_unique<starlight::gfx::DrawContextCanvas>(rect.size);
 }
 
+void UICanvas::MarkForRedraw() {
+    needsRedraw = true;
+    this->UIElement::MarkForRedraw();
+}
+
 void UICanvas::PreDraw() {
+    if (!needsRedraw) return;
+    
     drawContext->Clear();
     GFXManager::PushContext(drawContext.get());
     GFXManager::PushOffsetAdd(-scrollOffset);
@@ -28,6 +35,8 @@ void UICanvas::PreDraw() {
     
     GFXManager::PopOffset();
     GFXManager::PopContext();
+    
+    needsRedraw = false;
 }
 
 void UICanvas::Draw() {

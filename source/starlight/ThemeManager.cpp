@@ -119,14 +119,14 @@ std::unordered_map<std::string, ThemeRef<Drawable>> ThemeManager::drawables;
 std::unordered_map<std::string, ThemeRef<Font>> ThemeManager::fonts;
 std::list<std::function<void()>> ThemeManager::tq;
 
-const ThemeRef<Drawable>& ThemeManager::GetAsset(std::string name) {
+const ThemeRef<Drawable>& ThemeManager::GetAsset(const std::string& name) {
     auto const& itr = drawables.find(name);
     if (itr == drawables.end()) {
         return drawables.insert(std::make_pair(name, ThemeRef<Drawable>(name))).first->second;
     } else return itr->second;
 }
 
-const ThemeRef<Font>& ThemeManager::GetFont(std::string name) {
+const ThemeRef<Font>& ThemeManager::GetFont(const std::string& name) {
     auto const& itr = fonts.find(name);
     if (itr == fonts.end()) {
         return fonts.insert(std::make_pair(name, ThemeRef<Font>(name))).first->second;

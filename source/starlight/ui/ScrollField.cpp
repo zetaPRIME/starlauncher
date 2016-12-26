@@ -32,7 +32,7 @@ void ScrollField::Update() {
     if (scrollVel.Length() < 0.1f) {
         scrollVel = Vector2::zero;
         scrollOffset = scrollOffset.IntSnap();
-    }
+    } else MarkForRedraw();
     
     scrollOffset.x = std::max(0.0f, std::min(scrollOffset.x, scrollMax.x));
     scrollOffset.y = std::max(0.0f, std::min(scrollOffset.y, scrollMax.y));
@@ -61,6 +61,8 @@ void ScrollField::OnDragHold() {
     scrollVel = Vector2::zero;
     scrollPreVel = -InputManager::TouchDelta();
     scrollOffset -= InputManager::TouchDelta();
+    
+    if (InputManager::TouchDelta().Length() > 0) MarkForRedraw();
     //printf("scroll? (%f, %f); (%f, %f)\n", scrollOffset.x, scrollOffset.y, scrollMax.x, scrollMax.y);
 }
 

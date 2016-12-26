@@ -29,6 +29,7 @@ namespace starlight {
             virtual VRect ScreenRect();
             
             VRect& Resize(Vector2 size);
+            inline VRect& Resize(float w, float h) { return Resize(Vector2(w, h)); }
             
             UIElement();
             virtual ~UIElement();
@@ -36,6 +37,8 @@ namespace starlight {
             virtual void Update() { }
             virtual void PreDraw() { }
             virtual void Draw() { }
+            
+            virtual void MarkForRedraw();
             
             // events
             virtual void OnTouchOn() { }

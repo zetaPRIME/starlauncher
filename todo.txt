@@ -2,7 +2,6 @@
 
 
 today's agenda {
-    UIElement.Resize(), UIElement.OnResize(), UIContainer.OnChildResize(UIElement& child)
     simple Label element
     
 } then {
@@ -18,8 +17,6 @@ today's agenda {
 
 unordered_roadmap {
     
-    
-    redraw-only-when-needed for canvases!
     maybe switch drawoffset system from a stack to a pass-in
     finish touch input system {
         DragHandle done, maybe some tuning

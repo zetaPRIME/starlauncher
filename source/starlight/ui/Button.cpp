@@ -35,6 +35,7 @@ void Button::Draw() {
 void Button::OnTouchOn() {
     if (InputManager::Pressed(KEY_TOUCH)) {
         InputManager::GetDragHandle().Grab(this);
+        MarkForRedraw();
     }
 }
 
@@ -57,4 +58,5 @@ void Button::OnDragRelease() {
     if (InputManager::Released(KEY_TOUCH)) {
         if (eOnTap) eOnTap(*this);
     }
+    MarkForRedraw();
 }

@@ -261,5 +261,6 @@ void CRenderTarget::BindTarget() {
 }
 
 void CRenderTarget::Bind(Color color) {
+    C3D_RenderTargetSetClear(tgt, 0, 0, 0); // don't clear again until marked to
     RenderCore::BindTexture(&(tgt->renderBuf.colorBuf), color);
 }

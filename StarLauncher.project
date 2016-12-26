@@ -40,6 +40,8 @@
         <File Name="source/starlight/ui/Button.cpp"/>
         <File Name="source/starlight/ui/ScrollField.h"/>
         <File Name="source/starlight/ui/ScrollField.cpp"/>
+        <File Name="source/starlight/ui/Label.h"/>
+        <File Name="source/starlight/ui/Label.cpp"/>
       </VirtualDirectory>
       <VirtualDirectory Name="gfx">
         <File Name="source/starlight/gfx/ThemeRef.h"/>
