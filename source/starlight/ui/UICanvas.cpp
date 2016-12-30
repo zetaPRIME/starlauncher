@@ -29,9 +29,11 @@ void UICanvas::PreDraw() {
     GFXManager::PushContext(drawContext.get());
     GFXManager::PushOffsetAdd(-scrollOffset);
     
+    VRect vr = ViewportRect();
+    
     // both passes here so as not to mix things; one rendertarget at a time, please
-    for (auto& it : children) { it->PreDraw(); }
-    for (auto& it : children) { it->Draw(); }
+    for (auto& it : children) { if (it->rect.Overlaps(vr)) it->PreDraw(); }
+    for (auto& it : children) { if (it->rect.Overlaps(vr)) it->Draw(); }
     
     GFXManager::PopOffset();
     GFXManager::PopContext();

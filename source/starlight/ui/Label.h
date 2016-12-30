@@ -6,6 +6,8 @@
 #include "starlight/ThemeManager.h"
 #include "starlight/gfx/ThemeRef.h"
 
+#include "starlight/gfx/DisplayList.h"
+
 #include "starlight/ui/UIElement.h"
 
 namespace starlight {
@@ -17,6 +19,8 @@ namespace starlight {
         public:
             std::string text = "";
             gfx::ThemeRef<gfx::Font>* font;
+            
+            gfx::DisplayList dl;
             
             Color color = Color::white;
             Color borderColor = Color::transparent;

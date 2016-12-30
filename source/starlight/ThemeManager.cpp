@@ -176,7 +176,7 @@ void ThemeManager::Fulfill(ThemeRef<Font>& ref) {
         json j;
         std::ifstream fs(path);
         fs >> j;
-        font->font = std::make_unique<BitmapFont>(j);
+        font->font = std::make_shared<BitmapFont>(j);
     }
     path.erase(path.end()-5, path.end()); path.append(".png");
     font->font->txMain.reset(LoadPNG(path));

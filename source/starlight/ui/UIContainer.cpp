@@ -71,12 +71,14 @@ void UIContainer::Update() {
 }
 
 void UIContainer::PreDraw() {
-    for (auto& it : children) { it->PreDraw(); }
+    VRect vr = ViewportRect();
+    for (auto& it : children) { if (it->rect.Overlaps(vr)) it->PreDraw(); }
 }
 
 void UIContainer::Draw() {
     GFXManager::PushOffsetAdd(rect.pos - scrollOffset);
-    for (auto& it : children) { it->Draw(); }
+    VRect vr = ViewportRect();
+    for (auto& it : children) { if (it->rect.Overlaps(vr)) it->Draw(); }
     GFXManager::PopOffset();
 }
 

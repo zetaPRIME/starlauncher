@@ -166,15 +166,23 @@ void RenderCore::BindColor(const Color& color) {
     C3D_TexEnvColor(env, color.Premultiplied());
 }
 
-void RenderCore::DrawQuad(const VRect& rect, const VRect& src) {
+void RenderCore::DrawQuad(const VRect& rect, const VRect& src, bool noSnap) {
     vbo_xyzuv* verts = static_cast<vbo_xyzuv*>(AllocBuffer(4 * sizeof(vbo_xyzuv), 8));
     
-    VRect r = rect.IntSnap(); // screen-space snap
+    VRect r = noSnap ? rect : rect.IntSnap(); // screen-space snap
     
-    setXYZUV(verts[0], r.TopLeft(), src.TopLeft());
+    /*setXYZUV(verts[0], r.TopLeft(), src.TopLeft());
     setXYZUV(verts[1], r.TopRight(), src.TopRight());
     setXYZUV(verts[2], r.BottomLeft(), src.BottomLeft());
-    setXYZUV(verts[3], r.BottomRight(), src.BottomRight());
+    setXYZUV(verts[3], r.BottomRight(), src.BottomRight());*/
+    
+    // let's make this recalculate things a bit less
+    float rl = r.pos.x, rr = rl + r.size.x, rt = r.pos.y, rb = rt + r.size.y;
+    float srl = src.pos.x, srr = srl + src.size.x, srt = src.pos.y, srb = srt + src.size.y;
+    setXYZUV(verts[0], rl, rt, 0, srl, srt);
+    setXYZUV(verts[1], rr, rt, 0, srr, srt);
+    setXYZUV(verts[2], rl, rb, 0, srl, srb);
+    setXYZUV(verts[3], rr, rb, 0, srr, srb);
     
     C3D_AttrInfo* attrInfo = C3D_GetAttrInfo();
     AttrInfo_Init(attrInfo);

@@ -17,6 +17,7 @@ void Label::AutoSize() {
         Resize(rect.size.x, h);
     }
     
+    dl = gfx::DisplayList();
     MarkForRedraw();
 }
 
@@ -32,6 +33,10 @@ void Label::SetFont(const std::string& fontName) {
 
 void Label::Draw() {
     auto rect = (this->rect + GFXManager::GetOffset()).IntSnap();
-    (*font)->Print(rect, text, 1, color, justification, borderColor);
+    if (!dl.Valid()) {
+        (*font)->PrintDisplayList(&dl, rect, text, 1, color, justification, borderColor);
+    }
+    //(*font)->Print(rect, text, 1, color, justification, borderColor);
+    dl.Run(rect.pos);
 }
 

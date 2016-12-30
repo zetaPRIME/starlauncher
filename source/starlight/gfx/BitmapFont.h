@@ -13,6 +13,8 @@
 
 #include "starlight/gfx/RenderCore.h"
 
+#include "starlight/gfx/DisplayList.h"
+
 // we don't need the whole thing here
 #include "starlight/_incLib/json_fwd.hpp"
 
@@ -45,7 +47,7 @@ namespace starlight {
             
             float GetKerning(char cl, char cr);
             CharInfo& Char(char c);
-            float DrawText(const Vector2& penStart, std::string& msg, float scale = 1, Color color = Color::transparent, bool border = false);
+            float DrawText(const Vector2& penStart, std::string& msg, float scale = 1, DisplayList* dl = nullptr);
             // what to put in the bitmapfont class itself?
             
             static inline constexpr unsigned int KerningKey(char cl, char cr) {

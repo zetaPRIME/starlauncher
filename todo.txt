@@ -2,11 +2,10 @@
 
 
 today's agenda {
+    improve text rendering speed via display lists of some sort
     hmm. thinking default.12 and default.16 font variants (done); also mono.12/16 (PICK A FONT FOR THIS)
     figure out why text characters sometimes snap to the wrong pixel (zero crossing)
 } then {
-    improve text rendering speed via display lists of some sort
-    
     figure out how I want to do separate forms???
     kill scroll velocity when hitting the edge (or rapid decel)
     make scrollfield autofit a flag
