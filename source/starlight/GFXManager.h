@@ -11,6 +11,8 @@ namespace starlight {
         static std::forward_list<gfx::DrawContext*> ctxStack;
         static std::forward_list<Vector2> offsetStack;
     public:
+        static float parallax;
+        
         GFXManager() = delete;
         
         static void PushContext(gfx::DrawContext* context);

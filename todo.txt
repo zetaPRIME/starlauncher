@@ -2,13 +2,14 @@
 
 
 today's agenda {
-    
+    hmm. thinking default.12 and default.16 font variants (done); also mono.12/16 (PICK A FONT FOR THIS)
+    figure out why text characters sometimes snap to the wrong pixel (zero crossing)
 } then {
+    improve text rendering speed via display lists of some sort
+    
+    figure out how I want to do separate forms???
     kill scroll velocity when hitting the edge (or rapid decel)
     make scrollfield autofit a flag
-    top screen canvas, parallax layer container
-    hmm. thinking default.12 and default.16 font variants; also mono.12/16
-    actually implement named font loading you dolt
     make le scrollfield check threshold itself and only count directions it can actually scroll
     visual sugar such as "bump glow" for scrollfields
 }

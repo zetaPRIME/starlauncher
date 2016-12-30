@@ -42,6 +42,10 @@
         <File Name="source/starlight/ui/ScrollField.cpp"/>
         <File Name="source/starlight/ui/Label.h"/>
         <File Name="source/starlight/ui/Label.cpp"/>
+        <File Name="source/starlight/ui/TopScreenCanvas.h"/>
+        <File Name="source/starlight/ui/TopScreenCanvas.cpp"/>
+        <File Name="source/starlight/ui/ParallaxLayer.h"/>
+        <File Name="source/starlight/ui/ParallaxLayer.cpp"/>
       </VirtualDirectory>
       <VirtualDirectory Name="gfx">
         <File Name="source/starlight/gfx/ThemeRef.h"/>
@@ -68,6 +72,10 @@
         <File Name="source/starlight/gfx/BitmapFont.cpp"/>
         <File Name="source/starlight/gfx/FontBMF.cpp"/>
         <File Name="source/starlight/gfx/FontBMF.h"/>
+        <File Name="source/starlight/gfx/DrawContextTopScreen.h"/>
+        <File Name="source/starlight/gfx/DrawContextTopScreen.cpp"/>
+        <File Name="source/starlight/gfx/DisplayList.h"/>
+        <File Name="source/starlight/gfx/DisplayList.cpp"/>
       </VirtualDirectory>
       <File Name="source/starlight/_global.h"/>
       <VirtualDirectory Name="util">

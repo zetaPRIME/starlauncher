@@ -9,6 +9,7 @@
 #include "starlight/datatypes/Color.h"
 
 #include "starlight/ui/TouchScreenCanvas.h"
+#include "starlight/ui/TopScreenCanvas.h"
 
 namespace starlight {
     class Application {
@@ -36,6 +37,7 @@ namespace starlight {
         Color clearColor = Color::black;
         
         std::shared_ptr<ui::TouchScreenCanvas> touchScreen = nullptr;
+        std::shared_ptr<ui::TopScreenCanvas> topScreen = nullptr;
         
         Application() = delete;
         Application(std::string id) : appId(id) { }

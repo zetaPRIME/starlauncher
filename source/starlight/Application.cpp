@@ -13,6 +13,7 @@ using starlight::InputManager;
 using starlight::gfx::RenderCore;
 
 using starlight::ui::TouchScreenCanvas;
+using starlight::ui::TopScreenCanvas;
 
 using starlight::Application;
 
@@ -49,6 +50,7 @@ void Application::_init() {
     RenderCore::Open();
     
     touchScreen = std::make_shared<TouchScreenCanvas>();
+    topScreen = std::make_shared<TopScreenCanvas>();
     
     Init();
 }
@@ -64,15 +66,20 @@ void Application::_mainLoop() {
     InputManager::Update();
     Update();
     touchScreen->Update();
+    topScreen->Update();
     PostUpdate();
     
     // draw step
     RenderCore::BeginFrame();
     RenderCore::targetBottom->Clear(clearColor);
+    RenderCore::targetTopLeft->Clear(clearColor);
+    RenderCore::targetTopRight->Clear(clearColor);
     
     Draw();
     touchScreen->PreDraw();
+    topScreen->PreDraw();
     touchScreen->Draw();
+    topScreen->Draw();
     PostDraw();
     RenderCore::EndFrame();
 }

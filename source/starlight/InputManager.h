@@ -81,6 +81,8 @@ namespace starlight {
         
         static void Update();
         
+        static float DepthSlider();
+        
         static Vector2 CirclePad();
         static Vector2 CStick();
         

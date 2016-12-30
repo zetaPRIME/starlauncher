@@ -80,10 +80,8 @@ void TouchScreenCanvas::PreDraw() {
 }
 
 void TouchScreenCanvas::Draw() {
-    static auto blah = ThemeManager::GetAsset("");
     GFXManager::PushContext(drawContext.get());
     this->UIContainer::Draw();
-    //blah->Draw(brah, nullptr, Color(0,0,1,0.25f));
-    //blah->Draw(VRect(tpos, Vector2::one).Expand(Vector2::one), nullptr, Color(0,1,0));
+    GFXManager::PrepareForDrawing(); // force clear if not drawn to
     GFXManager::PopContext();
 }

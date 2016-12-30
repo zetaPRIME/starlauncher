@@ -7,6 +7,8 @@ using starlight::gfx::DrawContext;
 std::forward_list<DrawContext*> GFXManager::ctxStack;
 std::forward_list<Vector2> GFXManager::offsetStack;
 
+float GFXManager::parallax = 0;
+
 void GFXManager::PushContext(DrawContext* context) {
     if (!ctxStack.empty()) ctxStack.front()->Close();
     ctxStack.push_front(context);

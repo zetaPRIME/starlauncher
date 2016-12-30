@@ -7,6 +7,7 @@
 #include "starlight/GFXManager.h"
 #include "starlight/gfx/RenderCore.h"
 
+#include "starlight/ui/ParallaxLayer.h"
 #include "starlight/ui/ScrollField.h"
 #include "starlight/ui/Button.h"
 #include "starlight/ui/Label.h"
@@ -22,7 +23,7 @@ using starlight::gfx::RenderCore;
 using starlight::Application;
 
 void Core::Init() {
-    consoleInit(GFX_TOP, consoleGetDefault());
+    //consoleInit(GFX_TOP, consoleGetDefault());
     
     auto container = std::make_shared<sl::ui::ScrollField>(VRect(0,0,320-0,240-0));
     touchScreen->Add(container);
@@ -52,6 +53,17 @@ void Core::Init() {
         };
     };
     container->Add(button);
+    
+    //
+    
+    auto parallax = std::make_shared<sl::ui::ParallaxLayer>();
+    parallax->depth = 5;
+    topScreen->Add(parallax);
+    
+    auto pipf = std::make_shared<sl::ui::Label>(VRect(0,0,400,240));
+    pipf->SetFont("default.16"); pipf->borderColor = Color::black;
+    pipf->SetText("I am the very model of something on the top screen. :D\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+    parallax->Add(pipf);
     
     clearColor = Color(0.0f, 0.5f, 0.5f);
     

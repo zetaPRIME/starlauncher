@@ -10,9 +10,6 @@
 
 #include "InputManager.h"
 
-// define raw input regs
-#define CONFIG_3D_SLIDERSTATE (*(float *)0x1FF81080)
-
 using starlight::Vector2;
 using starlight::ui::UIElement;
 using starlight::DragHandle;
@@ -69,6 +66,8 @@ void InputManager::Update() {
     else touchTime++;
     
 }
+
+float InputManager::DepthSlider() { return (*(float*)0x1FF81080); }
 
 Vector2 InputManager::CirclePad() { return stickLeftNow; }
 Vector2 InputManager::CStick() { return stickRightNow; }
