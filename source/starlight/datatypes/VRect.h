@@ -26,6 +26,7 @@ namespace starlight {
         bool Overlaps(const VRect & o) const;
         bool Contains(const Vector2 & vec) const;
         
+        inline float Area() const { return size.Area(); }
         VRect IntSnap() const;
         
         VRect Intersect(const VRect & o) const;

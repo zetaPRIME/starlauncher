@@ -17,7 +17,8 @@ void Label::AutoSize() {
         Resize(rect.size.x, h);
     }
     
-    dl = gfx::DisplayList();
+    buffer.reset();
+    
     MarkForRedraw();
 }
 
@@ -31,12 +32,22 @@ void Label::SetFont(const std::string& fontName) {
     AutoSize();
 }
 
+void Label::PreDraw() {
+    if (!buffer && text.length() > 64) {
+        buffer = std::make_unique<gfx::DrawContextCanvas>(rect.size + Vector2(0, 8));
+        buffer->Clear();
+        GFXManager::PushContext(buffer.get());
+        (*font)->Print(buffer->rect, text, 1, color, justification, borderColor);
+        GFXManager::PopContext();
+    }
+}
+
 void Label::Draw() {
     auto rect = (this->rect + GFXManager::GetOffset()).IntSnap();
-    if (!dl.Valid()) {
-        (*font)->PrintDisplayList(&dl, rect, text, 1, color, justification, borderColor);
+    if (buffer) {
+        buffer->Draw(VRect(rect.pos, buffer->rect.size));
+    } else {
+        (*font)->Print(rect, text, 1, color, justification, borderColor);
     }
-    //(*font)->Print(rect, text, 1, color, justification, borderColor);
-    dl.Run(rect.pos);
 }
 

@@ -2,7 +2,7 @@
 
 
 today's agenda {
-    improve text rendering speed via display lists of some sort
+    change Label to move the rect instead of resizing to accomodate drops (add an offset thing to Font)
     hmm. thinking default.12 and default.16 font variants (done); also mono.12/16 (PICK A FONT FOR THIS)
     figure out why text characters sometimes snap to the wrong pixel (zero crossing)
 } then {

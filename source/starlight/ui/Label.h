@@ -2,11 +2,12 @@
 #include "starlight/_global.h"
 
 #include <string>
+#include <memory>
 
 #include "starlight/ThemeManager.h"
 #include "starlight/gfx/ThemeRef.h"
 
-#include "starlight/gfx/DisplayList.h"
+#include "starlight/gfx/DrawContextCanvas.h"
 
 #include "starlight/ui/UIElement.h"
 
@@ -20,7 +21,7 @@ namespace starlight {
             std::string text = "";
             gfx::ThemeRef<gfx::Font>* font;
             
-            gfx::DisplayList dl;
+            std::unique_ptr<gfx::DrawContextCanvas> buffer;
             
             Color color = Color::white;
             Color borderColor = Color::transparent;
@@ -34,6 +35,7 @@ namespace starlight {
             void SetText(const std::string& text);
             void SetFont(const std::string& fontName);
             
+            void PreDraw() override;
             void Draw() override;
         };
     }
