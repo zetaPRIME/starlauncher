@@ -65,7 +65,7 @@ BitmapFont::CharInfo& BitmapFont::Char(char c) {
 
 float BitmapFont::DrawText(const Vector2& penStart, std::string& msg, float scale, DisplayList* dl) {
     Vector2 pen = penStart;
-    Vector2 pad(padX, -padY); // compensate for padding around glyphs
+    Vector2 pad(padX, 0);//-padY); // compensate for padding around glyphs
     pen -= pad;
     Vector2 uvScale = Vector2::one / txMain->txSize;
     

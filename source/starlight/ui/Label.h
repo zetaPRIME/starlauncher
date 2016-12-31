@@ -35,6 +35,7 @@ namespace starlight {
             void SetText(const std::string& text);
             void SetFont(const std::string& fontName);
             
+            void PreDrawOffscreen() override;
             void PreDraw() override;
             void Draw() override;
         };

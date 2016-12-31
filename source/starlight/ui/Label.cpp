@@ -32,6 +32,10 @@ void Label::SetFont(const std::string& fontName) {
     AutoSize();
 }
 
+void Label::PreDrawOffscreen() {
+    buffer.reset(); // I guess?
+}
+
 void Label::PreDraw() {
     if (!buffer && text.length() > 64) {
         buffer = std::make_unique<gfx::DrawContextCanvas>(rect.size + Vector2(0, 8));

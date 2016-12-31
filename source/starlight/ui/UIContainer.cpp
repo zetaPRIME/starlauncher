@@ -72,7 +72,7 @@ void UIContainer::Update() {
 
 void UIContainer::PreDraw() {
     VRect vr = ViewportRect();
-    for (auto& it : children) { if (it->rect.Overlaps(vr)) it->PreDraw(); }
+    for (auto& it : children) { if (it->rect.Overlaps(vr)) it->PreDraw(); else it->PreDrawOffscreen(); }
 }
 
 void UIContainer::Draw() {

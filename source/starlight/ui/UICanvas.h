@@ -23,6 +23,7 @@ namespace starlight {
             
             void MarkForRedraw() override;
             
+            void PreDrawOffscreen() override;
             void PreDraw() override;
             void Draw() override;
         };

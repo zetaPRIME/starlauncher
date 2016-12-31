@@ -2,10 +2,11 @@
 
 
 today's agenda {
-    change Label to move the rect instead of resizing to accomodate drops (add an offset thing to Font)
+    refactor ThemeRef into two parts ("pointer" and "container")
+    figure out the whole font y offset deal
     hmm. thinking default.12 and default.16 font variants (done); also mono.12/16 (PICK A FONT FOR THIS)
-    figure out why text characters sometimes snap to the wrong pixel (zero crossing)
 } then {
+    change Label to move the rect instead of resizing to accomodate drops (add an offset thing to Font)
     figure out how I want to do separate forms???
     kill scroll velocity when hitting the edge (or rapid decel)
     make scrollfield autofit a flag
@@ -14,12 +15,18 @@ today's agenda {
 }
 
 unordered_roadmap {
-    
-    maybe switch drawoffset system from a stack to a pass-in
-    finish touch input system {
-        DragHandle done, maybe some tuning
-        ?
+    moar UI elements {
+        checkbox
+        radio box
+        tabs?
+        image
+        auto-layout/list boxes
+        text/combo box
+        slider
+        progress bar
+        
     }
+    maybe switch drawoffset system from a stack to a pass-in
     moar utility stuff in Vector2 and VRect {
         -
     }

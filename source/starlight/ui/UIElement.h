@@ -36,6 +36,7 @@ namespace starlight {
             
             virtual void Update() { }
             virtual void PreDraw() { }
+            virtual void PreDrawOffscreen() { }
             virtual void Draw() { }
             
             virtual void MarkForRedraw();

@@ -14,7 +14,6 @@ using starlight::ui::UICanvas;
 
 UICanvas::UICanvas(VRect rect) {
     this->rect = rect;
-    drawContext = std::make_unique<starlight::gfx::DrawContextCanvas>(rect.size);
 }
 
 void UICanvas::MarkForRedraw() {
@@ -22,8 +21,16 @@ void UICanvas::MarkForRedraw() {
     this->UIElement::MarkForRedraw();
 }
 
+void UICanvas::PreDrawOffscreen() {
+    if (drawContext) {
+        drawContext.reset();
+        for (auto& it : children) { it->PreDrawOffscreen(); }
+    }
+}
+
 void UICanvas::PreDraw() {
-    if (!needsRedraw) return;
+    if (!drawContext) drawContext = std::make_unique<starlight::gfx::DrawContextCanvas>(rect.size);
+    else if (!needsRedraw) return;
     
     drawContext->Clear();
     GFXManager::PushContext(drawContext.get());
@@ -32,7 +39,7 @@ void UICanvas::PreDraw() {
     VRect vr = ViewportRect();
     
     // both passes here so as not to mix things; one rendertarget at a time, please
-    for (auto& it : children) { if (it->rect.Overlaps(vr)) it->PreDraw(); }
+    for (auto& it : children) { if (it->rect.Overlaps(vr)) it->PreDraw(); else it->PreDrawOffscreen(); }
     for (auto& it : children) { if (it->rect.Overlaps(vr)) it->Draw(); }
     
     GFXManager::PopOffset();
