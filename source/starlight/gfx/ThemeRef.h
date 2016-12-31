@@ -48,7 +48,7 @@ namespace starlight {
             ThemeRef(ThemeRefContainer<T>* c) : cptr(c) { }
             ~ThemeRef() { }
             inline const ThemeRefContainer<T>& operator ->() const { return *cptr; }
-            inline operator bool() const { return cptr != nullptr; }
+            inline explicit operator bool() const { return cptr != nullptr; }
         };
     }
 }
