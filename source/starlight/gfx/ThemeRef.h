@@ -8,7 +8,7 @@
 namespace starlight {
     namespace gfx {
         template <class T>
-        class ThemeRef {
+        class ThemeRefContainer {
             friend class starlight::ThemeManager;
         protected:
             const std::string name;
@@ -18,16 +18,14 @@ namespace starlight {
                 ptr = nullptr;
             }
             
-            ThemeRef(std::string name, T* ptr) : name(name), ptr(ptr) { }
-            ThemeRef(std::string name) : name(name) { }
-            //ThemeRef(const ThemeRef&) = default; // if I delete or protect the copy constructor the map breaks...
+            ThemeRefContainer(std::string name, T* ptr) : name(name), ptr(ptr) { }
+            ThemeRefContainer(std::string name) : name(name) { }
         public:
-            ~ThemeRef() { }
+            ~ThemeRefContainer() { }
             
-            ThemeRef<T>& operator ++() { return *this; }
             T* operator ->() const {
                 if (ptr == nullptr) {
-                    ThemeManager::Fulfill(const_cast<ThemeRef<T>&>(*this)); // call thememanager to grab things
+                    ThemeManager::Fulfill(const_cast<ThemeRefContainer<T>&>(*this)); // call thememanager to grab things
                 }
                 return ptr;
             }
@@ -39,6 +37,18 @@ namespace starlight {
                 return *ptr;
             }*/
             
+        };
+        
+        template <class T>
+        class ThemeRef {
+        private:
+            const ThemeRefContainer<T>* cptr;
+        public:
+            ThemeRef() : cptr(nullptr) { }
+            ThemeRef(ThemeRefContainer<T>* c) : cptr(c) { }
+            ~ThemeRef() { }
+            inline const ThemeRefContainer<T>& operator ->() const { return *cptr; }
+            inline operator bool() const { return cptr != nullptr; }
         };
     }
 }

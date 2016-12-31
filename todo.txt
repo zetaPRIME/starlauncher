@@ -2,7 +2,6 @@
 
 
 today's agenda {
-    refactor ThemeRef into two parts ("pointer" and "container")
     figure out the whole font y offset deal
     hmm. thinking default.12 and default.16 font variants (done); also mono.12/16 (PICK A FONT FOR THIS)
 } then {

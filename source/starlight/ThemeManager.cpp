@@ -29,6 +29,7 @@ using starlight::ThemeManager;
 using starlight::gfx::Drawable;
 using starlight::gfx::Font;
 using starlight::gfx::ThemeRef;
+using starlight::gfx::ThemeRefContainer;
 
 using starlight::gfx::DrawableImage;
 using starlight::gfx::DrawableNinePatch;
@@ -115,25 +116,25 @@ namespace {
     }
 }
 
-std::unordered_map<std::string, ThemeRef<Drawable>> ThemeManager::drawables;
-std::unordered_map<std::string, ThemeRef<Font>> ThemeManager::fonts;
+std::unordered_map<std::string, ThemeRefContainer<Drawable>> ThemeManager::drawables;
+std::unordered_map<std::string, ThemeRefContainer<Font>> ThemeManager::fonts;
 std::list<std::function<void()>> ThemeManager::tq;
 
-const ThemeRef<Drawable>& ThemeManager::GetAsset(const std::string& name) {
+ThemeRef<Drawable> ThemeManager::GetAsset(const std::string& name) {
     auto const& itr = drawables.find(name);
     if (itr == drawables.end()) {
-        return drawables.insert(std::make_pair(name, ThemeRef<Drawable>(name))).first->second;
-    } else return itr->second;
+        return &drawables.insert(std::make_pair(name, ThemeRefContainer<Drawable>(name))).first->second;
+    } else return &itr->second;
 }
 
-const ThemeRef<Font>& ThemeManager::GetFont(const std::string& name) {
+ThemeRef<Font> ThemeManager::GetFont(const std::string& name) {
     auto const& itr = fonts.find(name);
     if (itr == fonts.end()) {
-        return fonts.insert(std::make_pair(name, ThemeRef<Font>(name))).first->second;
-    } else return itr->second;
+        return &fonts.insert(std::make_pair(name, ThemeRefContainer<Font>(name))).first->second;
+    } else return &itr->second;
 }
 
-void ThemeManager::Fulfill(ThemeRef<Drawable>& ref) {
+void ThemeManager::Fulfill(ThemeRefContainer<Drawable>& ref) {
     ref.ptr = new starlight::gfx::DrawableTest(); // todo: nil drawable
     /*tq.push_back([&ref](){
        ThemeManager::Fulfill_(ref);
@@ -141,7 +142,7 @@ void ThemeManager::Fulfill(ThemeRef<Drawable>& ref) {
     Fulfill_(ref);
 }
 
-void ThemeManager::Fulfill_(ThemeRef<Drawable>& ref) {
+void ThemeManager::Fulfill_(ThemeRefContainer<Drawable>& ref) {
     string path = ResolveAssetPath(ref.name);
     string ext = FindExtension(path);
     printf("load: %s (%s)\n", path.c_str(), ext.c_str());
@@ -169,7 +170,7 @@ void ThemeManager::Fulfill_(ThemeRef<Drawable>& ref) {
     else ref.ptr = new starlight::gfx::DrawableTest();
 }
 
-void ThemeManager::Fulfill(ThemeRef<Font>& ref) {
+void ThemeManager::Fulfill(ThemeRefContainer<Font>& ref) {
     string path = ResolveFontPath(ref.name);
     auto font = new starlight::gfx::FontBMF();
     { // using:

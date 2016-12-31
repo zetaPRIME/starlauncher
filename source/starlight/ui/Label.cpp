@@ -8,12 +8,12 @@ using starlight::ui::Label;
 
 Label::Label(VRect rect) {
     this->rect = rect;
-    font = const_cast<gfx::ThemeRef<gfx::Font>*>(&(ThemeManager::GetFont("default.12")));
+    font = ThemeManager::GetFont("default.12");
 }
 
 void Label::AutoSize() {
     if (autoSizeV) {
-        float h = (*font)->Measure(text, 1, rect.size.x).y;
+        float h = font->Measure(text, 1, rect.size.x).y;
         Resize(rect.size.x, h);
     }
     
@@ -28,7 +28,7 @@ void Label::SetText(const std::string& text) {
 }
 
 void Label::SetFont(const std::string& fontName) {
-    font = const_cast<gfx::ThemeRef<gfx::Font>*>(&(ThemeManager::GetFont(fontName)));
+    font = ThemeManager::GetFont(fontName);
     AutoSize();
 }
 
@@ -41,7 +41,7 @@ void Label::PreDraw() {
         buffer = std::make_unique<gfx::DrawContextCanvas>(rect.size + Vector2(0, 8));
         buffer->Clear();
         GFXManager::PushContext(buffer.get());
-        (*font)->Print(buffer->rect, text, 1, color, justification, borderColor);
+        font->Print(buffer->rect, text, 1, color, justification, borderColor);
         GFXManager::PopContext();
     }
 }
@@ -51,7 +51,7 @@ void Label::Draw() {
     if (buffer) {
         buffer->Draw(VRect(rect.pos, buffer->rect.size));
     } else {
-        (*font)->Print(rect, text, 1, color, justification, borderColor);
+        font->Print(rect, text, 1, color, justification, borderColor);
     }
 }
 

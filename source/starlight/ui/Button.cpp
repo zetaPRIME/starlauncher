@@ -21,10 +21,10 @@ void Button::SetText(const std::string& text) {
 }
 
 void Button::Draw() {
-    static auto& font = ThemeManager::GetFont("default.12");
+    static auto font = ThemeManager::GetFont("default.12");
     
-    static auto& idle = ThemeManager::GetAsset("button.idle");
-    static auto& press = ThemeManager::GetAsset("button.press");
+    static auto idle = ThemeManager::GetAsset("button.idle");
+    static auto press = ThemeManager::GetAsset("button.press");
     
     auto rect = (this->rect + GFXManager::GetOffset()).IntSnap();
     

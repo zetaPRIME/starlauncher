@@ -12,26 +12,26 @@
 namespace starlight {
     // forward declare
     namespace gfx {
-        template <class T>
-        class ThemeRef;
+        template <class T> class ThemeRefContainer;
+        template <class T> class ThemeRef;
     }
 
     class ThemeManager {
         template <class T>
-        friend class starlight::gfx::ThemeRef;
+        friend class starlight::gfx::ThemeRefContainer;
     private:
-        static std::unordered_map<std::string, gfx::ThemeRef<gfx::Drawable>> drawables;
-        static std::unordered_map<std::string, gfx::ThemeRef<gfx::Font>> fonts;
+        static std::unordered_map<std::string, gfx::ThemeRefContainer<gfx::Drawable>> drawables;
+        static std::unordered_map<std::string, gfx::ThemeRefContainer<gfx::Font>> fonts;
         static std::list<std::function<void()>> tq;
     protected:
-        static void Fulfill(gfx::ThemeRef<gfx::Drawable>& ref);
-        static void Fulfill_(gfx::ThemeRef<gfx::Drawable>& ref);
-        static void Fulfill(gfx::ThemeRef<gfx::Font>& ref);
+        static void Fulfill(gfx::ThemeRefContainer<gfx::Drawable>& ref);
+        static void Fulfill_(gfx::ThemeRefContainer<gfx::Drawable>& ref);
+        static void Fulfill(gfx::ThemeRefContainer<gfx::Font>& ref);
     public:
         ThemeManager() = delete; // "static" class
         
-        static const gfx::ThemeRef<gfx::Drawable>& GetAsset(const std::string& name);
-        static const gfx::ThemeRef<gfx::Font>& GetFont(const std::string& name);
+        static gfx::ThemeRef<gfx::Drawable> GetAsset(const std::string& name);
+        static gfx::ThemeRef<gfx::Font> GetFont(const std::string& name);
         
         static void LoadProc();
         

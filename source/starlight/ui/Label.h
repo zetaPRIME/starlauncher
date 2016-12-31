@@ -19,7 +19,7 @@ namespace starlight {
             
         public:
             std::string text = "";
-            gfx::ThemeRef<gfx::Font>* font;
+            gfx::ThemeRef<gfx::Font> font;
             
             std::unique_ptr<gfx::DrawContextCanvas> buffer;
             
