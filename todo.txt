@@ -36,6 +36,8 @@ unordered_roadmap {
     use ctrulib sync features for WorkerThread instead of spinlocks at some point
     - http://smealum.github.io/ctrulib/synchronization_8h.html#a9fe83ca3ec3c6ae269203acf367ad5a9
     duck l'orange
+    
+    ... tweenable drawable format?
 }
 
 theme layout {
