@@ -135,19 +135,15 @@ ThemeRef<Font> ThemeManager::GetFont(const std::string& name) {
 }
 
 void ThemeManager::Fulfill(ThemeRefContainer<Drawable>& ref) {
-    ref.ptr = new starlight::gfx::DrawableTest(); // todo: nil drawable
-    /*tq.push_back([&ref](){
-       ThemeManager::Fulfill_(ref);
-    });*/
-    Fulfill_(ref);
+    string path = ResolveAssetPath(ref.name);
+    ref.ptr = LoadAsset(path);
 }
 
-void ThemeManager::Fulfill_(ThemeRefContainer<Drawable>& ref) {
-    string path = ResolveAssetPath(ref.name);
+Drawable* ThemeManager::LoadAsset(string& path) {
     string ext = FindExtension(path);
     printf("load: %s (%s)\n", path.c_str(), ext.c_str());
     /**/ if (ext == "png") {
-        ref.ptr = new DrawableImage(LoadPNG(path));
+        return new DrawableImage(LoadPNG(path));
     }
     else if (ext == "json") {
         json j;
@@ -162,12 +158,16 @@ void ThemeManager::Fulfill_(ThemeRefContainer<Drawable>& ref) {
         /**/ if (type == "ninepatch") {
             path.erase(path.end()-5, path.end()); path.append(".png");
             auto d = new DrawableNinePatch(LoadPNG(path));
-            ref.ptr = d;
             d->margin = Vector2(j["margin"][0], j["margin"][1]);
+            return d;
         }
-        else ref.ptr = new starlight::gfx::DrawableTest();
+        else if (type == "link") {
+            string npath = ResolveAssetPath(j["path"]);
+            return LoadAsset(npath);
+        }
+        return new starlight::gfx::DrawableTest();
     }
-    else ref.ptr = new starlight::gfx::DrawableTest();
+    return new starlight::gfx::DrawableTest(); // todo: nil drawable
 }
 
 void ThemeManager::Fulfill(ThemeRefContainer<Font>& ref) {

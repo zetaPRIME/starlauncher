@@ -25,8 +25,9 @@ namespace starlight {
         static std::list<std::function<void()>> tq;
     protected:
         static void Fulfill(gfx::ThemeRefContainer<gfx::Drawable>& ref);
-        static void Fulfill_(gfx::ThemeRefContainer<gfx::Drawable>& ref);
         static void Fulfill(gfx::ThemeRefContainer<gfx::Font>& ref);
+        
+        static gfx::Drawable* LoadAsset(std::string& path);
     public:
         ThemeManager() = delete; // "static" class
         

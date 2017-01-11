@@ -2,8 +2,7 @@
 
 
 today's agenda {
-    figure out the whole font y offset deal
-    hmm. thinking default.12 and default.16 font variants (done); also mono.12/16 (PICK A FONT FOR THIS)
+    cfg?
 } then {
     change Label to move the rect instead of resizing to accomodate drops (add an offset thing to Font)
     figure out how I want to do separate forms???
@@ -38,6 +37,7 @@ unordered_roadmap {
     duck l'orange
     
     ... tweenable drawable format?
+    figure out the whole font y offset deal
 }
 
 theme layout {
