@@ -31,3 +31,7 @@ void DrawableImage::Draw(const VRect& rect, OptRef<VRect> sampleRect, OptRef<Col
         RenderCore::DrawQuad(rect, sr / texture->txSize);
     }
 }
+
+Vector2 DrawableImage::Size() {
+    return texture->size;
+}

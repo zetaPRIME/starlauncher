@@ -161,6 +161,7 @@ Drawable* ThemeManager::LoadAsset(string& path) {
             d->margin = Vector2(j["margin"][0], j["margin"][1]);
             return d;
         }
+        // else if (type == "") { }
         else if (type == "link") {
             string npath = ResolveAssetPath(j["path"]);
             return LoadAsset(npath);

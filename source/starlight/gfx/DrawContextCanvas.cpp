@@ -61,3 +61,7 @@ void DrawContextCanvas::Draw(const VRect& rect, OptRef<VRect> sampleRect, OptRef
         RenderCore::DrawQuad(rect, sr / target->txSize);
     }
 }
+
+Vector2 DrawContextCanvas::Size() {
+    return target->size;
+}

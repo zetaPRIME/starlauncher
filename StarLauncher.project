@@ -46,6 +46,8 @@
         <File Name="source/starlight/ui/TopScreenCanvas.cpp"/>
         <File Name="source/starlight/ui/ParallaxLayer.h"/>
         <File Name="source/starlight/ui/ParallaxLayer.cpp"/>
+        <File Name="source/starlight/ui/Image.h"/>
+        <File Name="source/starlight/ui/Image.cpp"/>
       </VirtualDirectory>
       <VirtualDirectory Name="gfx">
         <File Name="source/starlight/gfx/ThemeRef.h"/>

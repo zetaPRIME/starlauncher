@@ -23,6 +23,8 @@ namespace starlight {
             }
             
             virtual void Draw(const VRect& rect, OptRef<VRect> sampleRect = nullptr, OptRef<Color> color = nullptr) = 0;
+            
+            virtual Vector2 Size() = 0;
         };
     }
 }
