@@ -2,22 +2,25 @@
 #include "starlight/_global.h"
 
 #include <string>
+#include <memory>
 
 #include "starlight/ThemeManager.h"
 
 namespace starlight {
     namespace gfx {
+        template <class T> class ThemeRef;
         template <class T>
         class ThemeRefContainer {
             friend class starlight::ThemeManager;
+            friend class ThemeRef<T>;
         protected:
             const std::string name;
-            T* ptr = nullptr;
+            std::shared_ptr<T> ptr = nullptr;
             void Unload() {
-                delete ptr;
-                ptr = nullptr;
+                ptr.reset();
             }
             
+            ThemeRefContainer(std::string name, std::shared_ptr<T> ptr) : name(name), ptr(ptr) { }
             ThemeRefContainer(std::string name, T* ptr) : name(name), ptr(ptr) { }
             ThemeRefContainer(std::string name) : name(name) { }
         public:
@@ -27,7 +30,7 @@ namespace starlight {
                 if (ptr == nullptr) {
                     ThemeManager::Fulfill(const_cast<ThemeRefContainer<T>&>(*this)); // call thememanager to grab things
                 }
-                return ptr;
+                return &*ptr;
             }
             
             /*T& operator *() const {
@@ -49,6 +52,7 @@ namespace starlight {
             ~ThemeRef() { }
             inline const ThemeRefContainer<T>& operator ->() const { return *cptr; }
             inline explicit operator bool() const { return cptr != nullptr; }
+            inline std::shared_ptr<T> GetShared() const { return (*cptr).ptr; }
         };
     }
 }

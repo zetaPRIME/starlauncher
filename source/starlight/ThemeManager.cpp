@@ -20,6 +20,8 @@
 #include "starlight/gfx/BitmapFont.h"
 
 using std::string;
+using std::shared_ptr;
+using std::make_shared;
 
 using nlohmann::json;
 
@@ -139,11 +141,13 @@ void ThemeManager::Fulfill(ThemeRefContainer<Drawable>& ref) {
     ref.ptr = LoadAsset(path);
 }
 
-Drawable* ThemeManager::LoadAsset(string& path) {
+shared_ptr<Drawable> ThemeManager::LoadAsset(string& path) {
+    static shared_ptr<Drawable> nulldrw = make_shared<starlight::gfx::DrawableTest>();
+    
     string ext = FindExtension(path);
     printf("load: %s (%s)\n", path.c_str(), ext.c_str());
     /**/ if (ext == "png") {
-        return new DrawableImage(LoadPNG(path));
+        return make_shared<DrawableImage>(LoadPNG(path));
     }
     else if (ext == "json") {
         json j;
@@ -157,23 +161,25 @@ Drawable* ThemeManager::LoadAsset(string& path) {
         string type = j["assetType"];
         /**/ if (type == "ninepatch") {
             path.erase(path.end()-5, path.end()); path.append(".png");
-            auto d = new DrawableNinePatch(LoadPNG(path));
+            auto d = make_shared<DrawableNinePatch>(LoadPNG(path));
             d->margin = Vector2(j["margin"][0], j["margin"][1]);
             return d;
         }
         // else if (type == "") { }
         else if (type == "link") {
             string npath = ResolveAssetPath(j["path"]);
-            return LoadAsset(npath);
+            //return LoadAsset(npath);
+            return GetAsset(npath).GetShared(); // I guess this works; may need to be altered for asynchronity if I do that later
+            // (perhaps by--wait no, making it the same ThemeRefContainer would require a full rearchitecture of this part @.@)
         }
-        return new starlight::gfx::DrawableTest();
+        return nulldrw;
     }
-    return new starlight::gfx::DrawableTest(); // todo: nil drawable
+    return nulldrw;
 }
 
 void ThemeManager::Fulfill(ThemeRefContainer<Font>& ref) {
     string path = ResolveFontPath(ref.name);
-    auto font = new starlight::gfx::FontBMF();
+    auto font = make_shared<starlight::gfx::FontBMF>();
     { // using:
         json j;
         std::ifstream fs(path);

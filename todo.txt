@@ -1,7 +1,8 @@
-
+( SUPERSEDED BY LIBSTARLIGHT REPO )
 
 
 today's agenda {
+    app:/ prefix for local ("local") assets
     cfg?
 } then {
     change Label to move the rect instead of resizing to accomodate drops (add an offset thing to Font)
@@ -17,7 +18,6 @@ unordered_roadmap {
         checkbox
         radio box
         tabs?
-        image
         auto-layout/list boxes
         text/combo box
         slider
